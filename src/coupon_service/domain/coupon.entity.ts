@@ -1,10 +1,9 @@
-import { CouponUser } from './coupon.user.entity';
+import { NotAcceptableException } from '@nestjs/common';
 import { CouponDiscountInfo } from './vo/coupon/coupon.disount.info';
-import { CouponIssueDate } from './vo/coupon/coupon.issue.date';
 import { CouponUuid } from './vo/coupon/coupon.uuid';
-import { CouponValidity } from './vo/coupon/coupon.validity';
+import { CouponActiveDate } from './vo/coupon/coupont.active.date';
 
-export class CouponAggregate {
+export class Coupon {
   // coupon 의 id
   private readonly couponId: number;
 
@@ -15,13 +14,7 @@ export class CouponAggregate {
   private readonly couponDiscountInfo: CouponDiscountInfo;
 
   // coupon 의 유효성에 대한 조건을 가지고 있는 validity(vo)
-  private readonly couponValidity: CouponValidity;
-
-  // coupon 을 실제로 발행한 날짜
-  private readonly couponIssueDate: CouponIssueDate;
-
-  //현재타입의 쿠폰을 발행한 사용자
-  private readonly couponUser: CouponUser;
+  private readonly couponValidity: CouponActiveDate;
 
   constructor(couponConstructorData: CouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
@@ -30,20 +23,29 @@ export class CouponAggregate {
       couponConstructorData.discountType,
       couponConstructorData.discountValue,
     );
-    this.couponValidity = new CouponValidity(
+    this.couponValidity = new CouponActiveDate(
       couponConstructorData.couponActiveStartDate,
       couponConstructorData.couponActiveEndDate,
-      couponConstructorData.issueLimit,
     );
-    const { couponIssuedStartDate, couponIssuedEndDate } =
-      couponConstructorData;
-    this.couponIssueDate = new CouponIssueDate(
-      couponIssuedStartDate,
-      couponIssuedEndDate,
-    );
-    this.couponUser = CouponUser.createCouponUser(
-      couponConstructorData.userUuid,
-    );
+  }
+
+  public static checkCouponExpired(
+    couponIssuedStartDate: Date,
+    couponActiveEndDate: Date,
+  ) {
+    if (new Date(couponIssuedStartDate) > new Date(couponActiveEndDate)) {
+      throw new NotAcceptableException(
+        'coupon 기간이 만료되어서 발급이 불가능합니다',
+      );
+    }
+  }
+
+  public static createCoupon(createCouponData: CreateCouponInput) {
+    return new Coupon({
+      ...createCouponData,
+      couponId: null,
+      couponUuid: null,
+    });
   }
 }
 
@@ -54,8 +56,9 @@ type CouponConstructorInput = {
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
-  couponIssuedStartDate: Date;
-  couponIssuedEndDate: Date;
-  issueLimit: number;
-  userUuid: string;
 };
+
+type CreateCouponInput = Omit<
+  CouponConstructorInput,
+  'couoponId' | 'couponUuid'
+>;
