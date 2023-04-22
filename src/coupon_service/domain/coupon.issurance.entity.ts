@@ -1,11 +1,13 @@
 import { Coupon } from './coupon.entity';
 import { CouponUser } from './coupon.user.entity';
+import { CouponDomainService } from './service/coupon.domain.service';
 import { CouponIssueDate } from './vo/coupon/coupon.issue.date';
 
 //coupon-service 의 aggregate root
 export class CouponIssurance {
   private readonly issuranceId: number;
   private issueLimit: number;
+  private couponValidateDate: Date;
   private readonly coupon: Coupon;
   private readonly couponUser: CouponUser;
   private readonly couponIssueDate: CouponIssueDate;
@@ -13,6 +15,10 @@ export class CouponIssurance {
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
     this.issueLimit = issueData.issueLimit;
+    this.couponValidateDate = this.calculateValidateTime(
+      issueData.couponActiveEndDate,
+      issueData.couponIssuedEndDate,
+    );
 
     this.coupon = new Coupon({
       couponId: issueData.couponId,
@@ -33,6 +39,12 @@ export class CouponIssurance {
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
     );
+  }
+
+  calculateValidateTime(couponActiveEndDate: Date, couponIssuedEndDate: Date) {
+    return new Date(couponActiveEndDate) > new Date(couponIssuedEndDate)
+      ? couponIssuedEndDate
+      : couponActiveEndDate;
   }
 
   public static issueCoupon(issueCouponData: IIssueCoupon) {

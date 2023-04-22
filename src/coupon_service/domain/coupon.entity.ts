@@ -13,8 +13,8 @@ export class Coupon {
   // coupon 의 discount 관련 (vo)
   private readonly couponDiscountInfo: CouponDiscountInfo;
 
-  // coupon 의 유효성에 대한 조건을 가지고 있는 validity(vo)
-  private readonly couponValidity: CouponActiveDate;
+  // coupon 의 자체 시간에 대한 값객체(vo)
+  private readonly couponActiveDate: CouponActiveDate;
 
   constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
@@ -23,7 +23,7 @@ export class Coupon {
       couponConstructorData.discountType,
       couponConstructorData.discountValue,
     );
-    this.couponValidity = new CouponActiveDate(
+    this.couponActiveDate = new CouponActiveDate(
       couponConstructorData.couponActiveStartDate,
       couponConstructorData.couponActiveEndDate,
     );
