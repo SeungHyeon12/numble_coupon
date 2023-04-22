@@ -26,6 +26,7 @@ export class CouponIssurance {
       discountValue: issueData.discountValue,
       couponActiveStartDate: issueData.couponActiveStartDate,
       couponActiveEndDate: issueData.couponActiveEndDate,
+      isUsable: issueData.isUsable,
     });
 
     this.couponUser = new CouponUser({
@@ -56,6 +57,7 @@ export class CouponIssurance {
   public static issueCoupon(issueCouponData: IIssueCoupon) {
     return new CouponIssurance({
       ...issueCouponData,
+      isUsable: true,
       issuranceId: null,
       couponId: null,
       couponUuid: null,
@@ -77,6 +79,7 @@ export type ICouponIssuranceConstructor = {
   couponActiveEndDate: Date;
   couponIssuedStartDate: Date;
   couponIssuedEndDate: Date;
+  isUsable: boolean;
 
   userId: number;
   userUuid: string;
@@ -85,5 +88,5 @@ export type ICouponIssuranceConstructor = {
 
 export type IIssueCoupon = Omit<
   ICouponIssuranceConstructor,
-  'issuranceId' | 'couponId' | 'couponUuid' | 'userId'
+  'issuranceId' | 'couponId' | 'couponUuid' | 'userId' | 'isUsable'
 >;

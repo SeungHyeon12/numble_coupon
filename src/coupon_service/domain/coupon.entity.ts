@@ -16,6 +16,9 @@ export class Coupon {
   // coupon 의 자체 시간에 대한 값객체(vo)
   private readonly couponActiveDate: CouponActiveDate;
 
+  // coupon 이 사용한지 판별하는 property
+  private isUsable: boolean;
+
   constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
     this.couponUuid = new CouponUuid(couponConstructorData.couponUuid);
@@ -48,6 +51,7 @@ export type ICouponConstructorInput = {
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
+  isUsable: boolean;
 };
 
 type ICreateCouponInput = Omit<
