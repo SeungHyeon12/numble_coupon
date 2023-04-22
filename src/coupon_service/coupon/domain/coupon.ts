@@ -4,7 +4,7 @@ import { CouponUuid } from './vo/coupon.uuid';
 
 export class Coupon {
   // coupon 의 id
-  private readonly couponId: string;
+  private readonly couponId: number;
 
   // coupon 의 노출 식별자 uuid(vo)
   private readonly couponUuid: CouponUuid;
@@ -31,7 +31,7 @@ export class Coupon {
 }
 
 type CouponConstructorInput = {
-  couponId: string;
+  couponId: number;
   couponUuid: string;
   discountType: DISCOUNT_TYPE;
   discountValue: number;

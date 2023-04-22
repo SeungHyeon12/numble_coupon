@@ -1,10 +1,12 @@
+import { Uuid } from 'src/common/domain/vo/uuid';
 import uuidGenerator from 'src/common/function/uuid.generate.function';
 
-export class CouponUuid {
-  uuid: string;
-
+export class CouponUuid extends Uuid {
   constructor(uuid: string | null) {
-    this.uuid = uuid;
-    if (!uuid) this.uuid = uuidGenerator();
+    if (!uuid) {
+      super(uuidGenerator());
+    } else {
+      super(uuid);
+    }
   }
 }
