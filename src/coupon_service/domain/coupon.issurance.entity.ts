@@ -1,6 +1,5 @@
 import { Coupon } from './coupon.entity';
 import { CouponUser } from './coupon.user.entity';
-import { CouponDomainService } from './service/coupon.domain.service';
 import { CouponIssueDate } from './vo/coupon/coupon.issue.date';
 
 //coupon-service 의 aggregate root
@@ -45,6 +44,10 @@ export class CouponIssurance {
     return new Date(couponActiveEndDate) > new Date(couponIssuedEndDate)
       ? couponIssuedEndDate
       : couponActiveEndDate;
+  }
+
+  public getCouponValidDate() {
+    return this.couponValidateDate;
   }
 
   public static issueCoupon(issueCouponData: IIssueCoupon) {
