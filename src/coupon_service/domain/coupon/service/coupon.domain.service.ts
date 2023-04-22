@@ -1,5 +1,5 @@
 import { ConflictException, NotAcceptableException } from '@nestjs/common';
-import { CouponIssurance } from '../coupon.issurance.entity';
+import { CouponIssurance } from '../../coupon.issurance.entity';
 
 export class CouponDomainService {
   isCouponExceedLimit(

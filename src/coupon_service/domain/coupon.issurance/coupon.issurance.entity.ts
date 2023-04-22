@@ -1,18 +1,18 @@
-import { Coupon } from './coupon.entity';
-import { CouponUser } from './coupon.user.entity';
-import { CouponIssueDate } from './vo/coupon/coupon.issue.date';
+import { NotAcceptableException } from '@nestjs/common';
+import { CouponIssuer } from './coupon.issuer.entity';
+import { CouponUuid } from '../coupon/vo/coupon.uuid';
+import { CouponIssueDate } from '../coupon/vo/coupon.issue.date';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
-  private readonly coupon: Coupon;
-  private readonly couponUser: CouponUser;
+  private readonly coupon: CouponUuid;
+  private readonly couponUser: CouponIssuer;
   private readonly couponIssueDate: CouponIssueDate;
   private issuranceCount: number;
   private issueValidatedDate: Date;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
-    this.coupon = issueData.coupon;
     this.couponUser = issueData.couponUser;
     this.couponIssueDate = new CouponIssueDate(
       issueData.couponIssuedStartDate,
@@ -40,6 +40,17 @@ export class CouponIssurance {
   public getissuranceCount() {
     return this.issuranceCount;
   }
+
+  public static checkCouponExpired(
+    couponIssuedStartDate: Date,
+    couponActiveEndDate: Date,
+  ) {
+    if (new Date(couponIssuedStartDate) > new Date(couponActiveEndDate)) {
+      throw new NotAcceptableException(
+        'coupon 기간이 만료되어서 발급이 불가능합니다',
+      );
+    }
+  }
 }
 
 export type ICouponIssuranceConstructor = {
@@ -51,16 +62,5 @@ export type ICouponIssuranceConstructor = {
   couponIssuedEndDate: Date;
   isUsable: boolean;
 
-  coupon: Coupon;
-  couponUser: CouponUser;
+  couponUser: CouponIssuer;
 };
-
-// export type IIssueCoupon = Omit<
-//   ICouponIssuranceConstructor,
-//   | 'issuranceId'
-//   | 'couponId'
-//   | 'couponUuid'
-//   | 'userId'
-//   | 'isUsable'
-//   | 'issuranceCount'
-// >;

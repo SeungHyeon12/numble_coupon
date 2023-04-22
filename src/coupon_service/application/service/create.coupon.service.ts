@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateCouponUseCase } from '../port/in/issue.coupon.uscase';
 import { CreateCouponCommand } from '../dto/create.coupon.command';
-import { CouponDomainService } from 'src/coupon_service/domain/service/coupon.domain.service';
-import { Coupon } from 'src/coupon_service/domain/coupon.entity';
+import { CouponDomainService } from 'src/coupon_service/domain/coupon/service/coupon.domain.service';
+import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 @Injectable()
 export class CreateCouponService implements CreateCouponUseCase {

@@ -1,7 +1,6 @@
-import { NotAcceptableException } from '@nestjs/common';
-import { CouponDiscountInfo } from './vo/coupon/coupon.disount.info';
-import { CouponUuid } from './vo/coupon/coupon.uuid';
-import { CouponActiveDate } from './vo/coupon/coupont.active.date';
+import { CouponDiscountInfo } from './vo/coupon.disount.info';
+import { CouponUuid } from './vo/coupon.uuid';
+import { CouponActiveDate } from './vo/coupont.active.date';
 
 export class Coupon {
   // coupon 의 id
@@ -38,17 +37,6 @@ export class Coupon {
       couponId: null,
       couponUuid: null,
     });
-  }
-
-  public static checkCouponExpired(
-    couponIssuedStartDate: Date,
-    couponActiveEndDate: Date,
-  ) {
-    if (new Date(couponIssuedStartDate) > new Date(couponActiveEndDate)) {
-      throw new NotAcceptableException(
-        'coupon 기간이 만료되어서 발급이 불가능합니다',
-      );
-    }
   }
 }
 
