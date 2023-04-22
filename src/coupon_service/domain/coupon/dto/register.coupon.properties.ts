@@ -1,7 +1,7 @@
 import { CreateCouponCommand } from 'src/coupon_service/application/dto/create.coupon.command';
-import { ICreateCouponInput } from '../coupon.entity';
+import { IRegisterCouponInput } from '../coupon.entity';
 
-export class CreateCouponProperties implements ICreateCouponInput {
+export class RegsiterCouponProperties implements IRegisterCouponInput {
   issueLimit: number;
   discountType: DISCOUNT_TYPE;
   discountValue: number;

@@ -19,9 +19,9 @@ export class Coupon {
     });
   }
 
-  public static createCoupon(createInput: ICreateCouponInput) {
+  public static registerCoupon(registerInput: IRegisterCouponInput) {
     return new Coupon({
-      ...createInput,
+      ...registerInput,
       couponId: null,
       couponUuid: null,
     });
@@ -45,9 +45,9 @@ export type ICouponConstructorInput = {
   issueLimit: number;
 };
 
-export type ICreateCouponInput = Omit<
+export type IRegisterCouponInput = Omit<
   ICouponConstructorInput,
   'couponId' | 'couponUuid'
 >;
 
-export type IUpdateCouponInput = Partial<ICreateCouponInput>;
+export type IUpdateCouponInput = Partial<IRegisterCouponInput>;

@@ -1,4 +1,4 @@
-import { ICreateCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { IRegisterCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 export class UpdateCouponCommand {
   couponUuid: string;
@@ -13,6 +13,6 @@ export class UpdateCouponCommand {
   }
 }
 
-type IUpdateCouponCommandConstructor = Partial<ICreateCouponInput> & {
+type IUpdateCouponCommandConstructor = Partial<IRegisterCouponInput> & {
   couponUuid: string;
 };
