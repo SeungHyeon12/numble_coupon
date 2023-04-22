@@ -1,4 +1,4 @@
-import { CouponActiveDate } from './vo/coupont.active.date';
+import { CouponActiveDate } from './coupont.active.date';
 
 export class CouponValidity {
   // 쿠폰의 자체 시작 끝 일자(vo)
