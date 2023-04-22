@@ -5,11 +5,12 @@ import { CouponIssueDate } from './vo/coupon/coupon.issue.date';
 //coupon-service 의 aggregate root
 export class CouponIssurance {
   private readonly issuranceId: number;
-  private issueLimit: number;
-  private couponValidateDate: Date;
   private readonly coupon: Coupon;
   private readonly couponUser: CouponUser;
   private readonly couponIssueDate: CouponIssueDate;
+  private issueLimit: number;
+  private issuranceCount: number;
+  private couponValidateDate: Date;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
@@ -50,8 +51,16 @@ export class CouponIssurance {
       : couponActiveEndDate;
   }
 
+  public updateIssuranceCount(nextCount: number) {
+    this.issuranceCount = nextCount;
+  }
+
   public getCouponValidDate() {
     return this.couponValidateDate;
+  }
+
+  public getissuranceCount() {
+    return this.issuranceCount;
   }
 
   public static issueCoupon(issueCouponData: IIssueCoupon) {
@@ -63,6 +72,7 @@ export class CouponIssurance {
       couponUuid: null,
       productUuid: null,
       userId: null,
+      issuranceCount: null,
     });
   }
 }
@@ -70,6 +80,7 @@ export class CouponIssurance {
 export type ICouponIssuranceConstructor = {
   issuranceId: number;
   issueLimit: number;
+  issuranceCount: number;
 
   couponId: number;
   couponUuid: string;
@@ -88,5 +99,10 @@ export type ICouponIssuranceConstructor = {
 
 export type IIssueCoupon = Omit<
   ICouponIssuranceConstructor,
-  'issuranceId' | 'couponId' | 'couponUuid' | 'userId' | 'isUsable'
+  | 'issuranceId'
+  | 'couponId'
+  | 'couponUuid'
+  | 'userId'
+  | 'isUsable'
+  | 'issuranceCount'
 >;

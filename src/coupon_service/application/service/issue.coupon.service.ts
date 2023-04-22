@@ -11,17 +11,21 @@ export class IssueCouponService implements IssueCouponUseCase {
   constructor(private readonly couponService: CouponDomainService) {}
 
   async issueCoupon(command: IssueCouponCommand) {
-    const pastCouponIssurances: CouponIssurance[] = null; // await this.db.get(command.id)
+    const latestCouponIssurance: CouponIssurance = null; // await this.db.get(command.id)
     this.couponService.isCouponExceedLimit(
       command.issueLimit,
-      pastCouponIssurances,
+      latestCouponIssurance,
     );
     this.couponService.isAlreadyIssueCoupon(
-      pastCouponIssurances[-1],
+      latestCouponIssurance,
       command.couponIssuedStartDate,
     );
     const createIssurance = CouponIssurance.issueCoupon(
       new CreateIssueProperties({ ...command }),
+    );
+    this.couponService.calculateNextCouponCount(
+      latestCouponIssurance,
+      createIssurance,
     );
   }
 }
