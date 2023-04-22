@@ -1,6 +1,5 @@
-import { CouponDiscountInfo } from './vo/coupon.disount.info';
+import { CouopnInformation } from './vo/coupon.information';
 import { CouponUuid } from './vo/coupon.uuid';
-import { CouponActiveDate } from './vo/coupont.active.date';
 
 export class Coupon {
   // coupon 의 id
@@ -9,14 +8,8 @@ export class Coupon {
   // coupon 의 노출 식별자 uuid(vo)
   private readonly couponUuid: CouponUuid;
 
-  // coupon 의 discount 관련 (vo)
-  private readonly couponDiscountInfo: CouponDiscountInfo;
-
-  // coupon 의 자체 시간에 대한 값객체(vo)
-  private readonly couponActiveDate: CouponActiveDate;
-
-  // coupon 의 생성갯수제한
-  private issueLimit: number;
+  // coupon 의 informaiton 관련 (VO)
+  private readonly couponInformation: CouopnInformation;
 
   constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
@@ -38,6 +31,10 @@ export class Coupon {
       couponUuid: null,
     });
   }
+
+  public updateCoupon(updateInput: IUpdateCouponInput) {
+    return new Coupon();
+  }
 }
 
 export type ICouponConstructorInput = {
@@ -54,3 +51,5 @@ export type ICreateCouponInput = Omit<
   ICouponConstructorInput,
   'couponId' | 'couponUuid'
 >;
+
+export type IUpdateCouponInput = Partial<ICreateCouponInput>;

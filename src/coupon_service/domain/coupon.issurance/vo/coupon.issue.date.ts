@@ -8,4 +8,12 @@ export class CouponIssueDate {
     this.couponIssuedStartDate = issuedStartDate;
     this.couponIssuedEndDate = couponIssuedEndDate;
   }
+
+  getcouponIssuedStartDate() {
+    return this.couponIssuedStartDate;
+  }
+
+  getcouponIssuedEndDate() {
+    return this.couponIssuedEndDate;
+  }
 }
