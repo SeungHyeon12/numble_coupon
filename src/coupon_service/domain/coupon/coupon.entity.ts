@@ -1,4 +1,4 @@
-import { CouopnInformation } from './vo/coupon.information';
+import { CouponInformation } from './vo/coupon.information';
 import { CouponUuid } from './vo/coupon.uuid';
 
 export class Coupon {
@@ -9,19 +9,14 @@ export class Coupon {
   private readonly couponUuid: CouponUuid;
 
   // coupon 의 informaiton 관련 (VO)
-  private readonly couponInformation: CouopnInformation;
+  private couponInformation: CouponInformation;
 
   constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
     this.couponUuid = new CouponUuid(couponConstructorData.couponUuid);
-    this.couponDiscountInfo = new CouponDiscountInfo(
-      couponConstructorData.discountType,
-      couponConstructorData.discountValue,
-    );
-    this.couponActiveDate = new CouponActiveDate(
-      couponConstructorData.couponActiveStartDate,
-      couponConstructorData.couponActiveEndDate,
-    );
+    this.couponInformation = new CouponInformation({
+      ...couponConstructorData,
+    });
   }
 
   public static createCoupon(createInput: ICreateCouponInput) {
@@ -33,7 +28,10 @@ export class Coupon {
   }
 
   public updateCoupon(updateInput: IUpdateCouponInput) {
-    return new Coupon();
+    this.couponInformation = new CouponInformation({
+      ...this.couponInformation.getInformation(),
+      ...updateInput,
+    });
   }
 }
 

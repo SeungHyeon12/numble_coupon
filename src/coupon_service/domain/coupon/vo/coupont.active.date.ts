@@ -8,4 +8,11 @@ export class CouponActiveDate {
     this.couponActiveStartDate = activeStartDate;
     this.couponActiveEndDate = activeEndDate;
   }
+
+  getProperties() {
+    return {
+      couponActiveStartDate: this.couponActiveStartDate,
+      couponActiveEndDate: this.couponActiveEndDate,
+    };
+  }
 }

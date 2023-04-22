@@ -10,11 +10,10 @@ export class CouponDiscountInfo {
     this.discountValue = discountValue;
   }
 
-  getDiscountType() {
-    return this.discountType;
-  }
-
-  getdiscountValue() {
-    return this.discountValue;
+  getProperties() {
+    return {
+      discountType: this.discountType,
+      discountValue: this.discountValue,
+    };
   }
 }

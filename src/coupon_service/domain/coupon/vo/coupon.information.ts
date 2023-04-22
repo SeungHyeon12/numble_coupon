@@ -1,7 +1,7 @@
 import { CouponDiscountInfo } from './coupon.disount.info';
 import { CouponActiveDate } from './coupont.active.date';
 
-export class CoupnInformation {
+export class CouponInformation {
   // coupon 의 자체 시간 (vo)
   private readonly couponActiveDate: CouponActiveDate;
 
@@ -21,6 +21,14 @@ export class CoupnInformation {
       constructorInput.discountValue,
     );
     this.issueLimit = constructorInput.issueLimit;
+  }
+
+  getInformation() {
+    return {
+      ...this.couponActiveDate.getProperties(),
+      ...this.couponDiscountInfo.getProperties(),
+      issueLimit: this.issueLimit,
+    };
   }
 }
 
