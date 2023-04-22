@@ -9,12 +9,7 @@ export class UpdateCouponCommand {
   issueLimit?: number;
 
   constructor(inputData: IUpdateCouponCommandConstructor) {
-    this.couponUuid = inputData.couponUuid;
-    this.issueLimit = inputData?.issueLimit;
-    this.discountType = inputData?.discountType;
-    this.discountValue = inputData?.discountValue;
-    this.couponActiveStartDate = inputData?.couponActiveStartDate;
-    this.couponActiveEndDate = inputData?.couponActiveEndDate;
+    Object.assign(this, inputData);
   }
 }
 
