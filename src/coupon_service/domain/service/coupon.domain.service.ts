@@ -12,10 +12,13 @@ export class CouponDomainService {
   }
 
   isAlreadyIssueCoupon(
-    couponIssurance: CouponIssurance,
+    LatestcouponIssurance: CouponIssurance,
     couponIssuedStartDate: Date,
   ) {
-    if (new Date(couponIssurance.getCouponValidDate()) > couponIssuedStartDate)
+    if (
+      new Date(LatestcouponIssurance.getCouponValidDate()) >
+      couponIssuedStartDate
+    )
       throw new ConflictException('이미 발급된 쿠폰이 존재합니다존재합니다');
   }
 }

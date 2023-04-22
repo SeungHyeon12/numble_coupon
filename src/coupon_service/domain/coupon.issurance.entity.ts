@@ -40,7 +40,10 @@ export class CouponIssurance {
     );
   }
 
-  calculateValidateTime(couponActiveEndDate: Date, couponIssuedEndDate: Date) {
+  private calculateValidateTime(
+    couponActiveEndDate: Date,
+    couponIssuedEndDate: Date,
+  ) {
     return new Date(couponActiveEndDate) > new Date(couponIssuedEndDate)
       ? couponIssuedEndDate
       : couponActiveEndDate;
