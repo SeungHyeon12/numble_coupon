@@ -34,9 +34,20 @@ export class CouponIssurance {
       issueData.couponIssuedStartDate,
     );
   }
+
+  public static issueCoupon(issueCouponData: IIssueCoupon) {
+    return new CouponIssurance({
+      ...issueCouponData,
+      issuranceId: null,
+      couponId: null,
+      couponUuid: null,
+      productUuid: null,
+      userId: null,
+    });
+  }
 }
 
-type ICouponIssuranceConstructor = {
+export type ICouponIssuranceConstructor = {
   issuranceId: number;
   issueLimit: number;
 
@@ -53,3 +64,8 @@ type ICouponIssuranceConstructor = {
   userUuid: string;
   productUuid: string;
 };
+
+export type IIssueCoupon = Omit<
+  ICouponIssuranceConstructor,
+  'issuranceId' | 'couponId' | 'couponUuid' | 'userId'
+>;

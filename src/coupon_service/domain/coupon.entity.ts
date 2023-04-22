@@ -16,7 +16,7 @@ export class Coupon {
   // coupon 의 유효성에 대한 조건을 가지고 있는 validity(vo)
   private readonly couponValidity: CouponActiveDate;
 
-  constructor(couponConstructorData: CouponConstructorInput) {
+  constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
     this.couponUuid = new CouponUuid(couponConstructorData.couponUuid);
     this.couponDiscountInfo = new CouponDiscountInfo(
@@ -39,17 +39,9 @@ export class Coupon {
       );
     }
   }
-
-  public static createCoupon(createCouponData: CreateCouponInput) {
-    return new Coupon({
-      ...createCouponData,
-      couponId: null,
-      couponUuid: null,
-    });
-  }
 }
 
-type CouponConstructorInput = {
+export type ICouponConstructorInput = {
   couponId: number;
   couponUuid: string;
   discountType: DISCOUNT_TYPE;
@@ -58,7 +50,7 @@ type CouponConstructorInput = {
   couponActiveEndDate: Date;
 };
 
-type CreateCouponInput = Omit<
-  CouponConstructorInput,
+type ICreateCouponInput = Omit<
+  ICouponConstructorInput,
   'couoponId' | 'couponUuid'
 >;
