@@ -16,7 +16,7 @@ export class CouponDomainService {
     couponIssuedStartDate: Date,
   ) {
     if (
-      new Date(LatestcouponIssurance.getCouponValidDate()) >
+      new Date(LatestcouponIssurance.getIssueValidatedDate()) >
       couponIssuedStartDate
     )
       throw new ConflictException('이미 발급된 쿠폰이 존재합니다존재합니다');

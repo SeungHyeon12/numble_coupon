@@ -1,26 +1,19 @@
-import { IssueCouponCommand } from 'src/coupon_service/application/dto/issue.coupon.command';
-import { IIssueCoupon } from '../coupon.issurance.entity';
+import { CreateCouponCommand } from 'src/coupon_service/application/dto/create.coupon.command';
+import { ICreateCouponInput } from '../coupon.entity';
 
-export class CreateIssueProperties implements IIssueCoupon {
+export class CreateCouponProperties implements ICreateCouponInput {
   issueLimit: number;
   discountType: DISCOUNT_TYPE;
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
-  couponIssuedStartDate: Date;
-  couponIssuedEndDate: Date;
-  userUuid: string;
-  productUuid: string;
+  couponId: number;
 
-  constructor(issueCouponCommand: IssueCouponCommand) {
-    this.issueLimit = issueCouponCommand.issueLimit;
-    this.discountType = issueCouponCommand.discountType;
-    this.discountValue = issueCouponCommand.discountValue;
-    this.couponActiveStartDate = issueCouponCommand.couponActiveStartDate;
-    this.couponActiveEndDate = issueCouponCommand.couponActiveEndDate;
-    this.couponIssuedStartDate = issueCouponCommand.couponIssuedStartDate;
-    this.couponIssuedEndDate = issueCouponCommand.couponIssuedEndDate;
-    this.userUuid = issueCouponCommand.userUuid;
-    this.productUuid = issueCouponCommand.productUuid;
+  constructor(command: CreateCouponCommand) {
+    this.issueLimit = command.issueLimit;
+    this.discountType = command.discountType;
+    this.discountValue = command.discountValue;
+    this.couponActiveStartDate = command.couponActiveStartDate;
+    this.couponActiveEndDate = command.couponActiveEndDate;
   }
 }

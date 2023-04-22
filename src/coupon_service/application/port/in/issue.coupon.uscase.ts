@@ -1,5 +1,5 @@
-import { IssueCouponCommand } from '../../dto/issue.coupon.command';
+import { CreateCouponCommand } from '../../dto/create.coupon.command';
 
-export interface IssueCouponUseCase {
-  issueCoupon(command: IssueCouponCommand): Promise<void>;
+export interface CreateCouponUseCase {
+  createCoupon(command: CreateCouponCommand): Promise<void>;
 }

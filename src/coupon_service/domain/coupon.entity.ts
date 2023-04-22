@@ -16,8 +16,8 @@ export class Coupon {
   // coupon 의 자체 시간에 대한 값객체(vo)
   private readonly couponActiveDate: CouponActiveDate;
 
-  // coupon 이 사용한지 판별하는 property
-  private isUsable: boolean;
+  // coupon 의 생성갯수제한
+  private issueLimit: number;
 
   constructor(couponConstructorData: ICouponConstructorInput) {
     this.couponId = couponConstructorData.couponId;
@@ -30,6 +30,14 @@ export class Coupon {
       couponConstructorData.couponActiveStartDate,
       couponConstructorData.couponActiveEndDate,
     );
+  }
+
+  public static createCoupon(createInput: ICreateCouponInput) {
+    return new Coupon({
+      ...createInput,
+      couponId: null,
+      couponUuid: null,
+    });
   }
 
   public static checkCouponExpired(
@@ -51,10 +59,10 @@ export type ICouponConstructorInput = {
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
-  isUsable: boolean;
+  issueLimit: number;
 };
 
-type ICreateCouponInput = Omit<
+export type ICreateCouponInput = Omit<
   ICouponConstructorInput,
-  'couoponId' | 'couponUuid'
+  'couponId' | 'couponUuid'
 >;
