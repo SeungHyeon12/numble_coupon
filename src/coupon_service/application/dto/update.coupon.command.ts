@@ -1,6 +1,7 @@
 import { ICreateCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
 
-export class CreateCouponCommand {
+export class UpdateCouponCommand {
+  couponUuid: string;
   discountType?: DISCOUNT_TYPE;
   discountValue?: number;
   couponActiveStartDate?: Date;
@@ -8,6 +9,7 @@ export class CreateCouponCommand {
   issueLimit?: number;
 
   constructor(inputData: IUpdateCouponCommandConstructor) {
+    this.couponUuid = inputData.couponUuid;
     this.issueLimit = inputData?.issueLimit;
     this.discountType = inputData?.discountType;
     this.discountValue = inputData?.discountValue;
@@ -16,4 +18,6 @@ export class CreateCouponCommand {
   }
 }
 
-type IUpdateCouponCommandConstructor = Partial<ICreateCouponInput>;
+type IUpdateCouponCommandConstructor = Partial<ICreateCouponInput> & {
+  couponUuid: string;
+};

@@ -1,3 +1,5 @@
+import { UpdateCouponCommand } from '../../dto/update.coupon.command';
+
 export interface UpdateCouponUseCase {
-  createCoupon(command: UpdateCouponUseCase): Promise<void>;
+  updateCoupon(command: UpdateCouponCommand): Promise<void>;
 }
