@@ -1,4 +1,4 @@
-export class CouponIssuedDate {
+export class CouponIssueDate {
   // 쿠폰 발급일자
   private readonly couponIssuedStartDate: Date;
   // 쿠폰 발급일자 + 6
