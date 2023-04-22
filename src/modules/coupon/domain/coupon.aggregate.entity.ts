@@ -1,10 +1,9 @@
-import { BaseDomainEntity } from 'src/common/domain/base.domain.entity';
 import { CouponValidity } from './coupon.validity.entity';
 import { CouponDiscountInfo } from './vo/coupon.disount.info';
 import { CouponUuid } from './vo/coupon.uuid';
 import { couponIssuedDate } from './vo/coupon.issued.datd';
 
-export class CouponAggregate extends BaseDomainEntity {
+export class CouponAggregate {
   // coupon 의 id
   private readonly couponId: string;
 
