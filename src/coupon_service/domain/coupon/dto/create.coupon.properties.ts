@@ -7,7 +7,6 @@ export class CreateCouponProperties implements ICreateCouponInput {
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
-  couponId: number;
 
   constructor(command: CreateCouponCommand) {
     this.issueLimit = command.issueLimit;
