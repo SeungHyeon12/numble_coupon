@@ -31,6 +31,15 @@ export class CouponIssurance {
     this.isUsedCoupon = true;
   }
 
+  public cancleCoupon() {
+    const issuerProperties = this.couponIssuer.getProperties();
+    this.couponIssuer = new CouponIssuer({
+      ...issuerProperties,
+      productUuid: null,
+    });
+    this.isUsedCoupon = false;
+  }
+
   public updateIssuranceCount(nextCount: number) {
     this.issuranceCount = nextCount;
   }
