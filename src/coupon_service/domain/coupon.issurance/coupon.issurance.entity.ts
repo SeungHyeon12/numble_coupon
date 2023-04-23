@@ -1,7 +1,6 @@
-import { NotAcceptableException } from '@nestjs/common';
 import { CouponIssuer } from './coupon.issuer.entity';
 import { CouponUuid } from '../coupon/vo/coupon.uuid';
-import { CouponIssueDate } from '../coupon/vo/coupon.issue.date';
+import { CouponIssueDate } from './vo/coupon.issue.date';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
@@ -20,17 +19,12 @@ export class CouponIssurance {
     );
   }
 
-  private calculateValidateTime(
-    couponActiveEndDate: Date,
-    couponIssuedEndDate: Date,
-  ) {
-    return new Date(couponActiveEndDate) > new Date(couponIssuedEndDate)
-      ? couponIssuedEndDate
-      : couponActiveEndDate;
-  }
-
   public updateIssuranceCount(nextCount: number) {
     this.issuranceCount = nextCount;
+  }
+
+  public confirmIssueValidateDate(calculatedValidateDate: Date) {
+    this.issueValidatedDate = calculatedValidateDate;
   }
 
   public getIssueValidatedDate() {
@@ -41,15 +35,11 @@ export class CouponIssurance {
     return this.issuranceCount;
   }
 
-  public static checkCouponExpired(
-    couponIssuedStartDate: Date,
-    couponActiveEndDate: Date,
-  ) {
-    if (new Date(couponIssuedStartDate) > new Date(couponActiveEndDate)) {
-      throw new NotAcceptableException(
-        'coupon 기간이 만료되어서 발급이 불가능합니다',
-      );
-    }
+  public getIssueDate() {
+    return {
+      couponIssuedStartDate: this.couponIssueDate.getcouponIssuedStartDate(),
+      couponIssuedEndDate: this.couponIssueDate.getcouponIssuedEndDate(),
+    };
   }
 }
 

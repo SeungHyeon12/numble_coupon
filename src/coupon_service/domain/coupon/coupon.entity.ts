@@ -19,18 +19,22 @@ export class Coupon {
     });
   }
 
+  getCouponInformation() {
+    return this.couponInformation;
+  }
+
+  public updateCoupon(updateInput: IUpdateCouponInput) {
+    this.couponInformation = new CouponInformation({
+      ...this.couponInformation.getOptions(),
+      ...updateInput,
+    });
+  }
+
   public static registerCoupon(registerInput: IRegisterCouponInput) {
     return new Coupon({
       ...registerInput,
       couponId: null,
       couponUuid: null,
-    });
-  }
-
-  public updateCoupon(updateInput: IUpdateCouponInput) {
-    this.couponInformation = new CouponInformation({
-      ...this.couponInformation.getInformation(),
-      ...updateInput,
     });
   }
 }

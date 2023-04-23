@@ -22,8 +22,17 @@ export class CouponInformation {
     );
     this.issueLimit = constructorInput.issueLimit;
   }
+  getIssueLimit() {
+    return this.issueLimit;
+  }
 
-  getInformation() {
+  getActiveDate() {
+    return {
+      ...this.couponActiveDate.getProperties(),
+    };
+  }
+
+  getOptions() {
     return {
       ...this.couponActiveDate.getProperties(),
       ...this.couponDiscountInfo.getProperties(),
