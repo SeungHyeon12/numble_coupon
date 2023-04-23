@@ -1,7 +1,7 @@
 import { NotAcceptableException } from '@nestjs/common';
 import isNull from 'src/common/function/is.null.function';
 
-export class CreateCouponCommand {
+export class RegisterCouponCommand {
   discountType: DISCOUNT_TYPE;
   discountValue: number;
   couponActiveStartDate: Date;

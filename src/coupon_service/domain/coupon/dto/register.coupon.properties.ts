@@ -1,4 +1,4 @@
-import { CreateCouponCommand } from 'src/coupon_service/application/dto/create.coupon.command';
+import { RegisterCouponCommand } from 'src/coupon_service/application/dto/registercoupon.command';
 import { IRegisterCouponInput } from '../coupon.entity';
 
 export class RegsiterCouponProperties implements IRegisterCouponInput {
@@ -8,7 +8,7 @@ export class RegsiterCouponProperties implements IRegisterCouponInput {
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;
 
-  constructor(command: CreateCouponCommand) {
+  constructor(command: RegisterCouponCommand) {
     this.issueLimit = command.issueLimit;
     this.discountType = command.discountType;
     this.discountValue = command.discountValue;
