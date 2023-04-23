@@ -1,3 +1,5 @@
+import { NotAcceptableException } from '@nestjs/common';
+import isNull from 'src/common/function/is.null.function';
 import { IRegisterCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 export class UpdateCouponCommand {
@@ -9,7 +11,14 @@ export class UpdateCouponCommand {
   issueLimit?: number;
 
   constructor(inputData: IUpdateCouponCommandConstructor) {
+    this.validateRequiredInputData(inputData.couponUuid);
     Object.assign(this, inputData);
+  }
+  private validateRequiredInputData(couponUuid: string) {
+    if (isNull(couponUuid))
+      throw new NotAcceptableException(
+        '업데이트 하려는 쿠폰의 uuid 값이 빠져있습니다',
+      );
   }
 }
 
