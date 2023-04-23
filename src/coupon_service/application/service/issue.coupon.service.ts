@@ -3,6 +3,7 @@ import { IssueCouponUsecase } from '../port/in/usecase/issue.coupon.usecase';
 import { IssueCouponDomainService } from 'src/coupon_service/domain/coupon.issurance/service/coupon.issue.domain.service';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { IssueCouponCommand } from '../dto/isssue.coupon.command';
 
 @Injectable()
 export class IssueCouopnService implements IssueCouponUsecase {
@@ -10,7 +11,7 @@ export class IssueCouopnService implements IssueCouponUsecase {
     private readonly issueCouponDomainService: IssueCouponDomainService,
   ) {}
 
-  issueCoupon(command: any): Promise<void> {
+  issueCoupon(command: IssueCouponCommand): Promise<void> {
     const coupon: Coupon = null; // db.getCouponUuid()
     // db .getByuserId()
     const latestCouponIssurance: CouponIssurance = null;
@@ -18,7 +19,7 @@ export class IssueCouopnService implements IssueCouponUsecase {
       latestCouponIssurance,
       command.couponIssuedStartDate,
     );
-    this.issueCouponDomainService.checkCouponExpired(
+    this.issueCouponDomainService.checkCreateCouponExpired(
       coupon,
       command.couponIssuedStartDate,
     );

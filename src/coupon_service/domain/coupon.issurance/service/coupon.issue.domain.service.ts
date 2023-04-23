@@ -3,7 +3,7 @@ import { CouponIssurance } from '../coupon.issurance.entity';
 import { Coupon } from '../../coupon/coupon.entity';
 
 export class IssueCouponDomainService {
-  checkCouponExpired(coupon: Coupon, couponIssuedStartDate: Date) {
+  checkCreateCouponExpired(coupon: Coupon, couponIssuedStartDate: Date) {
     const couponActiveEndDate = coupon
       .getCouponInformation()
       .getActiveDate().couponActiveEndDate;
@@ -64,5 +64,10 @@ export class IssueCouponDomainService {
     currentCreatedIssurance.updateIssuranceCount(
       latestCouponIssurances.getissuranceCount() + 1,
     );
+  }
+
+  checkCanUseCoupon(issurance: CouponIssurance, useRequestDate: Date) {
+    if (new Date(issurance.getIssueValidatedDate()) < new Date(useRequestDate))
+      throw new NotAcceptableException('이미 쿠폰의 유효기간이 지났습니다');
   }
 }

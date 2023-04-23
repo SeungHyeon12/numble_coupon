@@ -1,17 +1,25 @@
 import { productUuid } from './vo/product.uuid';
-import { UserUuid } from './vo/user.uuid';
+import { IssuerUuid } from './vo/user.uuid';
 
 export class CouponIssuer {
   issuerId: number;
   // coupon 을 발행한 유저의 Uuid
-  issuerUuid: UserUuid;
+  issuerUuid: IssuerUuid;
   // 쿠폰을 사용한 물건의 Uuid
   productUuid: productUuid;
 
   constructor(userConstructorData: ICouponUserConstructor) {
     this.issuerId = userConstructorData.issuerId;
-    this.issuerUuid = new UserUuid(userConstructorData.issuerUuid);
+    this.issuerUuid = new IssuerUuid(userConstructorData.issuerUuid);
     this.productUuid = new productUuid(userConstructorData.productUuid);
+  }
+
+  getProperties() {
+    return {
+      issuerId: this.issuerId,
+      issuerUuid: this.issuerUuid.getValue(),
+      productUuid: this.productUuid.getValue(),
+    };
   }
 }
 

@@ -4,11 +4,12 @@ import { CouponIssueDate } from './vo/coupon.issue.date';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
-  private readonly couponIssuer: CouponIssuer;
+  private couponIssuer: CouponIssuer;
   private readonly couponIssueDate: CouponIssueDate;
   private issuranceCount: number;
   private issueValidatedDate: Date;
   private isUsedCoupon: boolean;
+  private CouponUuid: CouponUuid;
 
   private readonly coupon: CouponUuid;
 
@@ -23,6 +24,11 @@ export class CouponIssurance {
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
     );
+  }
+
+  public useCoupon(productUuid: string) {
+    const issuerProperties = this.couponIssuer.getProperties();
+    this.couponIssuer = new CouponIssuer({ ...issuerProperties, productUuid });
   }
 
   public updateIssuranceCount(nextCount: number) {
