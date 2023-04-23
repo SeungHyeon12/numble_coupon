@@ -1,6 +1,6 @@
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
-import { CancleCouponCommand } from '../dto/cancle.coupon.command';
 import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
+import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 
 export class CancleCouponService implements CancleCouponUsecase {
   async cancleUseCoupon(command: CancleCouponCommand): Promise<void> {

@@ -1,5 +1,5 @@
 import { IssueCouponDomainService } from 'src/coupon_service/domain/coupon.issurance/service/coupon.issue.domain.service';
-import { UseCouponCommand } from '../dto/use.coupon.command';
+import { UseCouponCommand } from '../dto/command/use.coupon.command';
 import { UseCouponUseCase } from '../port/in/usecase/use.coupon.usecase';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 
