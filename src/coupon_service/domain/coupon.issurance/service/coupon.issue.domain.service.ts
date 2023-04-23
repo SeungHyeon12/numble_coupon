@@ -31,7 +31,7 @@ export class IssueCouponDomainService {
     couponIssurance.confirmIssueValidateDate(calculatedValidateTime);
   }
 
-  isCouponExceedLimit(
+  checkCouponExceedLimit(
     coupon: Coupon,
     latestCouponIssurances: CouponIssurance | null,
   ) {
@@ -44,7 +44,7 @@ export class IssueCouponDomainService {
     throw new NotAcceptableException('기존 수량치본다 많이 발급되었습니다');
   }
 
-  isAlreadyIssueCoupon(
+  checkAlreadyIssueCoupon(
     LatestcouponIssurance: CouponIssurance,
     couponIssuedStartDate: Date,
   ) {
@@ -59,6 +59,8 @@ export class IssueCouponDomainService {
     latestCouponIssurances: CouponIssurance | null,
     currentCreatedIssurance: CouponIssurance,
   ) {
+    if (!latestCouponIssurances)
+      currentCreatedIssurance.updateIssuranceCount(1);
     currentCreatedIssurance.updateIssuranceCount(
       latestCouponIssurances.getissuranceCount() + 1,
     );

@@ -4,15 +4,21 @@ import { CouponIssueDate } from './vo/coupon.issue.date';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
-  private readonly coupon: CouponUuid;
-  private readonly couponUser: CouponIssuer;
+  private readonly couponIssuer: CouponIssuer;
   private readonly couponIssueDate: CouponIssueDate;
   private issuranceCount: number;
   private issueValidatedDate: Date;
+  private isUsedCoupon: boolean;
+
+  private readonly coupon: CouponUuid;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
-    this.couponUser = issueData.couponUser;
+    this.couponIssuer = new CouponIssuer({
+      issuerId: issueData.issuerId,
+      issuerUuid: issueData.issuerUuid,
+      productUuid: issueData.productUuid,
+    });
     this.couponIssueDate = new CouponIssueDate(
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
@@ -41,16 +47,34 @@ export class CouponIssurance {
       couponIssuedEndDate: this.couponIssueDate.getcouponIssuedEndDate(),
     };
   }
+
+  public static IssueCoupon(issueInputData: IIssueCouponInput) {
+    return new CouponIssurance({
+      ...issueInputData,
+      issuranceId: null,
+      issuranceCount: null,
+      issuerId: null,
+      productUuid: null,
+      isUsedCoupon: false,
+    });
+  }
 }
 
 export type ICouponIssuranceConstructor = {
   issuranceId: number;
   issueLimit: number;
   issuranceCount: number;
+  isUsedCoupon: boolean;
 
   couponIssuedStartDate: Date;
   couponIssuedEndDate: Date;
-  isUsable: boolean;
 
-  couponUser: CouponIssuer;
+  issuerId: number;
+  issuerUuid: string;
+  productUuid: string;
 };
+
+export type IIssueCouponInput = Omit<
+  ICouponIssuranceConstructor,
+  'issuranceId' | 'issuranceCount' | 'issuerId' | 'productUuid' | 'isUsedCoupon'
+>;

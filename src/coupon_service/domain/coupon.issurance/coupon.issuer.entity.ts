@@ -9,22 +9,14 @@ export class CouponIssuer {
   productUuid: productUuid;
 
   constructor(userConstructorData: ICouponUserConstructor) {
-    this.issuerId = userConstructorData.userId;
-    this.issuerUuid = new UserUuid(userConstructorData.userUuid);
+    this.issuerId = userConstructorData.issuerId;
+    this.issuerUuid = new UserUuid(userConstructorData.issuerUuid);
     this.productUuid = new productUuid(userConstructorData.productUuid);
-  }
-
-  public static createCouponUser(userUuid: string) {
-    return new CouponIssuer({
-      userUuid,
-      userId: null,
-      productUuid: null,
-    });
   }
 }
 
 type ICouponUserConstructor = {
-  userId: number;
-  userUuid: string;
+  issuerId: number;
+  issuerUuid: string;
   productUuid: string;
 };
