@@ -9,9 +9,7 @@ export class CouponIssurance {
   private issuranceCount: number;
   private issueValidatedDate: Date;
   private isUsedCoupon: boolean;
-  private CouponUuid: CouponUuid;
-
-  private readonly coupon: CouponUuid;
+  private couponUuid: CouponUuid;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
@@ -24,11 +22,13 @@ export class CouponIssurance {
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
     );
+    this.couponUuid = new CouponUuid(issueData.couponUuid);
   }
 
   public useCoupon(productUuid: string) {
     const issuerProperties = this.couponIssuer.getProperties();
     this.couponIssuer = new CouponIssuer({ ...issuerProperties, productUuid });
+    this.isUsedCoupon = true;
   }
 
   public updateIssuranceCount(nextCount: number) {
@@ -78,6 +78,8 @@ export type ICouponIssuranceConstructor = {
   issuerId: number;
   issuerUuid: string;
   productUuid: string;
+
+  couponUuid: string;
 };
 
 export type IIssueCouponInput = Omit<

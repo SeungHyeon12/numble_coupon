@@ -23,6 +23,10 @@ export class Coupon {
     return this.couponInformation;
   }
 
+  getCouponUuid() {
+    return this.couponUuid;
+  }
+
   public updateCoupon(updateInput: IUpdateCouponInput) {
     this.couponInformation = new CouponInformation({
       ...this.couponInformation.getOptions(),

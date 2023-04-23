@@ -5,9 +5,11 @@ export class IssueCouponProperties implements IIssueCouponInput {
   couponIssuedStartDate: Date;
   couponIssuedEndDate: Date;
   issuerUuid: string;
+  couponUuid: string;
 
-  constructor(command: any) {
+  constructor(command: any, couponUuid: string) {
     this.issueLimit = command.issueLimit;
+    this.couponUuid = couponUuid;
     this.couponIssuedStartDate;
   }
 }
