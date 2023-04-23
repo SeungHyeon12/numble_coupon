@@ -26,8 +26,15 @@ export class IssueCouopnService implements IssueCouponUsecase {
       coupon,
       latestCouponIssurance,
     );
-    const issurance = CouponIssurance.IssueCoupon(command);
-    this.issueCouponDomainService.calcualteValidateTime(issurance, coupon);
+    const currentIssurance = CouponIssurance.IssueCoupon(command);
+    this.issueCouponDomainService.calcualteValidateTime(
+      currentIssurance,
+      coupon,
+    );
+    this.issueCouponDomainService.calculateNextCouponCount(
+      latestCouponIssurance,
+      currentIssurance,
+    );
     return;
   }
 }
