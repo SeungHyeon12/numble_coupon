@@ -1,3 +1,9 @@
+import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
+
 export interface IssuranceReaderOutPort {
-  getAllByIssuerUuid(IssuerUuid: string, take: number, skip: number);
+  getCouponsByIssuerUuid(
+    issuerUuid: string,
+    take: number,
+    skip: number,
+  ): Promise<Coupon[]>;
 }

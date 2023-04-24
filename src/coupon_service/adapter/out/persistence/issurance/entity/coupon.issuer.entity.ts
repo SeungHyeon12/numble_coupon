@@ -1,5 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryGeneratedColumn } from 'typeorm';
-import { CouponIssuranceModel } from './coupon.issurance.entity';
+import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity({ name: 'issuer' })
 export class CouponIssuerModel {
@@ -11,7 +10,4 @@ export class CouponIssuerModel {
 
   @Column({ nullable: true })
   productUuid: string;
-
-  @OneToOne(() => CouponIssuranceModel, (issurance) => issurance.id)
-  couponIssuer: CouponIssuranceModel;
 }

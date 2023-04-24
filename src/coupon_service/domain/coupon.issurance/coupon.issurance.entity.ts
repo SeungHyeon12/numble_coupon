@@ -37,6 +37,10 @@ export class CouponIssurance {
     };
   }
 
+  public getCouoponUuid() {
+    return this.couponUuid;
+  }
+
   public getIssuer() {
     return {
       couponIssuer: this.couponIssuer.getProperties(),
