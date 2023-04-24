@@ -1,10 +1,9 @@
 import { Injectable, Inject } from '@nestjs/common';
-
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { RegsiterCouponProperties } from 'src/coupon_service/domain/coupon/dto/register.coupon.properties';
 import { RegisterCouponCommand } from '../dto/command/registercoupon.command';
 import { RegisterCouponOutport } from '../port/out/register.coupon.outport';
-import { RegisterCouponUseCase } from '../port/in/usecase/create.coupon.uscase';
+import { RegisterCouponUseCase } from '../port/in/usecase/register.coupon.uscase';
 
 @Injectable()
 export class RegsiterCouponService implements RegisterCouponUseCase {

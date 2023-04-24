@@ -24,6 +24,24 @@ export class CouponIssurance {
     );
     this.couponUuid = new CouponUuid(issueData.couponUuid);
   }
+  public getProperties() {
+    return {
+      issuranceId: this.issuranceId,
+      couponIssuedStartDate: this.couponIssueDate.getcouponIssuedStartDate(),
+      couponIssuedEndDate: this.couponIssueDate.getcouponIssuedEndDate(),
+      issuranceCount: this.issuranceCount,
+      issueValidatedDate: this.issueValidatedDate,
+      isUsedCoupon: this.isUsedCoupon,
+      couponUuid: this.couponUuid.getValue(),
+      couponIssuer: this.couponIssuer.getProperties(),
+    };
+  }
+
+  public getIssuer() {
+    return {
+      couponIssuer: this.couponIssuer.getProperties(),
+    };
+  }
 
   public useCoupon(productUuid: string) {
     const issuerProperties = this.couponIssuer.getProperties();

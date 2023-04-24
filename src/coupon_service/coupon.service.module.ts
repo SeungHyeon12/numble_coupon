@@ -8,6 +8,8 @@ import { MysqlModule } from 'src/providers/database/mysql.module';
 import { CouponRepository } from './adapter/out/persistence/coupon/repository/couopn.repository.implement';
 import { RegisterCouponAdapter } from './adapter/out/persistence/coupon/adapter/register.coupon.adpater';
 import { UpdateCouponAdapter } from './adapter/out/persistence/coupon/adapter/update.coupon,adapter';
+import { IssuranceRepository } from './adapter/out/persistence/issurance/repository/issurance.repository.implement';
+import { IssueCouponAdapter } from './adapter/out/persistence/issurance/adapter/issue.coupon.adapter';
 
 @Module({
   imports: [MysqlModule],
@@ -35,12 +37,20 @@ import { UpdateCouponAdapter } from './adapter/out/persistence/coupon/adapter/up
       useClass: CouponRepository,
     },
     {
+      provide: 'COUPON_ISSURANCE_REPOSITORY',
+      useClass: IssuranceRepository,
+    },
+    {
       provide: 'REGISTER_COUPON_OUTPORT',
       useClass: RegisterCouponAdapter,
     },
     {
       provide: 'UPDATE_COUPON_OUTPORT',
       useClass: UpdateCouponAdapter,
+    },
+    {
+      provide: 'ISSUE_COUPON_OUTPORT',
+      useClass: IssueCouponAdapter,
     },
   ],
 })
