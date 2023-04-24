@@ -17,7 +17,7 @@ export class IssuranceRepository implements IIssuranceRepository {
       .createQueryBuilder()
       .select('coupon')
       .from(Coupon, 'coupon')
-      .where('couponUuid = :couopnUuid', {
+      .where('couponUuid = :couponUuid', {
         couponUuid: issurance.getCouoponUuid().getValue(),
       })
       .getOne();
@@ -46,7 +46,7 @@ export class IssuranceRepository implements IIssuranceRepository {
       .softDelete()
       .from(CouponIssuranceModel)
       .where('couopnIssuer.issuerUuid = :issuerUuid', { issuerUuid })
-      .andWhere('couponUuid = :couopnUuid', { couponUuid })
+      .andWhere('couponUuid = :couponUuid', { couponUuid })
       .execute();
   }
 

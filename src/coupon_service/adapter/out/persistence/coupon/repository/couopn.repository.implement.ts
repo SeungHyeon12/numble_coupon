@@ -18,6 +18,19 @@ export class CouponRepository implements ICouponRepository {
     });
   }
 
+  async getByCouponUuid(couponUuid: string) {
+    const coupon = await this.dataSource
+      .createQueryBuilder()
+      .select('couopn')
+      .from(CouopnModel, 'coupon')
+      .where('coupon.couponUuid = :couponUuid', {
+        couponUuid,
+      })
+      .getOne();
+
+    return null;
+  }
+
   update(coupon: Coupon): void {
     const properties = coupon.getProperties();
     this.dataSource

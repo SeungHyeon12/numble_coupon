@@ -2,8 +2,9 @@ import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coup
 import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
 import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
-import { Inject } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 
+@Injectable()
 export class CancleCouponService implements CancleCouponUsecase {
   constructor(
     @Inject('ISSURANCE_STORE_OUTPORT')

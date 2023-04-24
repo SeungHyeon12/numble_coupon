@@ -5,6 +5,7 @@ import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coup
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
+import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
 
 @Injectable()
 export class IssueCouopnService implements IssueCouponUsecase {
@@ -13,11 +14,15 @@ export class IssueCouopnService implements IssueCouponUsecase {
 
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
+
+    @Inject('COUPON_READER_OUTPORT')
+    private readonly couopnReaderAdaptor: CouponReaderOutPort,
   ) {}
 
-  issueCoupon(command: IssueCouponCommand) {
-    const coupon: Coupon = null; // db.getCouponUuid()
-    // db .getByuserId()
+  async issueCoupon(command: IssueCouponCommand) {
+    const coupon = await this.couopnReaderAdaptor.getByCouponUuid(
+      command.couonUuid,
+    );
     const latestCouponIssurance: CouponIssurance = null;
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
       latestCouponIssurance,
