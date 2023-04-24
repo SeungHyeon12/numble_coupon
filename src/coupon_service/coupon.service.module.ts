@@ -6,10 +6,11 @@ import { UpdateCouponService } from './application/service/update.coupon.service
 import { UseCouponService } from './application/service/use.coupon.service';
 import { MysqlModule } from 'src/providers/database/mysql.module';
 import { CouponRepository } from './adapter/out/persistence/coupon/repository/couopn.repository.implement';
-import { RegisterCouponAdapter } from './adapter/out/persistence/coupon/adapter/register.coupon.adpater';
-import { UpdateCouponAdapter } from './adapter/out/persistence/coupon/adapter/update.coupon,adapter';
+import { CouponStoreAdapter } from './adapter/out/persistence/coupon/adapter/coupon.store.adpater';
+import { CouponReaderAdapter } from './adapter/out/persistence/coupon/adapter/coupon.reader.adapter';
 import { IssuranceRepository } from './adapter/out/persistence/issurance/repository/issurance.repository.implement';
-import { IssueCouponAdapter } from './adapter/out/persistence/issurance/adapter/issue.coupon.adapter';
+import { IssuranceStoreAdapter } from './adapter/out/persistence/issurance/adapter/coupon.store.adapter';
+import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/use.couopn.adapter';
 
 @Module({
   imports: [MysqlModule],
@@ -41,16 +42,20 @@ import { IssueCouponAdapter } from './adapter/out/persistence/issurance/adapter/
       useClass: IssuranceRepository,
     },
     {
-      provide: 'REGISTER_COUPON_OUTPORT',
-      useClass: RegisterCouponAdapter,
+      provide: 'COUPON_STORE_OUTPORT',
+      useClass: CouponStoreAdapter,
     },
     {
-      provide: 'UPDATE_COUPON_OUTPORT',
-      useClass: UpdateCouponAdapter,
+      provide: 'COUOPN_READER_OUTPORT',
+      useClass: CouponReaderAdapter,
     },
     {
-      provide: 'ISSUE_COUPON_OUTPORT',
-      useClass: IssueCouponAdapter,
+      provide: 'ISSURANCE_STORE_OUTPORT',
+      useClass: IssuranceStoreAdapter,
+    },
+    {
+      provide: 'ISSURANCE_READER_OUTPORT',
+      useClass: IssuranceReaderAdapter,
     },
   ],
 })

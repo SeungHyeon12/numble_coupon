@@ -4,15 +4,15 @@ import { IssueCouponDomainService } from 'src/coupon_service/domain/coupon.issur
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
-import { IssueCouponOutport } from '../port/out/issue.coupon.outport';
+import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 
 @Injectable()
 export class IssueCouopnService implements IssueCouponUsecase {
   constructor(
     private readonly issueCouponDomainService: IssueCouponDomainService,
 
-    @Inject('ISSUE_COUPON_OUTPORT')
-    private readonly issueCouponAdapter: IssueCouponOutport,
+    @Inject('ISSURANCE_STORE_OUTPORT')
+    private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
   ) {}
 
   issueCoupon(command: IssueCouponCommand) {
@@ -44,6 +44,6 @@ export class IssueCouopnService implements IssueCouponUsecase {
       latestCouponIssurance,
       currentIssurance,
     );
-    this.issueCouponAdapter.save(currentIssurance);
+    this.issuranceStoreAdaptor.save(currentIssurance);
   }
 }
