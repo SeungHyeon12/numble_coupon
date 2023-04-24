@@ -17,4 +17,16 @@ export class CouponRepository implements ICouponRepository {
       couponInformation: properties.couponInformation,
     });
   }
+
+  update(coupon: Coupon): void {
+    const properties = coupon.getProperties();
+    this.dataSource
+      .createQueryBuilder()
+      .update<CouopnModel>(CouopnModel)
+      .set({
+        couponInformation: properties.couponInformation,
+      })
+      .where('couponUuid = :couonUuid', { couponUuid: properties.couponUuid })
+      .execute();
+  }
 }
