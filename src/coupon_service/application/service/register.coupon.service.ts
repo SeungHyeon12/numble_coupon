@@ -1,15 +1,20 @@
-import { Injectable } from '@nestjs/common';
-import { CreateCouponUseCase } from '../port/in/usecase/create.coupon.uscase';
+import { Injectable, Inject } from '@nestjs/common';
 
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { RegsiterCouponProperties } from 'src/coupon_service/domain/coupon/dto/register.coupon.properties';
 import { RegisterCouponCommand } from '../dto/command/registercoupon.command';
+import { RegisterCouponOutport } from '../port/out/register.coupon.outport';
+import { RegisterCouponUseCase } from '../port/in/usecase/create.coupon.uscase';
 
 @Injectable()
-export class RegsiterCouponService implements CreateCouponUseCase {
-  //todo outport<db> redis queeue
+export class RegsiterCouponService implements RegisterCouponUseCase {
+  constructor(
+    @Inject('REGISTER_COUPON_OUTPORT')
+    private readonly registerCouponAdpater: RegisterCouponOutport,
+  ) {}
 
-  async createCoupon(command: RegisterCouponCommand): Promise<void> {
+  async registerCoupon(command: RegisterCouponCommand): Promise<void> {
     const coupon = Coupon.registerCoupon(new RegsiterCouponProperties(command));
+    this.registerCouponAdpater.save(coupon);
   }
 }
