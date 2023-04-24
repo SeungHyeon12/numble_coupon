@@ -2,7 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { IssueCouponUsecase } from '../port/in/usecase/issue.coupon.usecase';
 import { IssueCouponDomainService } from 'src/coupon_service/domain/coupon.issurance/service/coupon.issue.domain.service';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
-import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
