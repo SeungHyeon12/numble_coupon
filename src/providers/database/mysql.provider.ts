@@ -1,4 +1,8 @@
+import { CouopnModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.entity';
+import { CouponIssuerModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.issuer.entity';
+import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.issurance.entity';
 import { DataSource } from 'typeorm';
+import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 
 export const mysqlProviders = {
   provide: 'DATA_SOURCE',
@@ -9,9 +13,10 @@ export const mysqlProviders = {
       port: 3306,
       username: 'root',
       password: '0000',
-      database: 'coupon',
-      entities: [],
+      database: 'coupon_service',
+      entities: [CouopnModel, CouponIssuerModel, CouponIssuranceModel],
       synchronize: true,
+      namingStrategy: new SnakeNamingStrategy(),
     });
 
     return dataSource.initialize();
