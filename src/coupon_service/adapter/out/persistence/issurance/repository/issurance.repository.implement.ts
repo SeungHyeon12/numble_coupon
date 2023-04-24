@@ -24,6 +24,8 @@ export class IssuranceRepository implements IIssuranceRepository {
 
     this.dataSource
       .createQueryBuilder()
+      .useTransaction(true)
+      .setLock('pessimistic_write')
       .insert()
       .into(CouponIssuranceModel)
       .values({ ...rest, coupon: couponModel })
