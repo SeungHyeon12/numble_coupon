@@ -30,6 +30,21 @@ export class IssuranceRepository implements IIssuranceRepository {
       .execute();
   }
 
+  async getIssuranceByIssuerUuidAndCouponUuid(
+    issuerUuid: string,
+    couponUuid: string,
+  ): Promise<CouponIssurance> {
+    const issurance = await this.dataSource
+      .createQueryBuilder(CouponIssuranceModel, 'issurance')
+      .select('issurance')
+      .innerJoinAndSelect('issurance.couponIssuer', 'issuer')
+      .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
+      .andWhere('issurance.couponUuid = :couponUuid', { couponUuid })
+      .getOne();
+
+    return null;
+  }
+
   update(issurance: CouponIssurance): void {
     const properties = issurance.getProperties();
     this.dataSource

@@ -11,4 +11,8 @@ export interface IIssuranceRepository {
     take: number,
     skip: number,
   ): Promise<Coupon[]>;
+  getIssuranceByIssuerUuidAndCouponUuid(
+    issuerUuid: string,
+    couponUuid: string,
+  ): Promise<CouponIssurance>;
 }

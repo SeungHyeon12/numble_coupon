@@ -6,7 +6,7 @@ import { Inject, Injectable } from '@nestjs/common';
 export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
   constructor(
     @Inject('COUPON_ISSURANCE_REPOSITORY')
-    private readonly couopnRepository: IIssuranceRepository,
+    private readonly issuranceRepository: IIssuranceRepository,
   ) {}
 
   async getCouponsByIssuerUuid(
@@ -15,12 +15,24 @@ export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
     take: number,
     skip: number,
   ) {
-    const coupons = await this.couopnRepository.getCouponsByIssuerUuid(
+    const coupons = await this.issuranceRepository.getCouponsByIssuerUuid(
       issuerUuid,
       requestDate,
       take,
       skip,
     );
     return coupons;
+  }
+
+  async getIssuranceByIssuerUuidAndCouponUuid(
+    issuerUuid: string,
+    couponUuid: string,
+  ) {
+    const issurance =
+      await this.issuranceRepository.getIssuranceByIssuerUuidAndCouponUuid(
+        issuerUuid,
+        couponUuid,
+      );
+    return issurance;
   }
 }
