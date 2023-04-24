@@ -19,4 +19,14 @@ export class IssuranceRepository implements IIssuranceRepository {
       .values({ ...rest })
       .execute();
   }
+
+  update(issurance: CouponIssurance): void {
+    const properties = issurance.getProperties();
+    this.dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(CouponIssuranceModel)
+      .values({ ...properties })
+      .execute();
+  }
 }
