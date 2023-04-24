@@ -1,6 +1,6 @@
-import { CouopnModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.entity';
-import { CouponIssuerModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.issuer.entity';
-import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/entity/coupon.issurance.entity';
+import { CouopnModel } from 'src/coupon_service/adapter/out/persistence/coupon/entity/coupon.entity';
+import { CouponIssuerModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issuer.entity';
+import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
 

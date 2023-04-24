@@ -5,8 +5,9 @@ import { RegsiterCouponService } from './application/service/register.coupon.ser
 import { UpdateCouponService } from './application/service/update.coupon.service';
 import { UseCouponService } from './application/service/use.coupon.service';
 import { MysqlModule } from 'src/providers/database/mysql.module';
-import { CouponRepository } from './adapter/out/persistence/repository/couopn.repository.implement';
-import { RegisterCouponAdapter } from './adapter/out/persistence/port/register.coupon.adpater';
+import { CouponRepository } from './adapter/out/persistence/coupon/repository/couopn.repository.implement';
+import { RegisterCouponAdapter } from './adapter/out/persistence/coupon/adapter/register.coupon.adpater';
+import { UpdateCouponAdapter } from './adapter/out/persistence/coupon/adapter/update.coupon,adapter';
 
 @Module({
   imports: [MysqlModule],
@@ -36,6 +37,10 @@ import { RegisterCouponAdapter } from './adapter/out/persistence/port/register.c
     {
       provide: 'REGISTER_COUPON_OUTPORT',
       useClass: RegisterCouponAdapter,
+    },
+    {
+      provide: 'UPDATE_COUPON_OUTPORT',
+      useClass: UpdateCouponAdapter,
     },
   ],
 })
