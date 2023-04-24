@@ -10,7 +10,7 @@ export class IssuranceRepository implements IIssuranceRepository {
     @Inject('DATA_SOURCE')
     private readonly dataSource: DataSource,
   ) {}
-  save(issurance: CouponIssurance): void {
+  create(issurance: CouponIssurance): void {
     const { issuranceId, ...rest } = issurance.getProperties();
     this.dataSource
       .createQueryBuilder()

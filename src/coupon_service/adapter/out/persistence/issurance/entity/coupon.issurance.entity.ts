@@ -1,9 +1,11 @@
 import {
   Column,
+  DeleteDateColumn,
   Entity,
   JoinColumn,
   OneToOne,
   PrimaryGeneratedColumn,
+  UpdateDateColumn,
 } from 'typeorm';
 import { CouponIssuerModel } from './coupon.issuer.entity';
 
@@ -29,6 +31,12 @@ export class CouponIssuranceModel {
 
   @Column()
   couponUuid: string;
+
+  @UpdateDateColumn()
+  updatedAt: Date;
+
+  @DeleteDateColumn()
+  deletedAt: Date;
 
   @OneToOne(() => CouponIssuerModel, (issuer) => issuer.issuerId)
   @JoinColumn()

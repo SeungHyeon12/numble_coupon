@@ -10,7 +10,7 @@ export class CouponRepository implements ICouponRepository {
     private readonly dataSource: DataSource,
   ) {}
 
-  save(coupon: Coupon): void {
+  create(coupon: Coupon): void {
     const properties = coupon.getProperties();
     this.dataSource.createQueryBuilder().insert().into(CouopnModel).values({
       couponUuid: properties.couponUuid,

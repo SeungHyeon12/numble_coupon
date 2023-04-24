@@ -9,8 +9,8 @@ export class IssuranceStoreAdapter implements IssuranceStoreOutPort {
     private readonly couopnRepository: IIssuranceRepository,
   ) {}
 
-  save(issurance: CouponIssurance): void {
-    this.save(issurance);
+  create(issurance: CouponIssurance): void {
+    this.couopnRepository.create(issurance);
   }
 
   update(issurance: CouponIssurance): void {

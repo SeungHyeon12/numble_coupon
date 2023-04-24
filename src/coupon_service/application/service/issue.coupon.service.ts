@@ -44,6 +44,6 @@ export class IssueCouopnService implements IssueCouponUsecase {
       latestCouponIssurance,
       currentIssurance,
     );
-    this.issuranceStoreAdaptor.save(currentIssurance);
+    this.issuranceStoreAdaptor.create(currentIssurance);
   }
 }
