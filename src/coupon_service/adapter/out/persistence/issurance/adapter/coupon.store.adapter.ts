@@ -16,4 +16,11 @@ export class IssuranceStoreAdapter implements IssuranceStoreOutPort {
   update(issurance: CouponIssurance): void {
     this.couopnRepository.update(issurance);
   }
+
+  deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
+    this.couopnRepository.deleteByIssuerUuidAndCouonUuid(
+      issuerUuid,
+      couponUuid,
+    );
+  }
 }

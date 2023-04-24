@@ -3,4 +3,5 @@ import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coup
 export interface IIssuranceRepository {
   create(issurance: CouponIssurance): void;
   update(issurance: CouponIssurance): void;
+  deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string): void;
 }

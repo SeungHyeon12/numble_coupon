@@ -29,4 +29,14 @@ export class IssuranceRepository implements IIssuranceRepository {
       .values({ ...properties })
       .execute();
   }
+
+  deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string): void {
+    this.dataSource
+      .createQueryBuilder()
+      .softDelete()
+      .from(CouponIssuranceModel)
+      .where('couopnIssuer.issuerUuid = :issuerUuid', { issuerUuid })
+      .andWhere('couponUuid = :couopnUuid', { couponUuid })
+      .execute();
+  }
 }
