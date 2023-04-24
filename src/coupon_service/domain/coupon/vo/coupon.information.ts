@@ -1,3 +1,4 @@
+import { DISCOUNT_TYPE } from '../../coupon.issurance/vo/discount.type';
 import { CouponDiscountInfo } from './coupon.disount.info';
 import { CouponActiveDate } from './coupont.active.date';
 

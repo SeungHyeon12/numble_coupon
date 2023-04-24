@@ -1,3 +1,4 @@
+import { DISCOUNT_TYPE } from '../coupon.issurance/vo/discount.type';
 import { CouponInformation } from './vo/coupon.information';
 import { CouponUuid } from './vo/coupon.uuid';
 
@@ -17,6 +18,14 @@ export class Coupon {
     this.couponInformation = new CouponInformation({
       ...couponConstructorData,
     });
+  }
+
+  getProperties() {
+    return {
+      couponId: this.couponId,
+      couponUuid: this.couponUuid.getValue(),
+      couponInformation: this.couponInformation.getOptions(),
+    };
   }
 
   getCouponInformation() {

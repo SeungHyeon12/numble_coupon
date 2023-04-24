@@ -16,6 +16,7 @@ export const mysqlProviders = {
       database: 'coupon_service',
       entities: [CouopnModel, CouponIssuerModel, CouponIssuranceModel],
       synchronize: true,
+      logging: true,
       namingStrategy: new SnakeNamingStrategy(),
     });
 

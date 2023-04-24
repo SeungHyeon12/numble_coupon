@@ -1,5 +1,6 @@
 import { NotAcceptableException } from '@nestjs/common';
 import isNull from 'src/common/function/is.null.function';
+import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
 
 export class RegisterCouponCommand {
   discountType: DISCOUNT_TYPE;

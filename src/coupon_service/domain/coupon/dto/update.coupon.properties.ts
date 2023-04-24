@@ -1,5 +1,6 @@
-import { UpdateCouponCommand } from 'src/coupon_service/application/dto/update.coupon.command';
+import { UpdateCouponCommand } from 'src/coupon_service/application/dto/command/update.coupon.command';
 import { IUpdateCouponInput } from '../coupon.entity';
+import { DISCOUNT_TYPE } from '../../coupon.issurance/vo/discount.type';
 
 export class UpdateCouponProperties implements IUpdateCouponInput {
   issueLimit?: number;

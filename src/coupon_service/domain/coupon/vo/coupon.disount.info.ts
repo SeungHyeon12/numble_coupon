@@ -1,3 +1,5 @@
+import { DISCOUNT_TYPE } from '../../coupon.issurance/vo/discount.type';
+
 export class CouponDiscountInfo {
   //할인 정보 타입 discount_type   <RATE> : 할인률  <AMOUNT> : 실제금액
   private readonly discountType: DISCOUNT_TYPE;

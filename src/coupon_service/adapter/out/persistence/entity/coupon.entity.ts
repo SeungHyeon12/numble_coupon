@@ -17,7 +17,7 @@ export class CouopnModel {
   couponUuid: string;
 
   @Column(() => CouponInformationEmbededModel, { prefix: false })
-  private couponInformation: CouponInformationEmbededModel;
+  couponInformation: CouponInformationEmbededModel;
 
   @CreateDateColumn()
   createdAt: Date;

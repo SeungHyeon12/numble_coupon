@@ -5,4 +5,4 @@ import { mysqlProviders } from './mysql.provider';
   providers: [{ ...mysqlProviders }],
   exports: [{ ...mysqlProviders }],
 })
-export class DatabaseModule {}
+export class MysqlModule {}

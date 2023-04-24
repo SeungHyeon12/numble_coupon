@@ -4,9 +4,10 @@ import { IssueCouopnService } from './application/service/issue.coupon.service';
 import { RegsiterCouponService } from './application/service/register.coupon.service';
 import { UpdateCouponService } from './application/service/update.coupon.service';
 import { UseCouponService } from './application/service/use.coupon.service';
+import { MysqlModule } from 'src/providers/database/mysql.module';
 
 @Module({
-  imports: [],
+  imports: [MysqlModule],
   controllers: [],
   providers: [
     IssueCouponDomainService,
