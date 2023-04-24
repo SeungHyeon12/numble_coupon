@@ -10,7 +10,7 @@ import { CouponStoreAdapter } from './adapter/out/persistence/coupon/adapter/cou
 import { CouponReaderAdapter } from './adapter/out/persistence/coupon/adapter/coupon.reader.adapter';
 import { IssuranceRepository } from './adapter/out/persistence/issurance/repository/issurance.repository.implement';
 import { IssuranceStoreAdapter } from './adapter/out/persistence/issurance/adapter/coupon.store.adapter';
-import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/use.couopn.adapter';
+import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/couopn.reader.adapter';
 
 @Module({
   imports: [MysqlModule],

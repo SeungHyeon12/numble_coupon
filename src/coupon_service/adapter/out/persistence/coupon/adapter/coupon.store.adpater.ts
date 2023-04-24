@@ -11,11 +11,11 @@ export class CouponStoreAdapter implements CouponStoreOutPort {
     private readonly couopnRepository: ICouponRepository,
   ) {}
 
-  save(coupon: Coupon): void {
-    this.couopnRepository.save(coupon);
+  create(coupon: Coupon): void {
+    this.couopnRepository.create(coupon);
   }
 
   update(coupon: Coupon): void {
-    this.couopnRepository.save(coupon);
+    this.couopnRepository.update(coupon);
   }
 }
