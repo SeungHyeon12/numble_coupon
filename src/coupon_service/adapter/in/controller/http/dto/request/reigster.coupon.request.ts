@@ -24,5 +24,3 @@ export class RegisterCouponRequest {
   @IsNumber()
   issueLimit: number;
 }
-
-new Date().toISOString;

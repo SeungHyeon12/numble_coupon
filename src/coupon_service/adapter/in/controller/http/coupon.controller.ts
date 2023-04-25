@@ -44,4 +44,16 @@ export class CouponController {
     );
     return { statusCode: 200, message: 'ok' };
   }
+
+  @HttpCode(201)
+  @Post('/:couponUuid/issue')
+  async issueCoupon(
+    @Body() updateCouponRequest: UpdateCouponRequest,
+    @Param('couponUuid') couponUuid: string,
+  ) {
+    await this.updateCouponService.updateCoupon(
+      this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
+    );
+    return { statusCode: 200, message: 'ok' };
+  }
 }

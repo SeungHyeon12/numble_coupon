@@ -93,13 +93,13 @@ export class CouponIssurance {
       issuerId: null,
       productUuid: null,
       isUsedCoupon: false,
+      couponIssuedEndDate: null,
     });
   }
 }
 
 export type ICouponIssuranceConstructor = {
   issuranceId: number;
-  issueLimit: number;
   issuranceCount: number;
   isUsedCoupon: boolean;
 
@@ -115,5 +115,10 @@ export type ICouponIssuranceConstructor = {
 
 export type IIssueCouponInput = Omit<
   ICouponIssuranceConstructor,
-  'issuranceId' | 'issuranceCount' | 'issuerId' | 'productUuid' | 'isUsedCoupon'
+  | 'issuranceId'
+  | 'issuranceCount'
+  | 'issuerId'
+  | 'productUuid'
+  | 'isUsedCoupon'
+  | 'couponIssuedEndDate'
 >;
