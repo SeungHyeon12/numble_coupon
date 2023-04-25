@@ -12,8 +12,11 @@ export class CouponInformationEmbededModel {
     type: 'enum',
     enum: DISCOUNT_TYPE,
   })
-  discountType: string;
+  discountType: DISCOUNT_TYPE;
 
   @Column()
   discountValue: number;
+
+  @Column()
+  issueLimit: number;
 }

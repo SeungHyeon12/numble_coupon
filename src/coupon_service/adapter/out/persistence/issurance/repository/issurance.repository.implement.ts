@@ -59,10 +59,9 @@ export class IssuranceRepository implements IIssuranceRepository {
 
   deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string): void {
     this.dataSource
-      .createQueryBuilder()
+      .createQueryBuilder(CouponIssuranceModel, 'issuer')
       .softDelete()
-      .from(CouponIssuranceModel)
-      .where('couopnIssuer.issuerUuid = :issuerUuid', { issuerUuid })
+      .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
       .andWhere('couponUuid = :couponUuid', { couponUuid })
       .execute();
   }
@@ -74,7 +73,7 @@ export class IssuranceRepository implements IIssuranceRepository {
     skip: number,
   ): Promise<Coupon[]> {
     await this.dataSource
-      .createQueryBuilder('couopn_issurance', 'i')
+      .createQueryBuilder('coupon_issurance', 'i')
       .innerJoin('i.couponIssuer', 'user')
       .innerJoin('i.coupon', 'coupon')
       .select('coupon')

@@ -15,11 +15,11 @@ export class IssueCouponService implements IssueCouponUsecase {
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
 
     @Inject('COUPON_READER_OUTPORT')
-    private readonly couopnReaderAdaptor: CouponReaderOutPort,
+    private readonly couponReaderAdaptor: CouponReaderOutPort,
   ) {}
 
   async issueCoupon(command: IssueCouponCommand) {
-    const coupon = await this.couopnReaderAdaptor.getByCouponUuid(
+    const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couonUuid,
     );
     const latestCouponIssurance: CouponIssurance = null;

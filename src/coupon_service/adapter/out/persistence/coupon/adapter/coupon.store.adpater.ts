@@ -8,14 +8,14 @@ import { CouponStoreOutPort } from 'src/coupon_service/application/port/out/coup
 export class CouponStoreAdapter implements CouponStoreOutPort {
   constructor(
     @Inject('COUPON_REPOSITORY')
-    private readonly couopnRepository: ICouponRepository,
+    private readonly couponRepository: ICouponRepository,
   ) {}
 
   create(coupon: Coupon): void {
-    this.couopnRepository.create(coupon);
+    this.couponRepository.create(coupon);
   }
 
   update(coupon: Coupon): void {
-    this.couopnRepository.update(coupon);
+    this.couponRepository.update(coupon);
   }
 }

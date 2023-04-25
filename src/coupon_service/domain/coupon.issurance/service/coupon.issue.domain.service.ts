@@ -15,8 +15,8 @@ export class IssueCouponDomainService {
     }
   }
 
-  calcualteValidateTime(couponIssurance: CouponIssurance, couopn: Coupon) {
-    const couponActiveEndDate = couopn
+  calcualteValidateTime(couponIssurance: CouponIssurance, coupon: Coupon) {
+    const couponActiveEndDate = coupon
       .getCouponInformation()
       .getActiveDate().couponActiveEndDate;
 

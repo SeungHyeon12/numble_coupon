@@ -7,19 +7,19 @@ import { IssuranceStoreOutPort } from 'src/coupon_service/application/port/out/i
 export class IssuranceStoreAdapter implements IssuranceStoreOutPort {
   constructor(
     @Inject('COUPON_ISSURANCE_REPOSITORY')
-    private readonly couopnRepository: IIssuranceRepository,
+    private readonly couponRepository: IIssuranceRepository,
   ) {}
 
   create(issurance: CouponIssurance): void {
-    this.couopnRepository.create(issurance);
+    this.couponRepository.create(issurance);
   }
 
   update(issurance: CouponIssurance): void {
-    this.couopnRepository.update(issurance);
+    this.couponRepository.update(issurance);
   }
 
   deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
-    this.couopnRepository.deleteByIssuerUuidAndCouonUuid(
+    this.couponRepository.deleteByIssuerUuidAndCouonUuid(
       issuerUuid,
       couponUuid,
     );

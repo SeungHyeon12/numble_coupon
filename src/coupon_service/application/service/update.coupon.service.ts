@@ -12,11 +12,11 @@ export class UpdateCouponService implements UpdateCouponUseCase {
     private readonly couponStoreAdapter: CouponStoreOutPort,
 
     @Inject('COUPON_READER_OUTPORT')
-    private readonly couopnReaderAdaptor: CouponReaderOutPort,
+    private readonly couponReaderAdaptor: CouponReaderOutPort,
   ) {}
 
   async updateCoupon(command: UpdateCouponCommand): Promise<void> {
-    const coupon = await this.couopnReaderAdaptor.getByCouponUuid(
+    const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
     );
     coupon.updateCoupon(new UpdateCouponProperties(command));

@@ -33,7 +33,7 @@ import { IssueCouponService } from './application/service/issue.coupon.service';
       useClass: UpdateCouponService,
     },
     {
-      provide: 'USE_COUOPN_USECASE',
+      provide: 'USE_COUPON_USECASE',
       useClass: UseCouponService,
     },
     {

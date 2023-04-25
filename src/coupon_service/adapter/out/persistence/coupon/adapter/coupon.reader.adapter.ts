@@ -6,11 +6,11 @@ import { CouponReaderOutPort } from 'src/coupon_service/application/port/out/cou
 export class CouponReaderAdapter implements CouponReaderOutPort {
   constructor(
     @Inject('COUPON_REPOSITORY')
-    private readonly couopnRepository: ICouponRepository,
+    private readonly couponRepository: ICouponRepository,
   ) {}
 
   async getByCouponUuid(couponUuid: string) {
-    const coupon = await this.couopnRepository.getByCouponUuid(couponUuid);
+    const coupon = await this.couponRepository.getByCouponUuid(couponUuid);
     return coupon;
   }
 }

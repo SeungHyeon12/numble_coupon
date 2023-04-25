@@ -18,7 +18,7 @@ import { UpdateCouponUseCase } from 'src/coupon_service/application/port/in/usec
 export class CouponController {
   constructor(
     @Inject('REGISTER_COUPON_USECASE')
-    private readonly registerCouopnService: RegisterCouponUseCase,
+    private readonly registerCouponService: RegisterCouponUseCase,
     @Inject('UPDATE_COUPON_USECASE')
     private readonly updateCouponService: UpdateCouponUseCase,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
@@ -27,7 +27,7 @@ export class CouponController {
   @HttpCode(201)
   @Post()
   async registerCoupon(@Body() registerCouponRequest: RegisterCouponRequest) {
-    await this.registerCouopnService.registerCoupon(
+    await this.registerCouponService.registerCoupon(
       this.couponServiceMapper.toRegisterCommand(registerCouponRequest),
     );
     return { statusCode: 201, message: 'created' };

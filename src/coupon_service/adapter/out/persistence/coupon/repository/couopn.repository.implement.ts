@@ -25,15 +25,14 @@ export class CouponRepository implements ICouponRepository {
 
   async getByCouponUuid(couponUuid: string) {
     const coupon = await this.dataSource
-      .createQueryBuilder()
-      .select('couopn')
-      .from(CouponModel, 'coupon')
+      .createQueryBuilder(CouponModel, 'coupon')
+      .select('coupon')
       .where('coupon.couponUuid = :couponUuid', {
         couponUuid,
       })
       .getOne();
 
-    return null;
+    return coupon.toEntity();
   }
 
   update(coupon: Coupon): void {
@@ -44,7 +43,7 @@ export class CouponRepository implements ICouponRepository {
       .set({
         couponInformation: properties.couponInformation,
       })
-      .where('couponUuid = :couonUuid', { couponUuid: properties.couponUuid })
+      .where('couponUuid = :couponUuid', { couponUuid: properties.couponUuid })
       .execute();
   }
 }
