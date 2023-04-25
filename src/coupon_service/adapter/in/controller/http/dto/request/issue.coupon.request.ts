@@ -1,3 +1,4 @@
+import { Type } from 'class-transformer';
 import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class IssueCouponRequest {
@@ -5,10 +6,7 @@ export class IssueCouponRequest {
   issuerUuid: string;
 
   @IsNotEmpty()
-  @IsNumber()
-  discountValue: number;
-
-  @IsNotEmpty()
+  @Type(() => Date)
   @IsDate()
   couponIssuedStartDate: Date;
 }

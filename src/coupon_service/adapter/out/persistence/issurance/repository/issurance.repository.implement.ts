@@ -4,6 +4,8 @@ import { DataSource } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { CouponIssuranceModel } from '../entity/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { CouponModel } from '../../coupon/entity/coupon.entity';
+import { CouponIssuerModel } from '../entity/coupon.issuer.entity';
 
 @Injectable()
 export class IssuranceRepository implements IIssuranceRepository {
@@ -14,21 +16,35 @@ export class IssuranceRepository implements IIssuranceRepository {
   async create(issurance: CouponIssurance): Promise<void> {
     const { issuranceId, ...rest } = issurance.getProperties();
     const couponModel = await this.dataSource
-      .createQueryBuilder()
+      .createQueryBuilder(CouponModel, 'coupon')
       .select('coupon')
-      .from(Coupon, 'coupon')
-      .where('couponUuid = :couponUuid', {
-        couponUuid: issurance.getCouoponUuid().getValue(),
+      .where('coupon.couponUuid = :couponUuid', {
+        couponUuid: issurance.getCouponUuid().getValue(),
+      })
+      .getOne();
+
+    const issuerModel = await this.dataSource
+      .createQueryBuilder(CouponIssuerModel, 'issuer')
+      .select('issuer')
+      .where('issuer.issuerUuid = :issuerUuid', {
+        issuerUuid: issurance.getProperties().couponIssuer.issuerUuid,
       })
       .getOne();
 
     this.dataSource
       .createQueryBuilder()
-      .useTransaction(true)
-      .setLock('pessimistic_write')
       .insert()
       .into(CouponIssuranceModel)
-      .values({ ...rest, coupon: couponModel })
+      .values({ ...rest, coupon: couponModel, couponIssuer: issuerModel })
+      .execute();
+  }
+
+  async createIssuer(issuerUuid: string) {
+    await this.dataSource
+      .createQueryBuilder()
+      .insert()
+      .into(CouponIssuerModel)
+      .values({ issuerUuid })
       .execute();
   }
 

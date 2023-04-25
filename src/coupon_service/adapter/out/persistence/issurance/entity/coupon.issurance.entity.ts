@@ -24,9 +24,6 @@ export class CouponIssuranceModel {
   couponIssuedEndDate: Date;
 
   @Column()
-  issuranceCount: number;
-
-  @Column()
   issueValidatedDate: Date;
 
   @Column()
@@ -45,5 +42,5 @@ export class CouponIssuranceModel {
   couponIssuer: CouponIssuerModel;
 
   @ManyToOne(() => CouponModel, (coupon) => coupon.couponId)
-  coupon: Coupon;
+  coupon: CouponModel;
 }

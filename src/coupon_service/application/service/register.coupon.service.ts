@@ -14,7 +14,6 @@ export class RegsiterCouponService implements RegisterCouponUseCase {
 
   async registerCoupon(command: RegisterCouponCommand): Promise<void> {
     const coupon = Coupon.registerCoupon(new RegsiterCouponProperties(command));
-    console.log(coupon);
     await this.couponStoreAdapter.create(coupon);
   }
 }

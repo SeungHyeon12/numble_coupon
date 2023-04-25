@@ -6,7 +6,6 @@ export class CouponIssurance {
   private readonly issuranceId: number;
   private couponIssuer: CouponIssuer;
   private readonly couponIssueDate: CouponIssueDate;
-  private issuranceCount: number;
   private issueValidatedDate: Date;
   private isUsedCoupon: boolean;
   private couponUuid: CouponUuid;
@@ -22,6 +21,7 @@ export class CouponIssurance {
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
     );
+    this.isUsedCoupon = issueData.isUsedCoupon;
     this.couponUuid = new CouponUuid(issueData.couponUuid);
   }
   public getProperties() {
@@ -29,7 +29,6 @@ export class CouponIssurance {
       issuranceId: this.issuranceId,
       couponIssuedStartDate: this.couponIssueDate.getcouponIssuedStartDate(),
       couponIssuedEndDate: this.couponIssueDate.getcouponIssuedEndDate(),
-      issuranceCount: this.issuranceCount,
       issueValidatedDate: this.issueValidatedDate,
       isUsedCoupon: this.isUsedCoupon,
       couponUuid: this.couponUuid.getValue(),
@@ -37,7 +36,7 @@ export class CouponIssurance {
     };
   }
 
-  public getCouoponUuid() {
+  public getCouponUuid() {
     return this.couponUuid;
   }
 
@@ -62,20 +61,12 @@ export class CouponIssurance {
     this.isUsedCoupon = false;
   }
 
-  public updateIssuranceCount(nextCount: number) {
-    this.issuranceCount = nextCount;
-  }
-
   public confirmIssueValidateDate(calculatedValidateDate: Date) {
     this.issueValidatedDate = calculatedValidateDate;
   }
 
   public getIssueValidatedDate() {
     return this.issueValidatedDate;
-  }
-
-  public getissuranceCount() {
-    return this.issuranceCount;
   }
 
   public getIssueDate() {

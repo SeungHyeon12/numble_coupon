@@ -5,6 +5,8 @@ import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coup
 import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
+import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
+import { IssuerUuid } from 'src/coupon_service/domain/coupon.issurance/vo/user.uuid';
 
 @Injectable()
 export class IssueCouponService implements IssueCouponUsecase {
@@ -14,6 +16,9 @@ export class IssueCouponService implements IssueCouponUsecase {
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
 
+    @Inject('ISSURANCE_READER_OUTPORT')
+    private readonly issuranceReaderAdaptor: IssuranceReaderOutPort,
+
     @Inject('COUPON_READER_OUTPORT')
     private readonly couponReaderAdaptor: CouponReaderOutPort,
   ) {}
@@ -22,7 +27,11 @@ export class IssueCouponService implements IssueCouponUsecase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couonUuid,
     );
-    const latestCouponIssurance: CouponIssurance = null;
+    const latestCouponIssurance =
+      await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
+        command.issuerUuid,
+        command.couonUuid,
+      );
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
       latestCouponIssurance,
       command.couponIssuedStartDate,
@@ -30,10 +39,6 @@ export class IssueCouponService implements IssueCouponUsecase {
     this.issueCouponDomainService.checkCreateCouponExpired(
       coupon,
       command.couponIssuedStartDate,
-    );
-    this.issueCouponDomainService.checkCouponExceedLimit(
-      coupon,
-      latestCouponIssurance,
     );
     // 현재 발급받을 issurance
     const currentIssurance = CouponIssurance.IssueCoupon({
@@ -44,10 +49,7 @@ export class IssueCouponService implements IssueCouponUsecase {
       currentIssurance,
       coupon,
     );
-    this.issueCouponDomainService.calculateNextCouponCount(
-      latestCouponIssurance,
-      currentIssurance,
-    );
+    await this.issuranceStoreAdaptor.createIssuer(command.issuerUuid);
     this.issuranceStoreAdaptor.create(currentIssurance);
   }
 }

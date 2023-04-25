@@ -15,4 +15,5 @@ export interface IIssuranceRepository {
     issuerUuid: string,
     couponUuid: string,
   ): Promise<CouponIssurance>;
+  createIssuer(issuerUuid: string): Promise<void>;
 }
