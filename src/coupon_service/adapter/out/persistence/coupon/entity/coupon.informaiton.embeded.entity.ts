@@ -6,7 +6,7 @@ export class CouponInformationEmbededModel {
   couponActiveStartDate: Date;
 
   @Column()
-  couoponActiveEndDate: Date;
+  couponActiveEndDate: Date;
 
   @Column({
     type: 'enum',

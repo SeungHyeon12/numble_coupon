@@ -1,4 +1,4 @@
-import { CouopnModel } from 'src/coupon_service/adapter/out/persistence/coupon/entity/coupon.entity';
+import { CouponModel } from 'src/coupon_service/adapter/out/persistence/coupon/entity/coupon.entity';
 import { CouponIssuerModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issuer.entity';
 import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
 import { DataSource } from 'typeorm';
@@ -14,7 +14,7 @@ export const mysqlProviders = {
       username: 'root',
       password: '0000',
       database: 'coupon_service',
-      entities: [CouopnModel, CouponIssuerModel, CouponIssuranceModel],
+      entities: [CouponModel, CouponIssuerModel, CouponIssuranceModel],
       synchronize: true,
       logging: true,
       namingStrategy: new SnakeNamingStrategy(),

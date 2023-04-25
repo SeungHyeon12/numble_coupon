@@ -9,7 +9,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 import { CouponIssuerModel } from './coupon.issuer.entity';
-import { CouopnModel } from '../../coupon/entity/coupon.entity';
+import { CouponModel } from '../../coupon/entity/coupon.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 @Entity({ name: 'coupon_issurance' })
@@ -44,6 +44,6 @@ export class CouponIssuranceModel {
   @ManyToOne(() => CouponIssuerModel, (issuer) => issuer.issuerId)
   couponIssuer: CouponIssuerModel;
 
-  @ManyToOne(() => CouopnModel, (coupon) => coupon.couponId)
+  @ManyToOne(() => CouponModel, (coupon) => coupon.couponId)
   coupon: Coupon;
 }

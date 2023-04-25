@@ -8,7 +8,7 @@ export class CancleCouponCommand {
   constructor(inputData: ICancleCouponCommandConstructor) {
     this.validateRequiredInputData(inputData);
     this.issuerUuid = inputData.issuerUuid;
-    this.couponUuid = inputData.couopnUuid;
+    this.couponUuid = inputData.couponUuid;
   }
 
   private validateRequiredInputData(
@@ -18,7 +18,7 @@ export class CancleCouponCommand {
       throw new NotAcceptableException(
         '취소하려는 하려는 쿠폰의 IssuerUuid 값이 빠져있습니다',
       );
-    if (isNull(inputData.couopnUuid))
+    if (isNull(inputData.couponUuid))
       throw new NotAcceptableException(
         '취소하려는 하려는 쿠폰의 couponUuid 값이 빠져있습니다',
       );
@@ -27,5 +27,5 @@ export class CancleCouponCommand {
 
 export type ICancleCouponCommandConstructor = {
   issuerUuid: string;
-  couopnUuid: string;
+  couponUuid: string;
 };

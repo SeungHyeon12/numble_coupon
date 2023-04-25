@@ -4,12 +4,11 @@ import {
   DeleteDateColumn,
   Entity,
   PrimaryGeneratedColumn,
-  UpdateDateColumn,
 } from 'typeorm';
 import { CouponInformationEmbededModel } from './coupon.informaiton.embeded.entity';
 
 @Entity({ name: 'coupon' })
-export class CouopnModel {
+export class CouponModel {
   @PrimaryGeneratedColumn('increment')
   couponId: number;
 
@@ -21,9 +20,6 @@ export class CouopnModel {
 
   @CreateDateColumn()
   createdAt: Date;
-
-  @UpdateDateColumn()
-  updatedAt: Date;
 
   @DeleteDateColumn()
   deletedAt: Date;

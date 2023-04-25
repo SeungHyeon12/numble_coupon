@@ -7,7 +7,7 @@ import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
 
 @Injectable()
-export class IssueCouopnService implements IssueCouponUsecase {
+export class IssueCouponService implements IssueCouponUsecase {
   constructor(
     private readonly issueCouponDomainService: IssueCouponDomainService,
 

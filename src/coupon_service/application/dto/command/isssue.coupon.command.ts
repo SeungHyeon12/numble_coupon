@@ -8,7 +8,7 @@ export class IssueCouponCommand {
   couponIssuedEndDate: Date;
   issuerUuid: string;
 
-  constructor(inpuData: IIssueCouopnCommandConstructor) {
+  constructor(inpuData: IIssueCouponCommandConstructor) {
     this.validateInputData(inpuData);
     this.couonUuid = inpuData.couponUuid;
     this.issueLimit = inpuData.issueLimit;
@@ -17,7 +17,7 @@ export class IssueCouponCommand {
     this.issuerUuid = inpuData.issuerUuid;
   }
 
-  private validateInputData(inputData: IIssueCouopnCommandConstructor) {
+  private validateInputData(inputData: IIssueCouponCommandConstructor) {
     if (isNull(inputData.couponUuid))
       throw new NotAcceptableException(
         'coupon의 issueLimit에 대한 값이 빠져있습니다',
@@ -41,7 +41,7 @@ export class IssueCouponCommand {
   }
 }
 
-type IIssueCouopnCommandConstructor = {
+type IIssueCouponCommandConstructor = {
   couponUuid: string;
   issueLimit: number;
   couponIssuedStartDate: Date;

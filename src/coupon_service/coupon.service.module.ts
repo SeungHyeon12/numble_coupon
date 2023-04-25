@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import { IssueCouponDomainService } from './domain/coupon.issurance/service/coupon.issue.domain.service';
-import { IssueCouopnService } from './application/service/issue.coupon.service';
 import { RegsiterCouponService } from './application/service/register.coupon.service';
 import { UpdateCouponService } from './application/service/update.coupon.service';
 import { UseCouponService } from './application/service/use.coupon.service';
@@ -12,7 +11,8 @@ import { IssuranceRepository } from './adapter/out/persistence/issurance/reposit
 import { IssuranceStoreAdapter } from './adapter/out/persistence/issurance/adapter/coupon.issurance.store.adapter';
 import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/coupon.issurance.reader.adapter';
 import { CouponController } from './adapter/in/controller/http/coupon.controller';
-import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/request/coupon.service.dto.mapper';
+import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.service.dto.mapper';
+import { IssueCouponService } from './application/service/issue.coupon.service';
 
 @Module({
   imports: [MysqlModule],
@@ -22,14 +22,14 @@ import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/request
     CouponServiceDtoMapper,
     {
       provide: 'ISSUE_COUPON_USECASE',
-      useClass: IssueCouopnService,
+      useClass: IssueCouponService,
     },
     {
       provide: 'REGISTER_COUPON_USECASE',
       useClass: RegsiterCouponService,
     },
     {
-      provide: 'UPDATE_COUOPN_USECASE',
+      provide: 'UPDATE_COUPON_USECASE',
       useClass: UpdateCouponService,
     },
     {

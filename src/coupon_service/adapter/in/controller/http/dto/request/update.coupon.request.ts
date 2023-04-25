@@ -1,28 +1,27 @@
-import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber } from 'class-validator';
 import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
+import { RegisterCouponRequest } from './reigster.coupon.request';
+import { IsDate, IsNumber, IsOptional } from 'class-validator';
+import { Type } from 'class-transformer';
 
-export class RegisterCouponRequest {
-  @IsNotEmpty()
+export class UpdateCouponRequest implements Partial<RegisterCouponRequest> {
+  @IsOptional()
   @Type(() => Date)
   @IsDate()
   couponActiveStartDate: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @Type(() => Date)
   @IsDate()
   couponActiveEndDate: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   discountType: DISCOUNT_TYPE;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   discountValue: number;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsNumber()
   issueLimit: number;
 }
-
-new Date().toISOString;
