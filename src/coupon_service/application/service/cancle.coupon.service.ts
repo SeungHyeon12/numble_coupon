@@ -1,4 +1,3 @@
-import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
 import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
@@ -11,7 +10,7 @@ export class CancleCouponService implements CancleCouponUsecase {
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
 
-    @Inject('ISSURANCE_READ_OUTPORT')
+    @Inject('ISSURANCE_READER_OUTPORT')
     private readonly issuranceReadAdaptor: IssuranceReaderAdapter,
   ) {}
 

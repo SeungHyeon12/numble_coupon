@@ -13,6 +13,8 @@ import { RegisterCouponUseCase } from 'src/coupon_service/application/port/in/us
 import { RegisterCouponRequest } from './dto/request/reigster.coupon.request';
 import { UpdateCouponRequest } from './dto/request/update.coupon.request';
 import { UpdateCouponUseCase } from 'src/coupon_service/application/port/in/usecase/update.coupon.command';
+import { IssueCouponUsecase } from 'src/coupon_service/application/port/in/usecase/issue.coupon.usecase';
+import { IssueCouponRequest } from './dto/request/issue.coupon.request';
 
 @Controller('/coupon')
 export class CouponController {
@@ -21,6 +23,8 @@ export class CouponController {
     private readonly registerCouponService: RegisterCouponUseCase,
     @Inject('UPDATE_COUPON_USECASE')
     private readonly updateCouponService: UpdateCouponUseCase,
+    @Inject('ISSUE_COUPON_USECASE')
+    private readonly issueCouponService: IssueCouponUsecase,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
 
@@ -48,11 +52,11 @@ export class CouponController {
   @HttpCode(201)
   @Post('/:couponUuid/issue')
   async issueCoupon(
-    @Body() updateCouponRequest: UpdateCouponRequest,
+    @Body() issueCouopnRequest: IssueCouponRequest,
     @Param('couponUuid') couponUuid: string,
   ) {
-    await this.updateCouponService.updateCoupon(
-      this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
+    await this.issueCouponService.issueCoupon(
+      this.couponServiceMapper.toIssueCommand(issueCouopnRequest, couponUuid),
     );
     return { statusCode: 200, message: 'ok' };
   }
