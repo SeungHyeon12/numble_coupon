@@ -10,7 +10,7 @@ export class UseCouponService implements UseCouponUseCase {
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdapter: IssuranceStoreOutPort,
 
-    @Inject('ISSURANCE_READ_OUTPORT')
+    @Inject('ISSURANCE_READER_OUTPORT')
     private readonly issuranceReadAdaptor: IssuranceReaderAdapter,
 
     private readonly issueCouponDomainService: IssueCouponDomainService,

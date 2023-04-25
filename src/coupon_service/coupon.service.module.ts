@@ -49,7 +49,7 @@ import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/request
       useClass: CouponStoreAdapter,
     },
     {
-      provide: 'COUOPN_READER_OUTPORT',
+      provide: 'COUPON_READER_OUTPORT',
       useClass: CouponReaderAdapter,
     },
     {
