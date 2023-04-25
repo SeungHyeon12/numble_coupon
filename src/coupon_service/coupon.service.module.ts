@@ -9,14 +9,17 @@ import { CouponRepository } from './adapter/out/persistence/coupon/repository/co
 import { CouponStoreAdapter } from './adapter/out/persistence/coupon/adapter/coupon.store.adpater';
 import { CouponReaderAdapter } from './adapter/out/persistence/coupon/adapter/coupon.reader.adapter';
 import { IssuranceRepository } from './adapter/out/persistence/issurance/repository/issurance.repository.implement';
-import { IssuranceStoreAdapter } from './adapter/out/persistence/issurance/adapter/coupon.store.adapter';
-import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/couopn.reader.adapter';
+import { IssuranceStoreAdapter } from './adapter/out/persistence/issurance/adapter/coupon.issurance.store.adapter';
+import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adapter/coupon.issurance.reader.adapter';
+import { CouponController } from './adapter/in/controller/http/coupon.controller';
+import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/request/coupon.service.dto.mapper';
 
 @Module({
   imports: [MysqlModule],
-  controllers: [],
+  controllers: [CouponController],
   providers: [
     IssueCouponDomainService,
+    CouponServiceDtoMapper,
     {
       provide: 'ISSUE_COUPON_USECASE',
       useClass: IssueCouopnService,
