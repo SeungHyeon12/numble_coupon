@@ -2,15 +2,14 @@ import {
   Column,
   DeleteDateColumn,
   Entity,
-  JoinColumn,
   ManyToOne,
-  OneToOne,
   PrimaryGeneratedColumn,
   UpdateDateColumn,
 } from 'typeorm';
 import { CouponIssuerModel } from './coupon.issuer.entity';
 import { CouponModel } from '../../coupon/entity/coupon.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 
 @Entity({ name: 'coupon_issurance' })
 export class CouponIssuranceModel {
@@ -43,4 +42,18 @@ export class CouponIssuranceModel {
 
   @ManyToOne(() => CouponModel, (coupon) => coupon.couponId)
   coupon: CouponModel;
+
+  public toEntity() {
+    return new CouponIssurance({
+      issuranceId: this.id,
+      isUsedCoupon: this.isUsedCoupon,
+      couponIssuedStartDate: this.couponIssuedStartDate,
+      couponIssuedEndDate: this.couponIssuedEndDate,
+      issuerId: this.couponIssuer.issuerId,
+      issuerUuid: this.couponIssuer.issuerUuid,
+      productUuid: this.couponIssuer.productUuid,
+      couponUuid: this.couponUuid,
+      issueValidatedDate: this.issueValidatedDate,
+    });
+  }
 }

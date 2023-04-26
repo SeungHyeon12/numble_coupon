@@ -1,7 +1,7 @@
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { IIssuranceRepository } from './issurance.repository';
 import { DataSource } from 'typeorm';
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { CouponIssuranceModel } from '../entity/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { CouponModel } from '../../coupon/entity/coupon.entity';
@@ -22,6 +22,7 @@ export class IssuranceRepository implements IIssuranceRepository {
         couponUuid: issurance.getCouponUuid().getValue(),
       })
       .getOne();
+    if (!couponModel) throw new ConflictException('해당 쿠폰이 없습니다');
 
     const issuerModel = await this.dataSource
       .createQueryBuilder(CouponIssuerModel, 'issuer')
@@ -55,21 +56,39 @@ export class IssuranceRepository implements IIssuranceRepository {
     const issurance = await this.dataSource
       .createQueryBuilder(CouponIssuranceModel, 'issurance')
       .select('issurance')
-      .innerJoinAndSelect('issurance.couponIssuer', 'issuer')
+      .leftJoinAndSelect('issurance.couponIssuer', 'issuer')
       .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
       .andWhere('issurance.couponUuid = :couponUuid', { couponUuid })
       .getOne();
-
-    return null;
+    if (!issurance) return null;
+    return issurance.toEntity();
   }
 
-  update(issurance: CouponIssurance): void {
-    const properties = issurance.getProperties();
+  async update(issurance: CouponIssurance): Promise<void> {
+    const issuer = await this.dataSource
+      .createQueryBuilder(CouponIssuerModel, 'issuer')
+      .select()
+      .where('issuer.issuerUuid = :issuerUuid', {
+        issuerUuid: issurance.getIssuer().couponIssuer.issuerUuid,
+      })
+      .getOne();
+    if (!issuer)
+      throw new ConflictException('해당 id 에 해당하는 issuer 가 없습니다');
+    const { issuranceId, ...properties } = issurance.getProperties();
     this.dataSource
       .createQueryBuilder()
-      .insert()
-      .into(CouponIssuranceModel)
-      .values({ ...properties })
+      .update(CouponIssuranceModel)
+      .set({ ...properties, couponIssuer: issuer })
+      .where('id = :id', { id: issuranceId })
+      .execute();
+  }
+
+  async updateIssuer(issuerUuid: string, productUuid: string) {
+    await this.dataSource
+      .createQueryBuilder()
+      .update<CouponIssuerModel>(CouponIssuerModel)
+      .set({ productUuid })
+      .where('issuerUuid = :issuerUuid', { issuerUuid })
       .execute();
   }
 

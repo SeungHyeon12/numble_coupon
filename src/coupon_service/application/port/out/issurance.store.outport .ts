@@ -5,4 +5,5 @@ export interface IssuranceStoreOutPort {
   update(issurance: CouponIssurance): void;
   deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string);
   createIssuer(issuerId: string);
+  updateIssuer(issuerUuid: string, productUuid: string);
 }

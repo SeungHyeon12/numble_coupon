@@ -1,7 +1,7 @@
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { ICouponRepository } from './coupon.repository';
 import { DataSource } from 'typeorm';
-import { Inject } from '@nestjs/common';
+import { ConflictException, Inject } from '@nestjs/common';
 import { CouponModel } from '../entity/coupon.entity';
 
 export class CouponRepository implements ICouponRepository {
@@ -31,7 +31,7 @@ export class CouponRepository implements ICouponRepository {
         couponUuid,
       })
       .getOne();
-
+    if (!coupon) return null;
     return coupon.toEntity();
   }
 

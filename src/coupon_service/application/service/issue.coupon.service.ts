@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { IssueCouponUsecase } from '../port/in/usecase/issue.coupon.usecase';
 import { IssueCouponDomainService } from 'src/coupon_service/domain/coupon.issurance/service/coupon.issue.domain.service';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
@@ -6,7 +6,6 @@ import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
 import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
-import { IssuerUuid } from 'src/coupon_service/domain/coupon.issurance/vo/user.uuid';
 
 @Injectable()
 export class IssueCouponService implements IssueCouponUsecase {
@@ -23,10 +22,12 @@ export class IssueCouponService implements IssueCouponUsecase {
     private readonly couponReaderAdaptor: CouponReaderOutPort,
   ) {}
 
+  //transaction 추가
   async issueCoupon(command: IssueCouponCommand) {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couonUuid,
     );
+    if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
     const latestCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
         command.issuerUuid,

@@ -17,6 +17,7 @@ export class CouponIssurance {
       issuerUuid: issueData.issuerUuid,
       productUuid: issueData.productUuid,
     });
+    this.issueValidatedDate = issueData.issueValidatedDate;
     this.couponIssueDate = new CouponIssueDate(
       issueData.couponIssuedStartDate,
       issueData.couponIssuedStartDate,
@@ -80,22 +81,22 @@ export class CouponIssurance {
     return new CouponIssurance({
       ...issueInputData,
       issuranceId: null,
-      issuranceCount: null,
       issuerId: null,
       productUuid: null,
       isUsedCoupon: false,
       couponIssuedEndDate: null,
+      issueValidatedDate: null,
     });
   }
 }
 
 export type ICouponIssuranceConstructor = {
   issuranceId: number;
-  issuranceCount: number;
   isUsedCoupon: boolean;
 
   couponIssuedStartDate: Date;
   couponIssuedEndDate: Date;
+  issueValidatedDate: Date;
 
   issuerId: number;
   issuerUuid: string;
@@ -112,4 +113,5 @@ export type IIssueCouponInput = Omit<
   | 'productUuid'
   | 'isUsedCoupon'
   | 'couponIssuedEndDate'
+  | 'issueValidatedDate'
 >;

@@ -4,7 +4,7 @@ import { RegsiterCouponService } from './application/service/register.coupon.ser
 import { UpdateCouponService } from './application/service/update.coupon.service';
 import { UseCouponService } from './application/service/use.coupon.service';
 import { MysqlModule } from 'src/providers/database/mysql.module';
-import { CouponRepository } from './adapter/out/persistence/coupon/repository/couopn.repository.implement';
+import { CouponRepository } from './adapter/out/persistence/coupon/repository/coupon.repository.implement';
 import { CouponStoreAdapter } from './adapter/out/persistence/coupon/adapter/coupon.store.adpater';
 import { CouponReaderAdapter } from './adapter/out/persistence/coupon/adapter/coupon.reader.adapter';
 import { IssuranceRepository } from './adapter/out/persistence/issurance/repository/issurance.repository.implement';

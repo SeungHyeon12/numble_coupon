@@ -1,4 +1,4 @@
-import { Injectable, Inject } from '@nestjs/common';
+import { Injectable, Inject, ConflictException } from '@nestjs/common';
 import { UpdateCouponUseCase } from '../port/in/usecase/update.coupon.command';
 import { UpdateCouponProperties } from 'src/coupon_service/domain/coupon/dto/update.coupon.properties';
 import { UpdateCouponCommand } from '../dto/command/update.coupon.command';
@@ -19,6 +19,7 @@ export class UpdateCouponService implements UpdateCouponUseCase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
     );
+    if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
     coupon.updateCoupon(new UpdateCouponProperties(command));
     this.couponStoreAdapter.update(coupon);
   }

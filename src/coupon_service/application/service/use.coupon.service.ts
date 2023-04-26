@@ -26,6 +26,10 @@ export class UseCouponService implements UseCouponUseCase {
       issurance,
       command.useRequestDate,
     );
+    await this.issuranceStoreAdapter.updateIssuer(
+      command.issuerUuid,
+      command.productUuid,
+    );
     issurance.useCoupon(command.productUuid);
     this.issuranceStoreAdapter.update(issurance);
   }
