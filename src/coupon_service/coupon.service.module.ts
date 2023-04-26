@@ -13,6 +13,7 @@ import { IssuranceReaderAdapter } from './adapter/out/persistence/issurance/adap
 import { CouponController } from './adapter/in/controller/http/coupon.controller';
 import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.service.dto.mapper';
 import { IssueCouponService } from './application/service/issue.coupon.service';
+import { CancleCouponService } from './application/service/cancle.coupon.service';
 
 @Module({
   imports: [MysqlModule],
@@ -35,6 +36,10 @@ import { IssueCouponService } from './application/service/issue.coupon.service';
     {
       provide: 'USE_COUPON_USECASE',
       useClass: UseCouponService,
+    },
+    {
+      provide: 'CANCLE_COUPON_USECASE',
+      useClass: CancleCouponService,
     },
     {
       provide: 'COUPON_REPOSITORY',

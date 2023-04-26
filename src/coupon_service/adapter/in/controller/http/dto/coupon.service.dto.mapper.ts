@@ -6,6 +6,8 @@ import { IssueCouponRequest } from './request/issue.coupon.request';
 import { IssueCouponCommand } from 'src/coupon_service/application/dto/command/isssue.coupon.command';
 import { UseCouponCommand } from 'src/coupon_service/application/dto/command/use.coupon.command';
 import { UseCouponRequest } from './request/use.couopn.request';
+import { CancleCouponRequest } from './request/cancle.coupon.request';
+import { CancleCouponCommand } from 'src/coupon_service/application/dto/command/cancle.coupon.command';
 
 export class CouponServiceDtoMapper {
   toRegisterCommand(request: RegisterCouponRequest) {
@@ -22,5 +24,9 @@ export class CouponServiceDtoMapper {
 
   toUseCommand(request: UseCouponRequest, couponUuid: string) {
     return new UseCouponCommand({ ...request, couponUuid });
+  }
+
+  toCancleCommand(request: CancleCouponRequest, couponUuid: string) {
+    return new CancleCouponCommand({ ...request, couponUuid });
   }
 }

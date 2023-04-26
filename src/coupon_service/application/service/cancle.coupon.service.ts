@@ -12,6 +12,9 @@ export class CancleCouponService implements CancleCouponUsecase {
 
     @Inject('ISSURANCE_READER_OUTPORT')
     private readonly issuranceReadAdaptor: IssuranceReaderAdapter,
+
+    @Inject('ISSURANCE_STORE_OUTPORT')
+    private readonly issuranceStoreAdapter: IssuranceStoreOutPort,
   ) {}
 
   async cancleUseCoupon(command: CancleCouponCommand): Promise<void> {
@@ -21,6 +24,7 @@ export class CancleCouponService implements CancleCouponUsecase {
         command.couponUuid,
       );
     issurance.cancleCoupon();
+    await this.issuranceStoreAdapter.updateIssuer(command.issuerUuid, null);
     this.issuranceStoreAdaptor.update(issurance);
   }
 }

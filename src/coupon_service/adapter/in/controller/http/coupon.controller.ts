@@ -16,6 +16,8 @@ import { IssueCouponUsecase } from 'src/coupon_service/application/port/in/useca
 import { IssueCouponRequest } from './dto/request/issue.coupon.request';
 import { UseCouponRequest } from './dto/request/use.couopn.request';
 import { UseCouponUseCase } from 'src/coupon_service/application/port/in/usecase/use.coupon.usecase';
+import { CancleCouponRequest } from './dto/request/cancle.coupon.request';
+import { CancleCouponUsecase } from 'src/coupon_service/application/port/in/usecase/cancle.coupon.usecase';
 
 @Controller('/coupon')
 export class CouponController {
@@ -28,6 +30,8 @@ export class CouponController {
     private readonly issueCouponService: IssueCouponUsecase,
     @Inject('USE_COUPON_USECASE')
     private readonly useCouponService: UseCouponUseCase,
+    @Inject('CANCLE_COUPON_USECASE')
+    private readonly cancleCouponService: CancleCouponUsecase,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
 
@@ -72,6 +76,18 @@ export class CouponController {
   ) {
     await this.useCouponService.useCoupon(
       this.couponServiceMapper.toUseCommand(useCouopnRequest, couponUuid),
+    );
+    return { statusCode: 200, message: 'ok' };
+  }
+
+  @HttpCode(200)
+  @Post('/:couponUuid/cancle')
+  async cancleCoupon(
+    @Body() cancleCouponRequest: CancleCouponRequest,
+    @Param('couponUuid') couponUuid: string,
+  ) {
+    await this.cancleCouponService.cancleUseCoupon(
+      this.couponServiceMapper.toCancleCommand(cancleCouponRequest, couponUuid),
     );
     return { statusCode: 200, message: 'ok' };
   }
