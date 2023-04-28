@@ -22,15 +22,12 @@ export class UseCouponService implements UseCouponUseCase {
         command.issuerUuid,
         command.couponUuid,
       );
+    issurance.checkAlreadyUseCoupon();
     this.issueCouponDomainService.checkCanUseCoupon(
       issurance,
       command.useRequestDate,
     );
     issurance.useCoupon(command.productUuid);
-    await this.issuranceStoreAdapter.updateIssuer(
-      command.issuerUuid,
-      command.productUuid,
-    );
     this.issuranceStoreAdapter.update(issurance);
   }
 }

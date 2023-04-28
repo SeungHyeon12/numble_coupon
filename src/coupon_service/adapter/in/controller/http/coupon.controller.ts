@@ -50,6 +50,7 @@ export class CouponController {
     @Body() updateCouponRequest: UpdateCouponRequest,
     @Param('couponUuid') couponUuid: string,
   ) {
+    console.log(updateCouponRequest);
     await this.updateCouponService.updateCoupon(
       this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
     );

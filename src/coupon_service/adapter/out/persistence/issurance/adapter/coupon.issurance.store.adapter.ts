@@ -9,9 +9,6 @@ export class IssuranceStoreAdapter implements IssuranceStoreOutPort {
     @Inject('COUPON_ISSURANCE_REPOSITORY')
     private readonly issuranceRepository: IIssuranceRepository,
   ) {}
-  async updateIssuer(issuerUuid: string, productUuid: string) {
-    await this.issuranceRepository.updateIssuer(issuerUuid, productUuid);
-  }
 
   create(issurance: CouponIssurance): void {
     this.issuranceRepository.create(issurance);

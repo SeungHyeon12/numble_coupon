@@ -24,7 +24,6 @@ export class CancleCouponService implements CancleCouponUsecase {
         command.couponUuid,
       );
     issurance.cancleCoupon();
-    await this.issuranceStoreAdapter.updateIssuer(command.issuerUuid, null);
     this.issuranceStoreAdaptor.update(issurance);
   }
 }

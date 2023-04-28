@@ -7,7 +7,4 @@ export class CouponIssuerModel {
 
   @Column()
   issuerUuid: string;
-
-  @Column({ nullable: true })
-  productUuid: string;
 }

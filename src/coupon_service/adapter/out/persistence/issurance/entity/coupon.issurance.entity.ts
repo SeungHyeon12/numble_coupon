@@ -8,7 +8,6 @@ import {
 } from 'typeorm';
 import { CouponIssuerModel } from './coupon.issuer.entity';
 import { CouponModel } from '../../coupon/entity/coupon.entity';
-import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 
 @Entity({ name: 'coupon_issurance' })
@@ -37,6 +36,9 @@ export class CouponIssuranceModel {
   @DeleteDateColumn()
   deletedAt: Date;
 
+  @Column({ nullable: true })
+  productUuid: string;
+
   @ManyToOne(() => CouponIssuerModel, (issuer) => issuer.issuerId)
   couponIssuer: CouponIssuerModel;
 
@@ -51,7 +53,7 @@ export class CouponIssuranceModel {
       couponIssuedEndDate: this.couponIssuedEndDate,
       issuerId: this.couponIssuer.issuerId,
       issuerUuid: this.couponIssuer.issuerUuid,
-      productUuid: this.couponIssuer.productUuid,
+      productUuid: this.productUuid,
       couponUuid: this.couponUuid,
       issueValidatedDate: this.issueValidatedDate,
     });

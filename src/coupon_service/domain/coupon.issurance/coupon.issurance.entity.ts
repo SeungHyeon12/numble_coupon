@@ -1,6 +1,8 @@
 import { CouponIssuer } from './coupon.issuer.entity';
 import { CouponUuid } from '../coupon/vo/coupon.uuid';
 import { CouponIssueDate } from './vo/coupon.issue.date';
+import { ProductUuid } from './vo/product.uuid';
+import { NotAcceptableException } from '@nestjs/common';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
@@ -9,14 +11,16 @@ export class CouponIssurance {
   private issueValidatedDate: Date;
   private isUsedCoupon: boolean;
   private couponUuid: CouponUuid;
+  // 쿠폰을 사용한 물건의 Uuid
+  productUuid: ProductUuid;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
     this.couponIssuer = new CouponIssuer({
       issuerId: issueData.issuerId,
       issuerUuid: issueData.issuerUuid,
-      productUuid: issueData.productUuid,
     });
+    this.productUuid = new ProductUuid(issueData.productUuid);
     this.issueValidatedDate = issueData.issueValidatedDate;
     this.couponIssueDate = new CouponIssueDate(
       issueData.couponIssuedStartDate,
@@ -33,6 +37,7 @@ export class CouponIssurance {
       issueValidatedDate: this.issueValidatedDate,
       isUsedCoupon: this.isUsedCoupon,
       couponUuid: this.couponUuid.getValue(),
+      productUuid: this.productUuid.getValue(),
       couponIssuer: this.couponIssuer.getProperties(),
     };
   }
@@ -48,17 +53,17 @@ export class CouponIssurance {
   }
 
   public useCoupon(productUuid: string) {
-    const issuerProperties = this.couponIssuer.getProperties();
-    this.couponIssuer = new CouponIssuer({ ...issuerProperties, productUuid });
+    this.productUuid = new ProductUuid(productUuid);
     this.isUsedCoupon = true;
   }
 
+  public checkAlreadyUseCoupon() {
+    if (this.isUsedCoupon)
+      throw new NotAcceptableException('이미 사용된 쿠폰입니다');
+  }
+
   public cancleCoupon() {
-    const issuerProperties = this.couponIssuer.getProperties();
-    this.couponIssuer = new CouponIssuer({
-      ...issuerProperties,
-      productUuid: null,
-    });
+    this.productUuid = null;
     this.isUsedCoupon = false;
   }
 

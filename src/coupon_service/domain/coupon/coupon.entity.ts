@@ -37,6 +37,7 @@ export class Coupon {
   }
 
   public updateCoupon(updateInput: IUpdateCouponInput) {
+    console.log(updateInput);
     this.couponInformation = new CouponInformation({
       ...this.couponInformation.getOptions(),
       ...updateInput,

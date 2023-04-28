@@ -65,30 +65,12 @@ export class IssuranceRepository implements IIssuranceRepository {
   }
 
   async update(issurance: CouponIssurance): Promise<void> {
-    const issuer = await this.dataSource
-      .createQueryBuilder(CouponIssuerModel, 'issuer')
-      .select()
-      .where('issuer.issuerUuid = :issuerUuid', {
-        issuerUuid: issurance.getIssuer().couponIssuer.issuerUuid,
-      })
-      .getOne();
-    if (!issuer)
-      throw new ConflictException('해당 id 에 해당하는 issuer 가 없습니다');
     const { issuranceId, ...properties } = issurance.getProperties();
     this.dataSource
       .createQueryBuilder()
       .update(CouponIssuranceModel)
-      .set({ ...properties, couponIssuer: issuer })
-      .where('id = :id', { id: issuranceId })
-      .execute();
-  }
-
-  async updateIssuer(issuerUuid: string, productUuid: string) {
-    await this.dataSource
-      .createQueryBuilder()
-      .update<CouponIssuerModel>(CouponIssuerModel)
-      .set({ productUuid })
-      .where('issuerUuid = :issuerUuid', { issuerUuid })
+      .set({ ...properties })
+      .where('id = :id', { id: issurance.getProperties().issuranceId })
       .execute();
   }
 
