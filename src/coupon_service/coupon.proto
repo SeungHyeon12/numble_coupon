@@ -6,29 +6,29 @@ import "google/protobuf/empty.proto";
 
 package coupon;
 
-service couponService {
+service CouponGrpcController {
+  rpc registerCoupon (RegisterCoupon) returns (OkResponse) {}
   rpc getCoupons (GetCouopns) returns (GetCouponResponse) {}
-  rpc registerCoupon (RegisterCoupon) returns (google.protobuf.Empty) {}
-  rpc updateCoupon (UpdateCoupon) returns (google.protobuf.Empty) {}
-  rpc issueCoupon (IssueCoupon) returns (google.protobuf.Empty) {}
-  rpc useCoupon (UseCoupon) returns (google.protobuf.Empty) {}
-  rpc cancleCoupon (HeroById) returns (google.protobuf.Empty) {}
+  rpc updateCoupon (UpdateCoupon) returns (OkResponse) {}
+  rpc issueCoupon (IssueCoupon) returns (OkResponse) {}
+  rpc useCoupon (UseCoupon) returns (OkResponse) {}
+  rpc cancleCoupon (HeroById) returns (OkResponse) {}
 }
 
 //// dto (request)
-message GetCouopns {
-  string page = 1;
-  string size = 2;
-  string issuerUuid = 3;
-  google.protobuf.Timestamp  requestDate = 4;
-}
-
 message RegisterCoupon {
   google.protobuf.Timestamp couponActiveStartDate = 1;
   google.protobuf.Timestamp couponActiveEndDate = 2;
   DISCOUNT_TYPE discountType  = 3;
   int32 discountValue = 4;
   int32 issueLimit = 5;
+}
+
+message GetCouopns {
+  int32 page = 1;
+  int32 size = 2;
+  string issuerUuid = 3;
+  google.protobuf.Timestamp  requestDate = 4;
 }
 
 message UpdateCoupon {
@@ -61,7 +61,14 @@ message CancleCoupon {
 
 ////  dto (response)
 message GetCouponResponse  {
-  repeated Coupon coupon = 1;
+  string statusCode = 1;
+  string message = 2;
+  repeated Coupon data = 3;
+}
+
+message OkResponse {
+  string statusCode = 1;
+  string message = 2;
 }
 
 //enum | object
