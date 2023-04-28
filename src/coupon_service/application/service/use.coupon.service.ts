@@ -23,7 +23,7 @@ export class UseCouponService implements UseCouponUseCase {
         command.couponUuid,
       );
     issurance.checkAlreadyUseCoupon();
-    this.issueCouponDomainService.checkCanUseCoupon(
+    this.issueCouponDomainService.isCanUseCouponDate(
       issurance,
       command.useRequestDate,
     );

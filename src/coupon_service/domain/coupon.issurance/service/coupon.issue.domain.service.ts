@@ -43,7 +43,7 @@ export class IssueCouponDomainService {
       throw new ConflictException('이미 발급된 쿠폰이 존재합니다존재합니다');
   }
 
-  checkCanUseCoupon(issurance: CouponIssurance, useRequestDate: Date) {
+  isCanUseCouponDate(issurance: CouponIssurance, useRequestDate: Date) {
     if (new Date(issurance.getIssueValidatedDate()) < new Date(useRequestDate))
       throw new NotAcceptableException('이미 쿠폰의 유효기간이 지났습니다');
   }
