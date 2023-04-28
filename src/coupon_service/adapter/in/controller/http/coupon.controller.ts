@@ -14,7 +14,6 @@ import { RegisterCouponUseCase } from 'src/coupon_service/application/port/in/us
 import { RegisterCouponRequest } from './dto/request/reigster.coupon.request';
 import { UpdateCouponRequest } from './dto/request/update.coupon.request';
 import { UpdateCouponUseCase } from 'src/coupon_service/application/port/in/usecase/update.coupon.command';
-import { IssueCouponUsecase } from 'src/coupon_service/application/port/in/usecase/issue.coupon.usecase';
 import { IssueCouponRequest } from './dto/request/issue.coupon.request';
 import { UseCouponRequest } from './dto/request/use.couopn.request';
 import { UseCouponUseCase } from 'src/coupon_service/application/port/in/usecase/use.coupon.usecase';
@@ -22,6 +21,7 @@ import { CancleCouponRequest } from './dto/request/cancle.coupon.request';
 import { CancleCouponUsecase } from 'src/coupon_service/application/port/in/usecase/cancle.coupon.usecase';
 import { GetCouponsService } from 'src/coupon_service/application/service/get.coupons.service';
 import { GetCouponsRequest } from './dto/request/get.coupons.request';
+import { QueueIssuranceUseCase } from 'src/coupon_service/application/port/in/usecase/queue.issurance.usecase';
 
 @Controller('/coupons')
 export class CouponController {
@@ -30,8 +30,8 @@ export class CouponController {
     private readonly registerCouponService: RegisterCouponUseCase,
     @Inject('UPDATE_COUPON_USECASE')
     private readonly updateCouponService: UpdateCouponUseCase,
-    @Inject('ISSUE_COUPON_USECASE')
-    private readonly issueCouponService: IssueCouponUsecase,
+    @Inject('QUEUE_ISSURANCE_USECASE')
+    private readonly queueIssuranceService: QueueIssuranceUseCase,
     @Inject('USE_COUPON_USECASE')
     private readonly useCouponService: UseCouponUseCase,
     @Inject('CANCLE_COUPON_USECASE')
@@ -85,7 +85,7 @@ export class CouponController {
     @Body() issueCouopnRequest: IssueCouponRequest,
     @Param('couponUuid') couponUuid: string,
   ) {
-    await this.issueCouponService.issueCoupon(
+    await this.queueIssuranceService.registerIssuranceQueue(
       this.couponServiceMapper.toIssueCommand(issueCouopnRequest, couponUuid),
     );
     return { statusCode: 200, message: 'ok' };

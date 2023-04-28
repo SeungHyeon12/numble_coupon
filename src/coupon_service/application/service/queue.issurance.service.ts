@@ -10,7 +10,7 @@ export class QueueIssuranceService implements QueueIssuranceUseCase {
     private readonly redisQueueManager: queueManagerOutport,
   ) {}
 
-  async registerQueue(command: QueueIssuranceCommand) {
+  async registerIssuranceQueue(command: QueueIssuranceCommand) {
     await this.redisQueueManager.emitEvent(command);
   }
 }
