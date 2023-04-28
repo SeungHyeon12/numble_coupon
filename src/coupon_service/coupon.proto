@@ -12,7 +12,7 @@ service CouponGrpcController {
   rpc updateCoupon (UpdateCoupon) returns (OkResponse) {}
   rpc issueCoupon (IssueCoupon) returns (OkResponse) {}
   rpc useCoupon (UseCoupon) returns (OkResponse) {}
-  rpc cancleCoupon (HeroById) returns (OkResponse) {}
+  rpc cancleCoupon (CancleCoupon) returns (OkResponse) {}
 }
 
 //// dto (request)
