@@ -25,13 +25,13 @@ export class IssueCouponService implements IssueCouponUsecase {
   //transaction 추가
   async issueCoupon(command: IssueCouponCommand) {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
-      command.couonUuid,
+      command.couponUuid,
     );
     if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
     const latestIssuerCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
         command.issuerUuid,
-        command.couonUuid,
+        command.couponUuid,
       );
 
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
@@ -46,9 +46,9 @@ export class IssueCouponService implements IssueCouponUsecase {
     //현재 이슈어가 아닌 쿠폰자체의 마지막 count 를 세기위한값
     const lastCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByCouponUuid(
-        command.couonUuid,
+        command.couponUuid,
       );
-    console.log(lastCouponIssurance);
+
     const nextCount = this.issueCouponDomainService.calculateCouponCount(
       coupon,
       lastCouponIssurance,

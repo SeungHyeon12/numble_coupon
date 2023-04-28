@@ -15,14 +15,15 @@ import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.
 import { IssueCouponService } from './application/service/issue.coupon.service';
 import { CancleCouponService } from './application/service/cancle.coupon.service';
 import { GetCouponsService } from './application/service/get.coupons.service';
-import { BullMqModule } from 'src/providers/queue/bull.mq.module';
 import { EventMapper } from './adapter/in/event.handler/event.mapper';
 import { IssuranceCouponEventHandler } from './adapter/in/event.handler/issurance.coupon.event.handler';
 import { QueueIssuranceService } from './application/service/queue.issurance.service';
 import { RedisQueueManager } from './adapter/out/queue/redis.queue.manager';
+import { BullModule } from '@nestjs/bull';
+import { bullMqProvider } from 'src/providers/queue/bull.mq.provider';
 
 @Module({
-  imports: [MysqlModule, BullMqModule],
+  imports: [MysqlModule, BullModule.registerQueue({ ...bullMqProvider })],
   controllers: [CouponController],
   providers: [
     IssueCouponDomainService,
