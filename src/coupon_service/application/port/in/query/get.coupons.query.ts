@@ -1,5 +1,15 @@
-import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
 
 export interface GetCouponsQuery {
-  getCoupons(couopon): Promise<Coupon[]>;
+  getCoupons(couopon): Promise<CouponResponse[]>;
 }
+
+type CouponResponse = {
+  couponId: number;
+  couponUuid: string;
+  issueLimit: number;
+  discountType: DISCOUNT_TYPE;
+  discountValue: number;
+  couponActiveStartDate: Date;
+  couponActiveEndDate: Date;
+};

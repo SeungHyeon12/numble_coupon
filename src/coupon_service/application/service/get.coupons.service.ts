@@ -8,6 +8,17 @@ export class GetCouponsService implements GetCouponsQuery {
   private readonly issuranceReaderAdaptor: IssuranceReaderOutPort;
 
   async getCoupons(command: GetCouponsCommand) {
-    return null;
+    const { issuerUuid, requestDate, pageSize, pageOffset } = command;
+    const coupons =
+      await this.issuranceReaderAdaptor.getCouponsByIssuerUuidAndRequestDate(
+        issuerUuid,
+        requestDate,
+        pageSize,
+        pageOffset,
+      );
+    return coupons.map((coupon) => {
+      const { couponInformation, ...rest } = coupon.getProperties();
+      return { ...couponInformation, ...rest };
+    });
   }
 }

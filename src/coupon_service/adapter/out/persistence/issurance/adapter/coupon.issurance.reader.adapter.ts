@@ -1,7 +1,6 @@
 import { IssuranceReaderOutPort } from 'src/coupon_service/application/port/out/issurance.reader.outport';
 import { IIssuranceRepository } from '../repository/issurance.repository';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
-import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 @Injectable()
 export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
