@@ -2,7 +2,7 @@ import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
 import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { Inject, Injectable } from '@nestjs/common';
-import { IssuranceReaderAdapter } from 'src/coupon_service/adapter/out/persistence/issurance/adapter/coupon.issurance.reader.adapter';
+import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
 
 @Injectable()
 export class CancleCouponService implements CancleCouponUsecase {
@@ -11,7 +11,7 @@ export class CancleCouponService implements CancleCouponUsecase {
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
 
     @Inject('ISSURANCE_READER_OUTPORT')
-    private readonly issuranceReadAdaptor: IssuranceReaderAdapter,
+    private readonly issuranceReadAdaptor: IssuranceReaderOutPort,
 
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdapter: IssuranceStoreOutPort,
@@ -23,6 +23,7 @@ export class CancleCouponService implements CancleCouponUsecase {
         command.issuerUuid,
         command.couponUuid,
       );
+    console.log(issurance);
     issurance.cancleCoupon();
     this.issuranceStoreAdaptor.update(issurance);
   }

@@ -1,6 +1,6 @@
 import { IssuranceReaderOutPort } from 'src/coupon_service/application/port/out/issurance.reader.outport';
 import { IIssuranceRepository } from '../repository/issurance.repository';
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
@@ -33,6 +33,7 @@ export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
         issuerUuid,
         couponUuid,
       );
+    if (!issurance) throw new ConflictException('해당하는 쿠폰발급이 없습니다');
     return issurance;
   }
 }

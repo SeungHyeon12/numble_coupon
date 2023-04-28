@@ -12,7 +12,7 @@ export class CouponIssurance {
   private isUsedCoupon: boolean;
   private couponUuid: CouponUuid;
   // 쿠폰을 사용한 물건의 Uuid
-  productUuid: ProductUuid;
+  private productUuid: ProductUuid;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
@@ -63,7 +63,7 @@ export class CouponIssurance {
   }
 
   public cancleCoupon() {
-    this.productUuid = null;
+    this.productUuid = new ProductUuid(null);
     this.isUsedCoupon = false;
   }
 
