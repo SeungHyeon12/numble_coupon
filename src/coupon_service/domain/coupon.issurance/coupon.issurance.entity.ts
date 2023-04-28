@@ -13,6 +13,7 @@ export class CouponIssurance {
   private couponUuid: CouponUuid;
   // 쿠폰을 사용한 물건의 Uuid
   private productUuid: ProductUuid;
+  private issueCount: number;
 
   constructor(issueData: ICouponIssuranceConstructor) {
     this.issuranceId = issueData.issuranceId;
@@ -28,6 +29,7 @@ export class CouponIssurance {
     );
     this.isUsedCoupon = issueData.isUsedCoupon;
     this.couponUuid = new CouponUuid(issueData.couponUuid);
+    this.issueCount = issueData.issueCount;
   }
   public getProperties() {
     return {
@@ -39,6 +41,7 @@ export class CouponIssurance {
       couponUuid: this.couponUuid.getValue(),
       productUuid: this.productUuid.getValue(),
       couponIssuer: this.couponIssuer.getProperties(),
+      issueCount: this.issueCount,
     };
   }
 
@@ -50,6 +53,10 @@ export class CouponIssurance {
     return {
       couponIssuer: this.couponIssuer.getProperties(),
     };
+  }
+
+  public getCount() {
+    return this.issueCount;
   }
 
   public useCoupon(productUuid: string) {
@@ -108,6 +115,7 @@ export type ICouponIssuranceConstructor = {
   productUuid: string;
 
   couponUuid: string;
+  issueCount: number;
 };
 
 export type IIssueCouponInput = Omit<

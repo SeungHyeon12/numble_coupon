@@ -13,6 +13,7 @@ export class IssuranceRepository implements IIssuranceRepository {
     @Inject('DATA_SOURCE')
     private readonly dataSource: DataSource,
   ) {}
+
   async create(issurance: CouponIssurance): Promise<void> {
     const { issuranceId, ...rest } = issurance.getProperties();
     const couponModel = await this.dataSource
@@ -110,5 +111,16 @@ export class IssuranceRepository implements IIssuranceRepository {
     const coupons = issurances.map((issurance) => issurance.coupon.toEntity());
 
     return coupons;
+  }
+
+  async getIssuranceByCouponUuid(couponUuid: string) {
+    const issurance = await this.dataSource
+      .createQueryBuilder(CouponIssuranceModel, 'issue')
+      .leftJoinAndSelect('issue.couponIssuer', 'user')
+      .where('issue.couponUuid = :couponUuid', { couponUuid })
+      .orderBy('issue.id', 'DESC')
+      .getOne();
+    if (!issurance) return null;
+    return issurance.toEntity();
   }
 }

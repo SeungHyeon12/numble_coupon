@@ -30,6 +30,9 @@ export class CouponIssuranceModel {
   @Column()
   couponUuid: string;
 
+  @Column()
+  issueCount: number;
+
   @UpdateDateColumn()
   updatedAt: Date;
 
@@ -56,6 +59,7 @@ export class CouponIssuranceModel {
       productUuid: this.productUuid,
       couponUuid: this.couponUuid,
       issueValidatedDate: this.issueValidatedDate,
+      issueCount: this.issueCount,
     });
   }
 }

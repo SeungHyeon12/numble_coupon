@@ -1,6 +1,8 @@
 import { IIssueCouponInput } from '../coupon.issurance.entity';
 
-export class IssueCouponProperties implements IIssueCouponInput {
+export class IssueCouponProperties
+  implements Omit<IIssueCouponInput, 'issueCount'>
+{
   issueLimit: number;
   couponIssuedStartDate: Date;
   couponIssuedEndDate: Date;

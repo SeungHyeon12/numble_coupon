@@ -1,3 +1,4 @@
+import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
@@ -13,4 +14,6 @@ export interface IssuranceReaderOutPort {
     issuerUuid: string,
     couponUuid: string,
   ): Promise<CouponIssurance>;
+
+  getIssuranceByCouponUuid(couponUuid: string): Promise<CouponIssurance>;
 }

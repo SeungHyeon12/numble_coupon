@@ -28,24 +28,36 @@ export class IssueCouponService implements IssueCouponUsecase {
       command.couonUuid,
     );
     if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
-    const latestCouponIssurance =
+    const latestIssuerCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
         command.issuerUuid,
         command.couonUuid,
       );
 
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
-      latestCouponIssurance,
+      latestIssuerCouponIssurance,
       command.couponIssuedStartDate,
     );
     this.issueCouponDomainService.checkCreateCouponExpired(
       coupon,
       command.couponIssuedStartDate,
     );
+
+    //현재 이슈어가 아닌 쿠폰자체의 마지막 count 를 세기위한값
+    const lastCouponIssurance =
+      await this.issuranceReaderAdaptor.getIssuranceByCouponUuid(
+        command.couonUuid,
+      );
+    console.log(lastCouponIssurance);
+    const nextCount = this.issueCouponDomainService.calculateCouponCount(
+      coupon,
+      lastCouponIssurance,
+    );
     // 현재 발급받을 issurance
     const currentIssurance = CouponIssurance.IssueCoupon({
       ...command,
       couponUuid: coupon.getCouponUuid().getValue(),
+      issueCount: nextCount,
     });
     this.issueCouponDomainService.calcualteValidateTime(
       currentIssurance,
