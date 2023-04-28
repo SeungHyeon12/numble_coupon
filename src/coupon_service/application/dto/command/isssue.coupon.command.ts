@@ -29,7 +29,7 @@ export class IssueCouponCommand {
   }
 }
 
-type IIssueCouponCommandConstructor = {
+export type IIssueCouponCommandConstructor = {
   couponUuid: string;
   couponIssuedStartDate: Date;
   issuerUuid: string;

@@ -15,14 +15,20 @@ import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.
 import { IssueCouponService } from './application/service/issue.coupon.service';
 import { CancleCouponService } from './application/service/cancle.coupon.service';
 import { GetCouponsService } from './application/service/get.coupons.service';
-import { RedisIOModule } from 'src/providers/redis/redis.module';
+import { BullMqModule } from 'src/providers/queue/bull.mq.module';
+import { EventMapper } from './adapter/in/event.handler/event.mapper';
+import { IssuranceCouponEventHandler } from './adapter/in/event.handler/issurance.coupon.event.handler';
+import { QueueIssuranceService } from './application/service/queue.issurance.service';
+import { RedisQueueManager } from './adapter/out/queue/redis.queue.manager';
 
 @Module({
-  imports: [MysqlModule, RedisIOModule],
+  imports: [MysqlModule, BullMqModule],
   controllers: [CouponController],
   providers: [
     IssueCouponDomainService,
     CouponServiceDtoMapper,
+    EventMapper,
+    IssuranceCouponEventHandler,
     {
       provide: 'ISSUE_COUPON_USECASE',
       useClass: IssueCouponService,
@@ -48,6 +54,10 @@ import { RedisIOModule } from 'src/providers/redis/redis.module';
       useClass: GetCouponsService,
     },
     {
+      provide: 'QUEUE_ISSURANCE_USECASE',
+      useClass: QueueIssuranceService,
+    },
+    {
       provide: 'COUPON_REPOSITORY',
       useClass: CouponRepository,
     },
@@ -70,6 +80,10 @@ import { RedisIOModule } from 'src/providers/redis/redis.module';
     {
       provide: 'ISSURANCE_READER_OUTPORT',
       useClass: IssuranceReaderAdapter,
+    },
+    {
+      provide: 'QUEUE_MANAGER_OUTPORT',
+      useClass: RedisQueueManager,
     },
   ],
 })
