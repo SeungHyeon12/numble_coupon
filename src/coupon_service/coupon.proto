@@ -1,0 +1,81 @@
+// hero/hero.proto
+syntax = "proto3";
+
+import "google/protobuf/timestamp.proto";
+import "google/protobuf/empty.proto";
+
+package coupon;
+
+service couponService {
+  rpc getCoupons (GetCouopns) returns (GetCouponResponse) {}
+  rpc registerCoupon (RegisterCoupon) returns (google.protobuf.Empty) {}
+  rpc updateCoupon (UpdateCoupon) returns (google.protobuf.Empty) {}
+  rpc issueCoupon (IssueCoupon) returns (google.protobuf.Empty) {}
+  rpc useCoupon (UseCoupon) returns (google.protobuf.Empty) {}
+  rpc cancleCoupon (HeroById) returns (google.protobuf.Empty) {}
+}
+
+//// dto (request)
+message GetCouopns {
+  string page = 1;
+  string size = 2;
+  string issuerUuid = 3;
+  google.protobuf.Timestamp  requestDate = 4;
+}
+
+message RegisterCoupon {
+  google.protobuf.Timestamp couponActiveStartDate = 1;
+  google.protobuf.Timestamp couponActiveEndDate = 2;
+  DISCOUNT_TYPE discountType  = 3;
+  int32 discountValue = 4;
+  int32 issueLimit = 5;
+}
+
+message UpdateCoupon {
+  string couopnUuid = 1;
+  google.protobuf.Timestamp couponActiveStartDate = 2;
+  google.protobuf.Timestamp couponActiveEndDate = 3;
+  DISCOUNT_TYPE discountType  = 4;
+  int32 discountValue = 5;
+  int32 issueLimit = 6;
+}
+
+message IssueCoupon {
+  string couponUuid = 1;
+  string issuerUuid = 2;
+  google.protobuf.Timestamp couponIssuedStartDate = 3;
+}
+
+message UseCoupon {
+  string couponUuid = 1;
+  string productUuid = 2;
+  string issuerUuid = 3;
+  google.protobuf.Timestamp useRequestDate = 4;
+}
+
+message CancleCoupon {
+  string couponUuid = 1;
+  string issuerUuid = 2;
+}
+
+
+////  dto (response)
+message GetCouponResponse  {
+  repeated Coupon coupon = 1;
+}
+
+//enum | object
+enum DISCOUNT_TYPE{
+  RATE = 0;
+  AMOUNT = 1;
+}
+
+message Coupon  {
+  int32 issueLimit = 1;
+  DISCOUNT_TYPE discountType = 2;
+  int32 discountValue = 3;
+  google.protobuf.Timestamp  couponActiveStartDate = 4;
+  google.protobuf.Timestamp  couponActiveEndDate = 5;
+  string couponId = 6;
+  string couponUuid = 7;
+}
