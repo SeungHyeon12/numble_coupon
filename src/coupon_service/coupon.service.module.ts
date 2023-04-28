@@ -15,9 +15,10 @@ import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.
 import { IssueCouponService } from './application/service/issue.coupon.service';
 import { CancleCouponService } from './application/service/cancle.coupon.service';
 import { GetCouponsService } from './application/service/get.coupons.service';
+import { RedisIOModule } from 'src/providers/redis/redis.module';
 
 @Module({
-  imports: [MysqlModule],
+  imports: [MysqlModule, RedisIOModule],
   controllers: [CouponController],
   providers: [
     IssueCouponDomainService,
