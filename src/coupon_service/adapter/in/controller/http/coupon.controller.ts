@@ -86,7 +86,10 @@ export class CouponController {
     @Param('couponUuid') couponUuid: string,
   ) {
     await this.queueIssuranceService.registerIssuranceQueue(
-      this.couponServiceMapper.toIssueCommand(issueCouopnRequest, couponUuid),
+      this.couponServiceMapper.toQueueIssuranceCommand(
+        issueCouopnRequest,
+        couponUuid,
+      ),
     );
     return { statusCode: 200, message: 'ok' };
   }

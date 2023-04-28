@@ -3,13 +3,13 @@ import { RegisterCouponRequest } from './request/reigster.coupon.request';
 import { UpdateCouponRequest } from './request/update.coupon.request';
 import { UpdateCouponCommand } from 'src/coupon_service/application/dto/command/update.coupon.command';
 import { IssueCouponRequest } from './request/issue.coupon.request';
-import { IssueCouponCommand } from 'src/coupon_service/application/dto/command/isssue.coupon.command';
 import { UseCouponCommand } from 'src/coupon_service/application/dto/command/use.coupon.command';
 import { UseCouponRequest } from './request/use.couopn.request';
 import { CancleCouponRequest } from './request/cancle.coupon.request';
 import { CancleCouponCommand } from 'src/coupon_service/application/dto/command/cancle.coupon.command';
 import { GetCouponsCommand } from 'src/coupon_service/application/dto/command/get.coupons.command';
 import { GetCouponsRequest } from './request/get.coupons.request';
+import { QueueIssuranceCommand } from 'src/coupon_service/application/dto/command/queue.issurance.command';
 
 export class CouponServiceDtoMapper {
   toRegisterCommand(request: RegisterCouponRequest) {
@@ -18,10 +18,6 @@ export class CouponServiceDtoMapper {
 
   toUpdateCommand(request: UpdateCouponRequest, couponUuid: string) {
     return new UpdateCouponCommand({ ...request, couponUuid });
-  }
-
-  toIssueCommand(request: IssueCouponRequest, couponUuid: string) {
-    return new IssueCouponCommand({ ...request, couponUuid });
   }
 
   toUseCommand(request: UseCouponRequest, couponUuid: string) {
@@ -34,5 +30,9 @@ export class CouponServiceDtoMapper {
 
   toGetCouponsCommand(request: GetCouponsRequest, page: number, size: number) {
     return new GetCouponsCommand({ ...request, page, size });
+  }
+
+  toQueueIssuranceCommand(request: IssueCouponRequest, couponUuid: string) {
+    return new QueueIssuranceCommand({ ...request, couponUuid });
   }
 }
