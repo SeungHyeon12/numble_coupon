@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { ICouponRepository } from '../repository/coupon.repository';
 import { CouponReaderOutPort } from 'src/coupon_service/application/port/out/coupon.reader.outport';
 
@@ -11,6 +11,9 @@ export class CouponReaderAdapter implements CouponReaderOutPort {
 
   async getByCouponUuid(couponUuid: string) {
     const coupon = await this.couponRepository.getByCouponUuid(couponUuid);
+    if (!coupon) {
+      throw new ConflictException('해당하는 쿠폰이 없습니다');
+    }
     return coupon;
   }
 }

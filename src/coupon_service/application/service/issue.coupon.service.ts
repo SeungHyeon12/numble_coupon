@@ -27,7 +27,6 @@ export class IssueCouponService implements IssueCouponUsecase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couonUuid,
     );
-    if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
     const latestCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
         command.issuerUuid,

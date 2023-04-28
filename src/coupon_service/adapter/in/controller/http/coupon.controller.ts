@@ -48,7 +48,6 @@ export class CouponController {
     @Query('page') page: number,
     @Query('size') size: number,
   ) {
-    console.log(page);
     const data = await this.getCouponsServcie.getCoupons(
       this.couponServiceMapper.toGetCouponsCommand(
         getCouponsRequest,

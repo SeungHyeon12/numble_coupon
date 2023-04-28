@@ -34,7 +34,6 @@ export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
         issuerUuid,
         couponUuid,
       );
-    if (!issurance) throw new ConflictException('해당하는 쿠폰발급이 없습니다');
     return issurance;
   }
 }

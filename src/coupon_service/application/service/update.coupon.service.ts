@@ -19,7 +19,6 @@ export class UpdateCouponService implements UpdateCouponUseCase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
     );
-    if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
     coupon.updateCoupon(new UpdateCouponProperties(command));
     this.couponStoreAdapter.update(coupon);
   }

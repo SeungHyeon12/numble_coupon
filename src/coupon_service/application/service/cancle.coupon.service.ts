@@ -23,7 +23,7 @@ export class CancleCouponService implements CancleCouponUsecase {
         command.issuerUuid,
         command.couponUuid,
       );
-    console.log(issurance);
+    if (!issurance) throw new ConflictException('해당하는 발급내역이 없습니다');
     issurance.cancleCoupon();
     this.issuranceStoreAdaptor.update(issurance);
   }
