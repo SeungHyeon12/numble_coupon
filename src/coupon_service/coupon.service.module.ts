@@ -21,10 +21,11 @@ import { QueueIssuranceService } from './application/service/queue.issurance.ser
 import { RedisQueueManager } from './adapter/out/queue/redis.queue.manager';
 import { BullModule } from '@nestjs/bull';
 import { bullMqProvider } from 'src/providers/queue/bull.mq.provider';
+import { CouponGrpcController } from './adapter/in/controller/grpc/coupon.grpc.controller';
 
 @Module({
   imports: [MysqlModule, BullModule.registerQueue({ ...bullMqProvider })],
-  controllers: [CouponController],
+  controllers: [CouponController, CouponGrpcController],
   providers: [
     IssueCouponDomainService,
     CouponServiceDtoMapper,
