@@ -1,7 +1,7 @@
 import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
 import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
-import { Inject, Injectable } from '@nestjs/common';
+import { ConflictException, Inject, Injectable } from '@nestjs/common';
 import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
 
 @Injectable()

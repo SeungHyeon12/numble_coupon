@@ -33,6 +33,7 @@ export class IssueCouponService implements IssueCouponUsecase {
         command.issuerUuid,
         command.couonUuid,
       );
+
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
       latestCouponIssurance,
       command.couponIssuedStartDate,

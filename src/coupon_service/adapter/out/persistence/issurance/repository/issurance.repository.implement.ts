@@ -41,6 +41,15 @@ export class IssuranceRepository implements IIssuranceRepository {
   }
 
   async createIssuer(issuerUuid: string) {
+    const issuer = await this.dataSource
+      .createQueryBuilder(CouponIssuerModel, 'issuer')
+      .select('issuer')
+      .where('issuer.issuerUuid = :issuerUuid', {
+        issuerUuid,
+      })
+      .getOne();
+    if (issuer) return;
+
     await this.dataSource
       .createQueryBuilder()
       .insert()
@@ -99,6 +108,7 @@ export class IssuranceRepository implements IIssuranceRepository {
       .skip(skip)
       .getMany();
     const coupons = issurances.map((issurance) => issurance.coupon.toEntity());
+
     return coupons;
   }
 }

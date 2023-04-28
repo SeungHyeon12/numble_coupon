@@ -24,7 +24,7 @@ export class CouponIssurance {
     this.issueValidatedDate = issueData.issueValidatedDate;
     this.couponIssueDate = new CouponIssueDate(
       issueData.couponIssuedStartDate,
-      issueData.couponIssuedStartDate,
+      issueData.couponIssuedEndDate,
     );
     this.isUsedCoupon = issueData.isUsedCoupon;
     this.couponUuid = new CouponUuid(issueData.couponUuid);

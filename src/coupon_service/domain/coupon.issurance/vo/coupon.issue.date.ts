@@ -18,7 +18,7 @@ export class CouponIssueDate {
   calculateCouponIssuedEndDate(startDate: Date) {
     const startedDate = new Date(startDate);
     this.couponIssuedEndDate = new Date(
-      startDate.setDate(startDate.getDate() + 6),
+      startedDate.setDate(startedDate.getDate() + 6),
     );
   }
 
