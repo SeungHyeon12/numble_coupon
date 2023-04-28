@@ -2,7 +2,7 @@ import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coup
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 export interface IssuranceReaderOutPort {
-  getCouponsByIssuerUuid(
+  getCouponsByIssuerUuidAndRequestDate(
     issuerUuid: string,
     requestDate: Date,
     take: number,

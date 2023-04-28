@@ -1,6 +1,7 @@
 import { IssuranceReaderOutPort } from 'src/coupon_service/application/port/out/issurance.reader.outport';
 import { IIssuranceRepository } from '../repository/issurance.repository';
 import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 
 @Injectable()
 export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
@@ -9,18 +10,19 @@ export class IssuranceReaderAdapter implements IssuranceReaderOutPort {
     private readonly issuranceRepository: IIssuranceRepository,
   ) {}
 
-  async getCouponsByIssuerUuid(
+  async getCouponsByIssuerUuidAndRequestDate(
     issuerUuid: string,
     requestDate: Date,
     take: number,
     skip: number,
   ) {
-    const coupons = await this.issuranceRepository.getCouponsByIssuerUuid(
-      issuerUuid,
-      requestDate,
-      take,
-      skip,
-    );
+    const coupons =
+      await this.issuranceRepository.getCouponsByIssuerUuidAndRequestDate(
+        issuerUuid,
+        requestDate,
+        take,
+        skip,
+      );
     return coupons;
   }
 

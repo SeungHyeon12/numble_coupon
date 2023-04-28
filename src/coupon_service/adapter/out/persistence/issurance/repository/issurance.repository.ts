@@ -5,7 +5,7 @@ export interface IIssuranceRepository {
   create(issurance: CouponIssurance): Promise<void>;
   update(issurance: CouponIssurance): void;
   deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string): void;
-  getCouponsByIssuerUuid(
+  getCouponsByIssuerUuidAndRequestDate(
     issuerUuid: string,
     requestDate: Date,
     take: number,

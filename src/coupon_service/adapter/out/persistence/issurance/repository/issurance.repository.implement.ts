@@ -83,14 +83,14 @@ export class IssuranceRepository implements IIssuranceRepository {
       .execute();
   }
 
-  async getCouponsByIssuerUuid(
+  async getCouponsByIssuerUuidAndRequestDate(
     issuerUuid: string,
     requestDate: Date,
     take: number,
     skip: number,
   ): Promise<Coupon[]> {
-    await this.dataSource
-      .createQueryBuilder('coupon_issurance', 'i')
+    const issurances = await this.dataSource
+      .createQueryBuilder(CouponIssuranceModel, 'i')
       .innerJoin('i.couponIssuer', 'user')
       .innerJoin('i.coupon', 'coupon')
       .select('coupon')
@@ -99,7 +99,7 @@ export class IssuranceRepository implements IIssuranceRepository {
       .take(take)
       .skip(skip)
       .getMany();
-
-    return null;
+    const coupons = issurances.map((issurance) => issurance.coupon.toEntity());
+    return coupons;
   }
 }
