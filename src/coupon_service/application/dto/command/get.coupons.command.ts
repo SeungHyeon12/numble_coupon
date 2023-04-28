@@ -4,14 +4,14 @@ import isNull from 'src/common/function/is.null.function';
 export class GetCouponsCommand {
   issuerUuid: string;
   requestDate: Date;
-  pageSize: number;
-  pageOffset: number;
+  page: number;
+  size: number;
 
   constructor(inputData: IGetCouponsCommandConstructor) {
     this.issuerUuid = inputData.issuerUuid;
     this.requestDate = inputData.requestDate;
-    this.pageSize = inputData.pageSize;
-    this.pageOffset = inputData.pageOffset;
+    this.page = inputData.page;
+    this.size = inputData.size;
   }
 
   private validateRequiredInputData(inputData: IGetCouponsCommandConstructor) {
@@ -19,15 +19,15 @@ export class GetCouponsCommand {
       throw new NotAcceptableException('쿠폰의 issuerUuid 값이 빠져있습니다');
     if (isNull(inputData.issuerUuid))
       throw new NotAcceptableException('쿠폰의 requestDate 값이 빠져있습니다');
-    if (isNull(inputData.pageSize))
+    if (isNull(inputData.page))
       throw new NotAcceptableException('쿠폰의 pageSize 값이 빠져있습니다');
-    if (isNull(inputData.pageOffset))
+    if (isNull(inputData.size))
       throw new NotAcceptableException('쿠폰의 pageOffset 값이 빠져있습니다');
   }
 }
 type IGetCouponsCommandConstructor = {
   requestDate: Date;
   issuerUuid: string;
-  pageSize: number;
-  pageOffset: number;
+  page: number;
+  size: number;
 };

@@ -90,12 +90,11 @@ export class IssuranceRepository implements IIssuranceRepository {
     skip: number,
   ): Promise<Coupon[]> {
     const issurances = await this.dataSource
-      .createQueryBuilder(CouponIssuranceModel, 'i')
-      .innerJoin('i.couponIssuer', 'user')
-      .innerJoin('i.coupon', 'coupon')
-      .select('coupon')
+      .createQueryBuilder(CouponIssuranceModel, 'issue')
+      .leftJoinAndSelect('issue.coupon', 'coupon')
+      .leftJoinAndSelect('issue.couponIssuer', 'user')
       .where('user.issuerUuid = :issuerUuid', { issuerUuid })
-      .andWhere('i.issueValidatedDate > :requestDate', { requestDate })
+      .andWhere('issue.issueValidatedDate > :requestDate', { requestDate })
       .take(take)
       .skip(skip)
       .getMany();

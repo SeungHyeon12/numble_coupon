@@ -8,6 +8,8 @@ import { UseCouponCommand } from 'src/coupon_service/application/dto/command/use
 import { UseCouponRequest } from './request/use.couopn.request';
 import { CancleCouponRequest } from './request/cancle.coupon.request';
 import { CancleCouponCommand } from 'src/coupon_service/application/dto/command/cancle.coupon.command';
+import { GetCouponsCommand } from 'src/coupon_service/application/dto/command/get.coupons.command';
+import { GetCouponsRequest } from './request/get.coupons.request';
 
 export class CouponServiceDtoMapper {
   toRegisterCommand(request: RegisterCouponRequest) {
@@ -28,5 +30,9 @@ export class CouponServiceDtoMapper {
 
   toCancleCommand(request: CancleCouponRequest, couponUuid: string) {
     return new CancleCouponCommand({ ...request, couponUuid });
+  }
+
+  toGetCouponsCommand(request: GetCouponsRequest, page: number, size: number) {
+    return new GetCouponsCommand({ ...request, page, size });
   }
 }

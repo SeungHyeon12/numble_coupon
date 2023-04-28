@@ -14,6 +14,7 @@ import { CouponController } from './adapter/in/controller/http/coupon.controller
 import { CouponServiceDtoMapper } from './adapter/in/controller/http/dto/coupon.service.dto.mapper';
 import { IssueCouponService } from './application/service/issue.coupon.service';
 import { CancleCouponService } from './application/service/cancle.coupon.service';
+import { GetCouponsService } from './application/service/get.coupons.service';
 
 @Module({
   imports: [MysqlModule],
@@ -40,6 +41,10 @@ import { CancleCouponService } from './application/service/cancle.coupon.service
     {
       provide: 'CANCLE_COUPON_USECASE',
       useClass: CancleCouponService,
+    },
+    {
+      provide: 'GET_COUPONS_USECASE',
+      useClass: GetCouponsService,
     },
     {
       provide: 'COUPON_REPOSITORY',

@@ -1,11 +1,13 @@
 import {
   Body,
   Controller,
+  Get,
   HttpCode,
   Inject,
   Param,
   Patch,
   Post,
+  Query,
 } from '@nestjs/common';
 import { CouponServiceDtoMapper } from './dto/coupon.service.dto.mapper';
 import { RegisterCouponUseCase } from 'src/coupon_service/application/port/in/usecase/register.coupon.uscase';
@@ -18,8 +20,10 @@ import { UseCouponRequest } from './dto/request/use.couopn.request';
 import { UseCouponUseCase } from 'src/coupon_service/application/port/in/usecase/use.coupon.usecase';
 import { CancleCouponRequest } from './dto/request/cancle.coupon.request';
 import { CancleCouponUsecase } from 'src/coupon_service/application/port/in/usecase/cancle.coupon.usecase';
+import { GetCouponsService } from 'src/coupon_service/application/service/get.coupons.service';
+import { GetCouponsRequest } from './dto/request/get.coupons.request';
 
-@Controller('/coupon')
+@Controller('/coupons')
 export class CouponController {
   constructor(
     @Inject('REGISTER_COUPON_USECASE')
@@ -32,8 +36,28 @@ export class CouponController {
     private readonly useCouponService: UseCouponUseCase,
     @Inject('CANCLE_COUPON_USECASE')
     private readonly cancleCouponService: CancleCouponUsecase,
+    @Inject('GET_COUPONS_USECASE')
+    private readonly getCouponsServcie: GetCouponsService,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
+
+  @HttpCode(200)
+  @Get()
+  async getCouopns(
+    @Body() getCouponsRequest: GetCouponsRequest,
+    @Query('page') page: number,
+    @Query('size') size: number,
+  ) {
+    console.log(page);
+    const data = await this.getCouponsServcie.getCoupons(
+      this.couponServiceMapper.toGetCouponsCommand(
+        getCouponsRequest,
+        page,
+        size,
+      ),
+    );
+    return { statusCode: 200, message: 'ok', data };
+  }
 
   @HttpCode(201)
   @Post()
@@ -50,7 +74,6 @@ export class CouponController {
     @Body() updateCouponRequest: UpdateCouponRequest,
     @Param('couponUuid') couponUuid: string,
   ) {
-    console.log(updateCouponRequest);
     await this.updateCouponService.updateCoupon(
       this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
     );
