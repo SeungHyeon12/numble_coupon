@@ -22,6 +22,7 @@ import { RedisQueueManager } from './adapter/out/queue/redis.queue.manager';
 import { BullModule } from '@nestjs/bull';
 import { bullMqProvider } from 'src/providers/queue/bull.mq.provider';
 import { CouponGrpcController } from './adapter/in/controller/grpc/coupon.grpc.controller';
+import { GrpcDtoMapper } from './adapter/in/controller/grpc/dto/dto.mapper';
 
 @Module({
   imports: [MysqlModule, BullModule.registerQueue({ ...bullMqProvider })],
@@ -31,6 +32,7 @@ import { CouponGrpcController } from './adapter/in/controller/grpc/coupon.grpc.c
     CouponServiceDtoMapper,
     EventMapper,
     IssuranceCouponEventHandler,
+    GrpcDtoMapper,
     {
       provide: 'ISSUE_COUPON_USECASE',
       useClass: IssueCouponService,

@@ -1,16 +1,18 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
-import { ValidationPipe } from '@nestjs/common';
+import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
-import { MicroserviceOptions } from '@nestjs/microservices';
+import { ValidationPipe } from '@nestjs/common';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
     AppModule,
     {
+      transport: Transport.GRPC,
       options: {
-        package: 'couopon',
-        protoPath: join(__dirname, 'coupon_service/coupon.proto'),
+        url: 'localhost:5000',
+        package: 'coupon',
+        protoPath: join(__dirname, 'coupon.proto'),
       },
     },
   );

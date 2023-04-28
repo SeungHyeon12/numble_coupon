@@ -1,8 +1,6 @@
 // hero/hero.proto
 syntax = "proto3";
 
-import "google/protobuf/timestamp.proto";
-import "google/protobuf/empty.proto";
 
 package coupon;
 
@@ -12,13 +10,13 @@ service CouponGrpcController {
   rpc updateCoupon (UpdateCoupon) returns (OkResponse) {}
   rpc issueCoupon (IssueCoupon) returns (OkResponse) {}
   rpc useCoupon (UseCoupon) returns (OkResponse) {}
-  rpc cancleCoupon (CancleCoupon) returns (OkResponse) {}
+  rpc cancleCoupon (CancleCoupon  ) returns (OkResponse) {}
 }
 
 //// dto (request)
 message RegisterCoupon {
-  google.protobuf.Timestamp couponActiveStartDate = 1;
-  google.protobuf.Timestamp couponActiveEndDate = 2;
+  string couponActiveStartDate = 1;
+  string couponActiveEndDate = 2;
   DISCOUNT_TYPE discountType  = 3;
   int32 discountValue = 4;
   int32 issueLimit = 5;
@@ -28,13 +26,13 @@ message GetCouopns {
   int32 page = 1;
   int32 size = 2;
   string issuerUuid = 3;
-  google.protobuf.Timestamp  requestDate = 4;
+  string  requestDate = 4;
 }
 
 message UpdateCoupon {
-  string couopnUuid = 1;
-  google.protobuf.Timestamp couponActiveStartDate = 2;
-  google.protobuf.Timestamp couponActiveEndDate = 3;
+  string couponUuid = 1;
+  string couponActiveStartDate = 2;
+  string couponActiveEndDate = 3;
   DISCOUNT_TYPE discountType  = 4;
   int32 discountValue = 5;
   int32 issueLimit = 6;
@@ -43,14 +41,14 @@ message UpdateCoupon {
 message IssueCoupon {
   string couponUuid = 1;
   string issuerUuid = 2;
-  google.protobuf.Timestamp couponIssuedStartDate = 3;
+  string couponIssuedStartDate = 3;
 }
 
 message UseCoupon {
   string couponUuid = 1;
   string productUuid = 2;
   string issuerUuid = 3;
-  google.protobuf.Timestamp useRequestDate = 4;
+  string useRequestDate = 4;
 }
 
 message CancleCoupon {
@@ -81,8 +79,8 @@ message Coupon  {
   int32 issueLimit = 1;
   DISCOUNT_TYPE discountType = 2;
   int32 discountValue = 3;
-  google.protobuf.Timestamp  couponActiveStartDate = 4;
-  google.protobuf.Timestamp  couponActiveEndDate = 5;
+  string couponActiveStartDate = 4;
+  string  couponActiveEndDate = 5;
   string couponId = 6;
   string couponUuid = 7;
 }

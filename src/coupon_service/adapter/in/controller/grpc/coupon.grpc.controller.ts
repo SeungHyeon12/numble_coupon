@@ -7,18 +7,19 @@ import { UpdateCouponUseCase } from 'src/coupon_service/application/port/in/usec
 import { UseCouponUseCase } from 'src/coupon_service/application/port/in/usecase/use.coupon.usecase';
 import { GetCouponsService } from 'src/coupon_service/application/service/get.coupons.service';
 import { CouponServiceDtoMapper } from '../http/dto/coupon.service.dto.mapper';
-import { IRegisterCoupon } from './dto/register.coupon.interface';
 import { RegisterCouponCommand } from 'src/coupon_service/application/dto/command/registercoupon.command';
-import { IGetCoupons } from './dto/get.coupons.interface';
 import { GetCouponsCommand } from 'src/coupon_service/application/dto/command/get.coupons.command';
-import { IUpdateCoupon } from './dto/update.coupon.interface';
 import { UpdateCouponCommand } from 'src/coupon_service/application/dto/command/update.coupon.command';
 import { QueueIssuranceCommand } from 'src/coupon_service/application/dto/command/queue.issurance.command';
-import { IIssueCoupon } from './dto/issue.coupon.interface';
-import { IUseCoupon } from './dto/use.coupon.interface';
+import { IUseCoupon } from './dto/request/use.coupon.interface';
 import { UseCouponCommand } from 'src/coupon_service/application/dto/command/use.coupon.command';
-import { ICancleCoupon } from './dto/cancle.couopn.interface';
 import { CancleCouponCommand } from 'src/coupon_service/application/dto/command/cancle.coupon.command';
+import { IRegisterCoupon } from './dto/request/register.coupon.interface';
+import { IGetCoupons } from './dto/request/get.coupons.interface';
+import { IUpdateCoupon } from './dto/request/update.coupon.interface';
+import { IIssueCoupon } from './dto/request/issue.coupon.interface';
+import { ICancleCoupon } from './dto/request/cancle.couopn.interface';
+import { GrpcDtoMapper } from './dto/dto.mapper';
 
 @Controller()
 export class CouponGrpcController {
@@ -35,13 +36,14 @@ export class CouponGrpcController {
     private readonly cancleCouponService: CancleCouponUsecase,
     @Inject('GET_COUPONS_USECASE')
     private readonly getCouponsServcie: GetCouponsService,
+    private readonly grpcDtoMapper: GrpcDtoMapper,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
 
   @GrpcMethod('CouponGrpcController', 'registerCoupon')
   async registerCoupon(request: IRegisterCoupon, metaData: any) {
     await this.registerCouponService.registerCoupon(
-      new RegisterCouponCommand({ ...request }),
+      this.grpcDtoMapper.toRegisterCommand(request),
     );
     return {
       statusCode: 0,
@@ -57,7 +59,7 @@ export class CouponGrpcController {
     return {
       data: [...coupons],
       statusCode: 0,
-      message: 'created',
+      message: 'ok',
     };
   }
 
