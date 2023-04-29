@@ -41,80 +41,80 @@ export class CouponController {
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
 
-  @HttpCode(200)
-  @Get()
-  async getCouopns(
-    @Body() getCouponsRequest: GetCouponsRequest,
-    @Query('page') page: number,
-    @Query('size') size: number,
-  ) {
-    const data = await this.getCouponsServcie.getCoupons(
-      this.couponServiceMapper.toGetCouponsCommand(
-        getCouponsRequest,
-        page,
-        size,
-      ),
-    );
-    return { statusCode: 200, message: 'ok', data };
-  }
+  // @HttpCode(200)
+  // @Get()
+  // async getCouopns(
+  //   @Body() getCouponsRequest: GetCouponsRequest,
+  //   @Query('page') page: number,
+  //   @Query('size') size: number,
+  // ) {
+  //   const data = await this.getCouponsServcie.getCoupons(
+  //     this.couponServiceMapper.toGetCouponsCommand(
+  //       getCouponsRequest,
+  //       page,
+  //       size,
+  //     ),
+  //   );
+  //   return { statusCode: 200, message: 'ok', data };
+  // }
 
-  @HttpCode(201)
-  @Post()
-  async registerCoupon(@Body() registerCouponRequest: RegisterCouponRequest) {
-    await this.registerCouponService.registerCoupon(
-      this.couponServiceMapper.toRegisterCommand(registerCouponRequest),
-    );
-    return { statusCode: 201, message: 'created' };
-  }
+  // @HttpCode(201)
+  // @Post()
+  // async registerCoupon(@Body() registerCouponRequest: RegisterCouponRequest) {
+  //   await this.registerCouponService.registerCoupon(
+  //     this.couponServiceMapper.toRegisterCommand(registerCouponRequest),
+  //   );
+  //   return { statusCode: 201, message: 'created' };
+  // }
 
-  @HttpCode(200)
-  @Patch('/:couponUuid')
-  async updateCoupon(
-    @Body() updateCouponRequest: UpdateCouponRequest,
-    @Param('couponUuid') couponUuid: string,
-  ) {
-    await this.updateCouponService.updateCoupon(
-      this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
-    );
-    return { statusCode: 200, message: 'ok' };
-  }
+  // @HttpCode(200)
+  // @Patch('/:couponUuid')
+  // async updateCoupon(
+  //   @Body() updateCouponRequest: UpdateCouponRequest,
+  //   @Param('couponUuid') couponUuid: string,
+  // ) {
+  //   await this.updateCouponService.updateCoupon(
+  //     this.couponServiceMapper.toUpdateCommand(updateCouponRequest, couponUuid),
+  //   );
+  //   return { statusCode: 200, message: 'ok' };
+  // }
 
-  @HttpCode(201)
-  @Post('/:couponUuid/issue')
-  async issueCoupon(
-    @Body() issueCouopnRequest: IssueCouponRequest,
-    @Param('couponUuid') couponUuid: string,
-  ) {
-    await this.queueIssuranceService.registerIssuranceQueue(
-      this.couponServiceMapper.toQueueIssuranceCommand(
-        issueCouopnRequest,
-        couponUuid,
-      ),
-    );
-    return { statusCode: 200, message: 'ok' };
-  }
+  // @HttpCode(201)
+  // @Post('/:couponUuid/issue')
+  // async issueCoupon(
+  //   @Body() issueCouopnRequest: IssueCouponRequest,
+  //   @Param('couponUuid') couponUuid: string,
+  // ) {
+  //   await this.queueIssuranceService.registerIssuranceQueue(
+  //     this.couponServiceMapper.toQueueIssuranceCommand(
+  //       issueCouopnRequest,
+  //       couponUuid,
+  //     ),
+  //   );
+  //   return { statusCode: 200, message: 'ok' };
+  // }
 
-  @HttpCode(200)
-  @Post('/:couponUuid/use')
-  async useCoupon(
-    @Body() useCouopnRequest: UseCouponRequest,
-    @Param('couponUuid') couponUuid: string,
-  ) {
-    await this.useCouponService.useCoupon(
-      this.couponServiceMapper.toUseCommand(useCouopnRequest, couponUuid),
-    );
-    return { statusCode: 200, message: 'ok' };
-  }
+  // @HttpCode(200)
+  // @Post('/:couponUuid/use')
+  // async useCoupon(
+  //   @Body() useCouopnRequest: UseCouponRequest,
+  //   @Param('couponUuid') couponUuid: string,
+  // ) {
+  //   await this.useCouponService.useCoupon(
+  //     this.couponServiceMapper.toUseCommand(useCouopnRequest, couponUuid),
+  //   );
+  //   return { statusCode: 200, message: 'ok' };
+  // }
 
-  @HttpCode(200)
-  @Post('/:couponUuid/cancle')
-  async cancleCoupon(
-    @Body() cancleCouponRequest: CancleCouponRequest,
-    @Param('couponUuid') couponUuid: string,
-  ) {
-    await this.cancleCouponService.cancleUseCoupon(
-      this.couponServiceMapper.toCancleCommand(cancleCouponRequest, couponUuid),
-    );
-    return { statusCode: 200, message: 'ok' };
-  }
+  // @HttpCode(200)
+  // @Post('/:couponUuid/cancle')
+  // async cancleCoupon(
+  //   @Body() cancleCouponRequest: CancleCouponRequest,
+  //   @Param('couponUuid') couponUuid: string,
+  // ) {
+  //   await this.cancleCouponService.cancleUseCoupon(
+  //     this.couponServiceMapper.toCancleCommand(cancleCouponRequest, couponUuid),
+  //   );
+  //   return { statusCode: 200, message: 'ok' };
+  // }
 }
