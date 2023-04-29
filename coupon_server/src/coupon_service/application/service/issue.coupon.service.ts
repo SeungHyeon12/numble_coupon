@@ -35,8 +35,6 @@ export class IssueCouponService implements IssueCouponUsecase {
         command.issuerUuid,
         command.couponUuid,
       );
-    console.log('latest coupon : ', latestIssuerCouponIssurance);
-
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
       latestIssuerCouponIssurance,
       command.couponIssuedStartDate,
@@ -47,7 +45,6 @@ export class IssueCouponService implements IssueCouponUsecase {
         command.couponUuid,
       );
 
-    console.log('last coupon issuer : ', lastCouponIssurance);
     const nextCount = this.issueCouponDomainService.calculateCouponCount(
       coupon,
       lastCouponIssurance,
