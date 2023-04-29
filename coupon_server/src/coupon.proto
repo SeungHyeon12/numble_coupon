@@ -58,6 +58,16 @@ message CancleCoupon {
 
 
 ////  dto (response)
+message RegisterCouponResponse  {
+  string statusCode = 1;
+  string message = 2;
+  repeated CouponUuid data = 3;
+
+  message CouponUuid  {
+    string couponUuid = 1; 
+ }
+}
+
 message GetCouponResponse  {
   string statusCode = 1;
   string message = 2;
