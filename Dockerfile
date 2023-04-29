@@ -5,6 +5,6 @@ COPY ./package.json /coupon_service/
 COPY ./yarn.lock /coupon_service/
 RUN yarn install
 
-COPY . /couon_service/
+COPY . /coupon_service/
 
 CMD yarn start
