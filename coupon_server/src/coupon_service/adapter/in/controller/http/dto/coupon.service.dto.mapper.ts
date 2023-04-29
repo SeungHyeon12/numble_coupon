@@ -13,11 +13,11 @@ import { QueueIssuranceCommand } from 'src/coupon_service/application/dto/comman
 
 export class CouponServiceDtoMapper {
   toRegisterCommand(request: RegisterCouponRequest) {
-    return new RegisterCouponCommand({ ...request });
+    // return new RegisterCouponCommand({ ...request });
   }
 
   toUpdateCommand(request: UpdateCouponRequest, couponUuid: string) {
-    return new UpdateCouponCommand({ ...request, couponUuid });
+    // return new UpdateCouponCommand({ ...request, couponUuid });
   }
 
   toUseCommand(request: UseCouponRequest, couponUuid: string) {
