@@ -26,7 +26,7 @@ import { GrpcDtoMapper } from './adapter/in/controller/grpc/dto/dto.mapper';
 
 @Module({
   imports: [MysqlModule, BullModule.registerQueue({ ...bullMqProvider })],
-  controllers: [CouponController, CouponGrpcController],
+  controllers: [CouponGrpcController],
   providers: [
     IssueCouponDomainService,
     CouponServiceDtoMapper,
