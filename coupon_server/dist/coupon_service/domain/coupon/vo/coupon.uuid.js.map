@@ -1,1 +1,0 @@
-{"version":3,"file":"coupon.uuid.js","sourceRoot":"","sources":["../../../../../src/coupon_service/domain/coupon/vo/coupon.uuid.ts"],"names":[],"mappings":";;;AAAA,4DAAiD;AACjD,+FAAuE;AAEvE,MAAa,UAAW,SAAQ,WAAI;IAClC,YAAY,IAAmB;QAC7B,IAAI,CAAC,IAAI,EAAE;YACT,KAAK,CAAC,IAAA,gCAAa,GAAE,CAAC,CAAC;SACxB;aAAM;YACL,KAAK,CAAC,IAAI,CAAC,CAAC;SACb;IACH,CAAC;CACF;AARD,gCAQC"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"issue.coupon.properties.js","sourceRoot":"","sources":["../../../../../src/coupon_service/domain/coupon.issurance/dto/issue.coupon.properties.ts"],"names":[],"mappings":";;;AAEA,MAAa,qBAAqB;IAShC,YAAY,OAAY,EAAE,UAAkB;QAC1C,IAAI,CAAC,UAAU,GAAG,OAAO,CAAC,UAAU,CAAC;QACrC,IAAI,CAAC,UAAU,GAAG,UAAU,CAAC;QAC7B,IAAI,CAAC,qBAAqB,CAAC;IAC7B,CAAC;CACF;AAdD,sDAcC"}
