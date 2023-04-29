@@ -3,6 +3,7 @@ import { CouponUuid } from '../coupon/vo/coupon.uuid';
 import { CouponIssueDate } from './vo/coupon.issue.date';
 import { ProductUuid } from './vo/product.uuid';
 import { NotAcceptableException } from '@nestjs/common';
+import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
 
 export class CouponIssurance {
   private readonly issuranceId: number;
@@ -66,7 +67,7 @@ export class CouponIssurance {
 
   public checkAlreadyUseCoupon() {
     if (this.isUsedCoupon)
-      throw new NotAcceptableException('이미 사용된 쿠폰입니다');
+      throw new GrpcUnavailableException('이미 사용된 쿠폰입니다');
   }
 
   public cancleCoupon() {

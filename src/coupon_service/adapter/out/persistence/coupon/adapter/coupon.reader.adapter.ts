@@ -1,6 +1,7 @@
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { ICouponRepository } from '../repository/coupon.repository';
 import { CouponReaderOutPort } from 'src/coupon_service/application/port/out/coupon.reader.outport';
+import { GrpcNotFoundException } from 'nestjs-grpc-exceptions';
 
 @Injectable()
 export class CouponReaderAdapter implements CouponReaderOutPort {
@@ -12,7 +13,7 @@ export class CouponReaderAdapter implements CouponReaderOutPort {
   async getByCouponUuid(couponUuid: string) {
     const coupon = await this.couponRepository.getByCouponUuid(couponUuid);
     if (!coupon) {
-      throw new ConflictException('해당하는 쿠폰이 없습니다');
+      throw new GrpcNotFoundException('해당하는 쿠폰이 없습니다');
     }
     return coupon;
   }

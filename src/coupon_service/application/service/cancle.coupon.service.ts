@@ -1,8 +1,9 @@
 import { CancleCouponUsecase } from '../port/in/usecase/cancle.coupon.usecase';
 import { CancleCouponCommand } from '../dto/command/cancle.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
+import { GrpcNotFoundException } from 'nestjs-grpc-exceptions';
 
 @Injectable()
 export class CancleCouponService implements CancleCouponUsecase {
@@ -23,7 +24,8 @@ export class CancleCouponService implements CancleCouponUsecase {
         command.issuerUuid,
         command.couponUuid,
       );
-    if (!issurance) throw new ConflictException('해당하는 발급내역이 없습니다');
+    if (!issurance)
+      throw new GrpcNotFoundException('해당하는 발급내역이 없습니다');
     issurance.cancleCoupon();
     this.issuranceStoreAdaptor.update(issurance);
   }

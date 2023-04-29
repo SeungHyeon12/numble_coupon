@@ -1,11 +1,12 @@
 import { CouponIssurance } from 'src/coupon_service/domain/coupon.issurance/coupon.issurance.entity';
 import { IIssuranceRepository } from './issurance.repository';
 import { DataSource } from 'typeorm';
-import { ConflictException, Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { CouponIssuranceModel } from '../entity/coupon.issurance.entity';
 import { Coupon } from 'src/coupon_service/domain/coupon/coupon.entity';
 import { CouponModel } from '../../coupon/entity/coupon.entity';
 import { CouponIssuerModel } from '../entity/coupon.issuer.entity';
+import { GrpcNotFoundException } from 'nestjs-grpc-exceptions';
 
 @Injectable()
 export class IssuranceRepository implements IIssuranceRepository {
@@ -23,7 +24,7 @@ export class IssuranceRepository implements IIssuranceRepository {
         couponUuid: issurance.getCouponUuid().getValue(),
       })
       .getOne();
-    if (!couponModel) throw new ConflictException('해당 쿠폰이 없습니다');
+    if (!couponModel) throw new GrpcNotFoundException('해당 쿠폰이 없습니다');
 
     const issuerModel = await this.dataSource
       .createQueryBuilder(CouponIssuerModel, 'issuer')

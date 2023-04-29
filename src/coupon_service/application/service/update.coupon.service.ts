@@ -1,4 +1,4 @@
-import { Injectable, Inject, ConflictException } from '@nestjs/common';
+import { Injectable, Inject } from '@nestjs/common';
 import { UpdateCouponUseCase } from '../port/in/usecase/update.coupon.command';
 import { UpdateCouponProperties } from 'src/coupon_service/domain/coupon/dto/update.coupon.properties';
 import { UpdateCouponCommand } from '../dto/command/update.coupon.command';

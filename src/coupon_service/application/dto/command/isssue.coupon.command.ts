@@ -16,7 +16,7 @@ export class IssueCouponCommand {
 
   private validateInputData(inputData: IIssueCouponCommandConstructor) {
     if (isNull(inputData.couponUuid))
-      throw new NotAcceptableException(
+      throw new GrpcInvalidArgumentException(
         'issue하려는 couonUuid에 대한 값이 빠져있습니다',
       );
     if (isNull(inputData.couponIssuedStartDate))
@@ -24,7 +24,7 @@ export class IssueCouponCommand {
         'issue하려는couponIssuedStartDate에 대한 값이 빠져있습니다',
       );
     if (isNull(inputData.issuerUuid))
-      throw new NotAcceptableException(
+      throw new GrpcInvalidArgumentException(
         'issue하려는 issuerUuid에 대한 값이 빠져있습니다',
       );
   }

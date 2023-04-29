@@ -1,4 +1,4 @@
-import { NotAcceptableException } from '@nestjs/common';
+import { GrpcInvalidArgumentException } from 'nestjs-grpc-exceptions';
 import isNull from 'src/common/function/is.null.function';
 import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
 import { IRegisterCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
@@ -17,7 +17,7 @@ export class UpdateCouponCommand {
   }
   private validateRequiredInputData(couponUuid: string) {
     if (isNull(couponUuid))
-      throw new NotAcceptableException(
+      throw new GrpcInvalidArgumentException(
         '업데이트 하려는 쿠폰의 uuid 값이 빠져있습니다',
       );
   }

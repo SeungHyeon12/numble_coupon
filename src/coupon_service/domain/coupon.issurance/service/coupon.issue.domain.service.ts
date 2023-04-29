@@ -2,6 +2,7 @@ import { ConflictException, NotAcceptableException } from '@nestjs/common';
 import { CouponIssurance } from '../coupon.issurance.entity';
 import { Coupon } from '../../coupon/coupon.entity';
 import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
+import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
 
 export class IssueCouponDomainService {
   checkCreateCouponExpired(coupon: Coupon, couponIssuedStartDate: Date) {
@@ -42,12 +43,14 @@ export class IssueCouponDomainService {
       new Date(latestcouponIssurance.getIssueValidatedDate()) >=
       new Date(couponIssuedStartDate)
     )
-      throw new ConflictException('이미 발급된 쿠폰이 존재합니다존재합니다');
+      throw new GrpcUnavailableException(
+        '이미 발급된 쿠폰이 존재합니다존재합니다',
+      );
   }
 
   isCanUseCouponDate(issurance: CouponIssurance, useRequestDate: Date) {
     if (new Date(issurance.getIssueValidatedDate()) < new Date(useRequestDate))
-      throw new NotAcceptableException('이미 쿠폰의 유효기간이 지났습니다');
+      throw new GrpcUnavailableException('이미 쿠폰의 유효기간이 지났습니다');
   }
 
   calculateCouponCount(coupon: Coupon, lastIssurance: CouponIssurance) {
@@ -55,7 +58,7 @@ export class IssueCouponDomainService {
     const limit = coupon.getProperties().couponInformation.issueLimit;
     const nextCount = lastIssurance.getCount() + 1;
     if (limit < nextCount)
-      throw new NotAcceptableException('쿠폰 발급갯수가 초과되었습니다');
+      throw new GrpcUnavailableException('쿠폰 발급갯수가 초과되었습니다');
     return nextCount;
   }
 }
