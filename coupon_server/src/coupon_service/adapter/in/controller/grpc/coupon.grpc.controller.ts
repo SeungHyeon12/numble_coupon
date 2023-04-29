@@ -48,6 +48,7 @@ export class CouponGrpcController {
     const couponUuid = await this.registerCouponService.registerCoupon(
       this.grpcDtoMapper.toRegisterCommand(request),
     );
+
     return {
       statusCode: 0,
       message: 'created',
