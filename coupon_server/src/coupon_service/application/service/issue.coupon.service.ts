@@ -29,7 +29,6 @@ export class IssueCouponService implements IssueCouponUsecase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
     );
-    console.log(coupon);
     if (!coupon) throw new GrpcNotFoundException('해당하는 쿠폰이 없습니다');
     const latestIssuerCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
@@ -39,10 +38,6 @@ export class IssueCouponService implements IssueCouponUsecase {
 
     this.issueCouponDomainService.checkAlreadyIssueCoupon(
       latestIssuerCouponIssurance,
-      command.couponIssuedStartDate,
-    );
-    this.issueCouponDomainService.checkCreateCouponExpired(
-      coupon,
       command.couponIssuedStartDate,
     );
 
