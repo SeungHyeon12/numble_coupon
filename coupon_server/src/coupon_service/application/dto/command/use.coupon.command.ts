@@ -12,7 +12,7 @@ export class UseCouponCommand {
     this.couponUuid = inputData.couponUuid;
     this.issuerUuid = inputData.issuerUuid;
     this.productUuid = inputData.productUuid;
-    this.useRequestDate = inputData.useRequestDate;
+    this.useRequestDate = new Date(inputData.useRequestDate);
   }
 
   private validateInputData(inputData: IUseCouponCommandConstructor) {

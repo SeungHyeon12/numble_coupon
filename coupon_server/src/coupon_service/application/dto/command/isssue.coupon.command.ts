@@ -10,7 +10,7 @@ export class IssueCouponCommand {
   constructor(inpuData: IIssueCouponCommandConstructor) {
     this.validateInputData(inpuData);
     this.couponUuid = inpuData.couponUuid;
-    this.couponIssuedStartDate = inpuData.couponIssuedStartDate;
+    this.couponIssuedStartDate = new Date(inpuData.couponIssuedStartDate);
     this.issuerUuid = inpuData.issuerUuid;
   }
 

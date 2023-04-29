@@ -11,7 +11,7 @@ export class GetCouponsCommand {
   constructor(inputData: IGetCouponsCommandConstructor) {
     this.validateRequiredInputData(inputData);
     this.issuerUuid = inputData.issuerUuid;
-    this.requestDate = inputData.requestDate;
+    this.requestDate = new Date(inputData.requestDate);
     this.page = inputData.page;
     this.size = inputData.size;
   }

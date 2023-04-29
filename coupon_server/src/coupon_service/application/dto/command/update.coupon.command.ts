@@ -15,7 +15,17 @@ export class UpdateCouponCommand {
   constructor(inputData: IUpdateCouponCommandConstructor) {
     this.validateRequiredInputData(inputData);
     Object.assign(this, inputData);
+    const { couponActiveStartDate, couponActiveEndDate } = inputData;
+    this.setDate(couponActiveStartDate, couponActiveEndDate);
   }
+
+  private setDate(couponActiveStartDate: Date, couponActiveEndDate: Date) {
+    if (!isNull(couponActiveStartDate))
+      this.couponActiveStartDate = couponActiveStartDate;
+    if (!isNull(couponActiveEndDate))
+      this.couponActiveEndDate = couponActiveEndDate;
+  }
+
   private validateRequiredInputData(
     inputData: IUpdateCouponCommandConstructor,
   ) {

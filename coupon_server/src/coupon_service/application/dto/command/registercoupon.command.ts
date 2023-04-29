@@ -15,8 +15,8 @@ export class RegisterCouponCommand {
     this.issueLimit = inputData.issueLimit;
     this.discountType = inputData.discountType;
     this.discountValue = inputData.discountValue;
-    this.couponActiveStartDate = inputData.couponActiveStartDate;
-    this.couponActiveEndDate = inputData.couponActiveEndDate;
+    this.couponActiveStartDate = new Date(inputData.couponActiveStartDate);
+    this.couponActiveEndDate = new Date(inputData.couponActiveEndDate);
   }
 
   private validateInputData(inputData: ICreateCouponCommandConstructor) {
