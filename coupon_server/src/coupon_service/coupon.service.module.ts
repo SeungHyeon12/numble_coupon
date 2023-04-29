@@ -23,6 +23,7 @@ import { BullModule } from '@nestjs/bull';
 import { bullMqProvider } from 'src/providers/queue/bull.mq.provider';
 import { CouponGrpcController } from './adapter/in/controller/grpc/coupon.grpc.controller';
 import { GrpcDtoMapper } from './adapter/in/controller/grpc/dto/dto.mapper';
+import { DeleteIssuranceService } from './application/service/delete.issurance.service';
 
 @Module({
   imports: [MysqlModule, BullModule.registerQueue({ ...bullMqProvider })],
@@ -60,6 +61,10 @@ import { GrpcDtoMapper } from './adapter/in/controller/grpc/dto/dto.mapper';
     {
       provide: 'QUEUE_ISSURANCE_USECASE',
       useClass: QueueIssuranceService,
+    },
+    {
+      provide: 'DELETE_ISSURANCE_USECASE',
+      useClass: DeleteIssuranceService,
     },
     {
       provide: 'COUPON_REPOSITORY',

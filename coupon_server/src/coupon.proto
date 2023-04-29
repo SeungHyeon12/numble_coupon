@@ -11,6 +11,7 @@ service CouponGrpcController {
   rpc issueCoupon (IssueCoupon) returns (OkResponse) {}
   rpc useCoupon (UseCoupon) returns (OkResponse) {}
   rpc cancleCoupon (CancleCoupon  ) returns (OkResponse) {}
+  rpc deleteIssurance(DeleteIssurance) returns(OkResponse)
 }
 
 //// dto (request)
@@ -52,6 +53,11 @@ message UseCoupon {
 }
 
 message CancleCoupon {
+  string couponUuid = 1;
+  string issuerUuid = 2;
+}
+
+message DeleteIssurance {
   string couponUuid = 1;
   string issuerUuid = 2;
 }

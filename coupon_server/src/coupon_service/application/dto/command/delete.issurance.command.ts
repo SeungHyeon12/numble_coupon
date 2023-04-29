@@ -3,7 +3,7 @@ import {
   ICancleCouponCommandConstructor,
 } from './cancle.coupon.command';
 
-export class DeleteCouponCommand extends CancleCouponCommand {
+export class DeleteIssuranceCommand extends CancleCouponCommand {
   constructor(inputData: IDeleteCouponCommandConstructor) {
     super(inputData);
   }

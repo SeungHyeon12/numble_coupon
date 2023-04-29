@@ -20,6 +20,9 @@ import { IIssueCoupon } from './dto/request/issue.coupon.interface';
 import { ICancleCoupon } from './dto/request/cancle.couopn.interface';
 import { GrpcDtoMapper } from './dto/dto.mapper';
 import { CommonResponse } from 'src/common/response/common.response.interface';
+import { IDeleteIssurance } from './dto/request/delete.issurance.interface';
+import { deleteIssuranceUsecase } from 'src/coupon_service/application/port/in/usecase/delete.issurance.usecase';
+import { DeleteIssuranceCommand } from 'src/coupon_service/application/dto/command/delete.issurance.command';
 
 @Controller()
 export class CouponGrpcController {
@@ -36,6 +39,8 @@ export class CouponGrpcController {
     private readonly cancleCouponService: CancleCouponUsecase,
     @Inject('GET_COUPONS_USECASE')
     private readonly getCouponsServcie: GetCouponsService,
+    @Inject('DELETE_ISSURANCE_USECASE')
+    private readonly deleteIssuranceServce: deleteIssuranceUsecase,
     private readonly grpcDtoMapper: GrpcDtoMapper,
     private readonly couponServiceMapper: CouponServiceDtoMapper,
   ) {}
@@ -111,6 +116,20 @@ export class CouponGrpcController {
   ): Promise<CommonResponse> {
     await this.cancleCouponService.cancleUseCoupon(
       new CancleCouponCommand({ ...request }),
+    );
+    return {
+      statusCode: 0,
+      message: 'ok',
+    };
+  }
+
+  @GrpcMethod('CouponGrpcController', 'deleteIssurance')
+  async deleteIssurance(
+    request: IDeleteIssurance,
+    metaData: any,
+  ): Promise<CommonResponse> {
+    await this.deleteIssuranceServce.deleteIssurance(
+      new DeleteIssuranceCommand({ ...request }),
     );
     return {
       statusCode: 0,

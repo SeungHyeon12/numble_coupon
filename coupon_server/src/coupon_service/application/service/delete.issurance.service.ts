@@ -1,16 +1,16 @@
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { Inject, Injectable } from '@nestjs/common';
-import { deleteCouponUsecase } from '../port/in/usecase/delete.coupon.usecase';
-import { DeleteCouponCommand } from '../dto/command/delete.coupon.command';
+import { deleteIssuranceUsecase } from '../port/in/usecase/delete.issurance.usecase';
+import { DeleteIssuranceCommand } from '../dto/command/delete.issurance.command';
 
 @Injectable()
-export class DeleteCouponService implements deleteCouponUsecase {
+export class DeleteIssuranceService implements deleteIssuranceUsecase {
   constructor(
     @Inject('ISSURANCE_STORE_OUTPORT')
     private readonly issuranceStoreAdaptor: IssuranceStoreOutPort,
   ) {}
 
-  async deleteCoupon(command: DeleteCouponCommand): Promise<void> {
+  async deleteIssurance(command: DeleteIssuranceCommand): Promise<void> {
     this.issuranceStoreAdaptor.deleteByIssuerUuidAndCouonUuid(
       command.issuerUuid,
       command.couponUuid,
