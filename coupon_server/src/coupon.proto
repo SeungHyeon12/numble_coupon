@@ -5,7 +5,7 @@ syntax = "proto3";
 package coupon;
 
 service CouponGrpcController {
-  rpc registerCoupon (RegisterCoupon) returns (OkResponse) {}
+  rpc registerCoupon (RegisterCoupon) returns (RegisterCouponResponse) {}
   rpc getCoupons (GetCouopns) returns (GetCouponResponse) {}
   rpc updateCoupon (UpdateCoupon) returns (OkResponse) {}
   rpc issueCoupon (IssueCoupon) returns (OkResponse) {}
