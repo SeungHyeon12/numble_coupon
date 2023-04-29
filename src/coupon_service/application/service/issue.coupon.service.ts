@@ -7,6 +7,7 @@ import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
 import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
 import { Transactional } from 'typeorm-transactional';
+import { GrpcNotFoundException } from 'nestjs-grpc-exceptions';
 
 @Injectable()
 export class IssueCouponService implements IssueCouponUsecase {
@@ -28,7 +29,8 @@ export class IssueCouponService implements IssueCouponUsecase {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
     );
-    if (!coupon) throw new ConflictException('해당하는 쿠폰이 없습니다');
+    console.log(coupon);
+    if (!coupon) throw new GrpcNotFoundException('해당하는 쿠폰이 없습니다');
     const latestIssuerCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByIssuerUuidAndCouponUuid(
         command.issuerUuid,

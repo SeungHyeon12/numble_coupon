@@ -1,4 +1,5 @@
 import { NotAcceptableException } from '@nestjs/common';
+import { GrpcInvalidArgumentException } from 'nestjs-grpc-exceptions';
 import isNull from 'src/common/function/is.null.function';
 
 export class IssueCouponCommand {
@@ -19,7 +20,7 @@ export class IssueCouponCommand {
         'issue하려는 couonUuid에 대한 값이 빠져있습니다',
       );
     if (isNull(inputData.couponIssuedStartDate))
-      throw new NotAcceptableException(
+      throw new GrpcInvalidArgumentException(
         'issue하려는couponIssuedStartDate에 대한 값이 빠져있습니다',
       );
     if (isNull(inputData.issuerUuid))
