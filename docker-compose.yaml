@@ -1,21 +1,23 @@
-version: '3.6'
+version: "3.6"
 
 services:
   coupon_server_1:
     build:
-      context: .
+      context: ./coupon_server
       dockerfile: Dockerfile
+    restart: on-failure
     depends_on:
       - mysql
       - redis
       - redis-commander
-    expose:
-      - '5000'
+    ports:
+      - "5000:5000"
 
   nginx:
     image: nginx:latest
     volumes:
       - ./nginx.default.conf:/etc/nginx/conf.d/default.conf
+    restart: on-failure
     depends_on:
       - coupon_server_1
     ports:
@@ -23,25 +25,25 @@ services:
 
   mysql:
     platform: linux/amd64
-    image: 'mysql:latest'
+    image: "mysql:latest"
     environment:
-      MYSQL_DATABASE: 'coupon_service'
-      MYSQL_ROOT_PASSWORD: '0000'
-      TZ: 'Asia/Seoul'
+      MYSQL_DATABASE: "coupon_service"
+      MYSQL_ROOT_PASSWORD: "0000"
+      TZ: "Asia/Seoul"
     cap_add:
       - SYS_NICE
     command:
       - --character-set-server=utf8mb4
       - --collation-server=utf8mb4_unicode_ci
     ports:
-      - '3306:3306'
+      - "3306:3306"
 
   redis:
-    image: 'redis:latest'
+    image: "redis:latest"
     container_name: redis-test
     hostname: redis-test
-    expose:
-      - '6379'
+    ports:
+      - "6379:6379"
 
   redis-commander:
     image: rediscommander/redis-commander:latest
@@ -49,6 +51,6 @@ services:
     environment:
       - REDIS_HOSTS=local:redis:6379
     ports:
-      - '8081:8081'
+      - "8081:8081"
     depends_on:
       - redis
