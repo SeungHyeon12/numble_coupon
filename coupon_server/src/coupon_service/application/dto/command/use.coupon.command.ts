@@ -8,6 +8,7 @@ export class UseCouponCommand {
   useRequestDate: Date;
 
   constructor(inputData: IUseCouponCommandConstructor) {
+    this.validateInputData(inputData);
     this.couponUuid = inputData.couponUuid;
     this.issuerUuid = inputData.issuerUuid;
     this.productUuid = inputData.productUuid;
