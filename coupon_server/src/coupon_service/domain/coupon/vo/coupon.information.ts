@@ -11,7 +11,7 @@ export class CouponInformation {
   private readonly couponDiscountInfo: CouponDiscountInfo;
 
   // coupon 의 생성갯수제한
-  private readonly issueLimit: number;
+  private issueLimit: number;
 
   constructor(constructorInput: ICouponInformationConstructor) {
     this.couponActiveDate = new CouponActiveDate(
@@ -22,13 +22,14 @@ export class CouponInformation {
       constructorInput.discountType,
       constructorInput.discountValue,
     );
-    this.issueLimit = constructorInput.issueLimit;
+    this.checkIssueLimitMinus(constructorInput.issueLimit);
   }
-  public static checkIssueLimitMinus(issueLimit: number) {
+  private checkIssueLimitMinus(issueLimit: number) {
     if (issueLimit <= 0)
       throw new GrpcUnavailableException(
         '0보다 적은 issueLimit 을 가지는 쿠폰을 발행 할 수 없습니다',
       );
+    this.issueLimit = issueLimit;
   }
 
   getIssueLimit() {

@@ -6,18 +6,19 @@ export class CouponDiscountInfo {
   private readonly discountType: DISCOUNT_TYPE;
 
   //할인 금액 혹은 할인률 수치
-  private readonly discountValue: number;
+  private discountValue: number;
 
   constructor(discountType: DISCOUNT_TYPE, discountValue: number) {
     this.discountType = discountType;
-    this.discountValue = discountValue;
+    this.checkDiscountValueMinus(discountValue);
   }
 
-  public static checkDiscountValueMinus(discountValue: number) {
+  private checkDiscountValueMinus(discountValue: number) {
     if (discountValue <= 0)
       throw new GrpcUnavailableException(
         '0보다 적은 disCountValue 를 가지는 쿠폰을 발행 할 수 없습니다',
       );
+    this.discountValue = discountValue;
   }
 
   getProperties() {
