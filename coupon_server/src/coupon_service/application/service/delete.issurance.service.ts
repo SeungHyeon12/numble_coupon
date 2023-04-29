@@ -11,7 +11,7 @@ export class DeleteIssuranceService implements deleteIssuranceUsecase {
   ) {}
 
   async deleteIssurance(command: DeleteIssuranceCommand): Promise<void> {
-    this.issuranceStoreAdaptor.deleteByIssuerUuidAndCouonUuid(
+    await this.issuranceStoreAdaptor.deleteByIssuerUuidAndCouonUuid(
       command.issuerUuid,
       command.couponUuid,
     );

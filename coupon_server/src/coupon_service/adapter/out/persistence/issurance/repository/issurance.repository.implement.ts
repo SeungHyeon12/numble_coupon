@@ -33,7 +33,6 @@ export class IssuranceRepository implements IIssuranceRepository {
         issuerUuid: issurance.getProperties().couponIssuer.issuerUuid,
       })
       .getOne();
-    console.log('issuer Model 진짜 : ', issuerModel);
 
     await this.dataSource
       .createQueryBuilder()
@@ -51,7 +50,6 @@ export class IssuranceRepository implements IIssuranceRepository {
         issuerUuid,
       })
       .getOne();
-    console.log('isInIssuer  : ', issuer);
     if (issuer) return;
 
     await this.dataSource
@@ -73,7 +71,6 @@ export class IssuranceRepository implements IIssuranceRepository {
       .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
       .andWhere('issurance.couponUuid = :couponUuid', { couponUuid })
       .getOne();
-    console.log('coupon And Issuer : ', issurance);
     if (!issurance) return null;
     return issurance.toEntity();
   }
@@ -88,8 +85,8 @@ export class IssuranceRepository implements IIssuranceRepository {
       .execute();
   }
 
-  deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string): void {
-    this.dataSource
+  async deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
+    await this.dataSource
       .createQueryBuilder(CouponIssuranceModel, 'issuer')
       .softDelete()
       .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
@@ -125,7 +122,6 @@ export class IssuranceRepository implements IIssuranceRepository {
       .orderBy('issue.id', 'DESC')
       .getOne();
 
-    console.log(issurance);
     if (!issurance) return null;
     return issurance.toEntity();
   }

@@ -10,16 +10,16 @@ export class IssuranceStoreAdapter implements IssuranceStoreOutPort {
     private readonly issuranceRepository: IIssuranceRepository,
   ) {}
 
-  create(issurance: CouponIssurance): void {
-    this.issuranceRepository.create(issurance);
+  async create(issurance: CouponIssurance) {
+    await this.issuranceRepository.create(issurance);
   }
 
-  update(issurance: CouponIssurance): void {
-    this.issuranceRepository.update(issurance);
+  async update(issurance: CouponIssurance) {
+    await this.issuranceRepository.update(issurance);
   }
 
-  deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
-    this.issuranceRepository.deleteByIssuerUuidAndCouonUuid(
+  async deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
+    await this.issuranceRepository.deleteByIssuerUuidAndCouonUuid(
       issuerUuid,
       couponUuid,
     );
