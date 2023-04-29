@@ -7,7 +7,6 @@ import { UpdateCouponUseCase } from 'src/coupon_service/application/port/in/usec
 import { UseCouponUseCase } from 'src/coupon_service/application/port/in/usecase/use.coupon.usecase';
 import { GetCouponsService } from 'src/coupon_service/application/service/get.coupons.service';
 import { CouponServiceDtoMapper } from '../http/dto/coupon.service.dto.mapper';
-import { RegisterCouponCommand } from 'src/coupon_service/application/dto/command/registercoupon.command';
 import { GetCouponsCommand } from 'src/coupon_service/application/dto/command/get.coupons.command';
 import { UpdateCouponCommand } from 'src/coupon_service/application/dto/command/update.coupon.command';
 import { QueueIssuranceCommand } from 'src/coupon_service/application/dto/command/queue.issurance.command';
@@ -20,6 +19,7 @@ import { IUpdateCoupon } from './dto/request/update.coupon.interface';
 import { IIssueCoupon } from './dto/request/issue.coupon.interface';
 import { ICancleCoupon } from './dto/request/cancle.couopn.interface';
 import { GrpcDtoMapper } from './dto/dto.mapper';
+import { CommonResponse } from 'src/common/response/common.response.interface';
 
 @Controller()
 export class CouponGrpcController {
@@ -41,7 +41,10 @@ export class CouponGrpcController {
   ) {}
 
   @GrpcMethod('CouponGrpcController', 'registerCoupon')
-  async registerCoupon(request: IRegisterCoupon, metaData: any) {
+  async registerCoupon(
+    request: IRegisterCoupon,
+    metaData: any,
+  ): Promise<CommonResponse<>> {
     await this.registerCouponService.registerCoupon(
       this.grpcDtoMapper.toRegisterCommand(request),
     );
@@ -52,7 +55,10 @@ export class CouponGrpcController {
   }
 
   @GrpcMethod('CouponGrpcController', 'getCoupons')
-  async getCouopns(request: IGetCoupons, metaData: any) {
+  async getCouopns(
+    request: IGetCoupons,
+    metaData: any,
+  ): Promise<CommonResponse> {
     const coupons = await this.getCouponsServcie.getCoupons(
       new GetCouponsCommand({ ...request }),
     );
@@ -75,7 +81,10 @@ export class CouponGrpcController {
   }
 
   @GrpcMethod('CouponGrpcController', 'issueCoupon')
-  async issueCoupon(request: IIssueCoupon, metaData: any) {
+  async issueCoupon(
+    request: IIssueCoupon,
+    metaData: any,
+  ): Promise<CommonResponse> {
     await this.queueIssuranceService.registerIssuranceQueue(
       new QueueIssuranceCommand({ ...request }),
     );
@@ -86,7 +95,7 @@ export class CouponGrpcController {
   }
 
   @GrpcMethod('CouponGrpcController', 'useCoupon')
-  async useCoupon(request: IUseCoupon, metaData: any) {
+  async useCoupon(request: IUseCoupon, metaData: any): Promise<CommonResponse> {
     await this.useCouponService.useCoupon(new UseCouponCommand({ ...request }));
     return {
       statusCode: 0,
@@ -95,7 +104,10 @@ export class CouponGrpcController {
   }
 
   @GrpcMethod('CouponGrpcController', 'cancleCoupon')
-  async cancleCoupon(request: ICancleCoupon, metaData: any) {
+  async cancleCoupon(
+    request: ICancleCoupon,
+    metaData: any,
+  ): Promise<CommonResponse> {
     await this.cancleCouponService.cancleUseCoupon(
       new CancleCouponCommand({ ...request }),
     );
