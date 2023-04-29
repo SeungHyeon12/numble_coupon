@@ -23,13 +23,13 @@ export class UpdateCouponCommand {
         '업데이트 하려는 쿠폰의 uuid 값이 빠져있습니다',
       );
     if (!isNull(inputData.couponActiveStartDate)) {
-      if (!(new Date(inputData.couponActiveStartDate) == 'Invalid Date'))
+      if (!isCorrectDate(inputData.couponActiveStartDate))
         throw new GrpcInvalidArgumentException(
           'couponActiveStartDate 의 date 형식이 잘못되어있습니다',
         );
     }
     if (!isNull(inputData.couponActiveEndDate)) {
-      if (!(new Date(inputData.couponActiveEndDate) instanceof Date))
+      if (!isCorrectDate(inputData.couponActiveEndDate))
         throw new GrpcInvalidArgumentException(
           'couponActiveEndDate 의 date 형식이 잘못되어있습니다',
         );

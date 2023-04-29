@@ -36,7 +36,7 @@ export class RegisterCouponCommand {
       throw new GrpcInvalidArgumentException(
         'coupon의 couponActiveStartDate에 대한 값이 빠져있습니다',
       );
-    if (!(new Date(inputData.couponActiveStartDate) instanceof Date))
+    if (!isCorrectDate(inputData.couponActiveStartDate))
       throw new GrpcInvalidArgumentException(
         'couponActiveStartDate 의 date 형식이 잘못되어있습니다',
       );
@@ -44,7 +44,7 @@ export class RegisterCouponCommand {
       throw new GrpcInvalidArgumentException(
         'coupon의 couponActiveEndDate에 대한 값이 빠져있습니다',
       );
-    if (!(new Date(inputData.couponActiveEndDate) instanceof Date))
+    if (!isCorrectDate(inputData.couponActiveEndDate))
       throw new GrpcInvalidArgumentException(
         'couponActiveEndDate 의 date 형식이 잘못되어있습니다',
       );

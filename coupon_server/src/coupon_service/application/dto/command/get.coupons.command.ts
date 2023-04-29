@@ -24,7 +24,7 @@ export class GetCouponsCommand {
       throw new GrpcInvalidArgumentException(
         '쿠폰의 requestDate 값이 빠져있습니다',
       );
-    if (!(new Date(inputData.requestDate) instanceof Date))
+    if (!isCorrectDate(inputData.requestDate))
       throw new GrpcInvalidArgumentException(
         'requestDate 의 date 형식이 잘못되어있습니다',
       );
