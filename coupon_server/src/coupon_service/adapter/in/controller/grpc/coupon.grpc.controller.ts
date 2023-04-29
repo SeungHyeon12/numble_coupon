@@ -44,7 +44,7 @@ export class CouponGrpcController {
   async registerCoupon(
     request: IRegisterCoupon,
     metaData: any,
-  ): Promise<CommonResponse<>> {
+  ): Promise<CommonResponse> {
     await this.registerCouponService.registerCoupon(
       this.grpcDtoMapper.toRegisterCommand(request),
     );

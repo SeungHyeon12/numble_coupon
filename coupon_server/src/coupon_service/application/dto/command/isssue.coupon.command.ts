@@ -22,6 +22,10 @@ export class IssueCouponCommand {
       throw new GrpcInvalidArgumentException(
         'issue하려는couponIssuedStartDate에 대한 값이 빠져있습니다',
       );
+    if (!(new Date(inputData.couponIssuedStartDate) instanceof Date))
+      throw new GrpcInvalidArgumentException(
+        'couponIssuedStartDate 의 date 형식이 잘못되어있습니다',
+      );
     if (isNull(inputData.issuerUuid))
       throw new GrpcInvalidArgumentException(
         'issue하려는 issuerUuid에 대한 값이 빠져있습니다',

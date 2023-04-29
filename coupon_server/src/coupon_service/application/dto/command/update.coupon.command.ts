@@ -12,14 +12,28 @@ export class UpdateCouponCommand {
   issueLimit?: number;
 
   constructor(inputData: IUpdateCouponCommandConstructor) {
-    this.validateRequiredInputData(inputData.couponUuid);
+    this.validateRequiredInputData(inputData);
     Object.assign(this, inputData);
   }
-  private validateRequiredInputData(couponUuid: string) {
-    if (isNull(couponUuid))
+  private validateRequiredInputData(
+    inputData: IUpdateCouponCommandConstructor,
+  ) {
+    if (isNull(inputData.couponUuid))
       throw new GrpcInvalidArgumentException(
         '업데이트 하려는 쿠폰의 uuid 값이 빠져있습니다',
       );
+    if (!isNull(inputData.couponActiveStartDate)) {
+      if (!(new Date(inputData.couponActiveStartDate) instanceof Date))
+        throw new GrpcInvalidArgumentException(
+          'couponActiveStartDate 의 date 형식이 잘못되어있습니다',
+        );
+    }
+    if (!isNull(inputData.couponActiveEndDate)) {
+      if (!(new Date(inputData.couponActiveEndDate) instanceof Date))
+        throw new GrpcInvalidArgumentException(
+          'couponActiveEndDate 의 date 형식이 잘못되어있습니다',
+        );
+    }
   }
 }
 

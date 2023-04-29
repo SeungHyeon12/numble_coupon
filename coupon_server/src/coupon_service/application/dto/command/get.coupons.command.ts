@@ -8,6 +8,7 @@ export class GetCouponsCommand {
   size: number;
 
   constructor(inputData: IGetCouponsCommandConstructor) {
+    this.validateRequiredInputData(inputData);
     this.issuerUuid = inputData.issuerUuid;
     this.requestDate = inputData.requestDate;
     this.page = inputData.page;
@@ -19,9 +20,13 @@ export class GetCouponsCommand {
       throw new GrpcInvalidArgumentException(
         '쿠폰의 issuerUuid 값이 빠져있습니다',
       );
-    if (isNull(inputData.issuerUuid))
+    if (isNull(inputData.requestDate))
       throw new GrpcInvalidArgumentException(
         '쿠폰의 requestDate 값이 빠져있습니다',
+      );
+    if (!(new Date(inputData.requestDate) instanceof Date))
+      throw new GrpcInvalidArgumentException(
+        'requestDate 의 date 형식이 잘못되어있습니다',
       );
     if (isNull(inputData.page))
       throw new GrpcInvalidArgumentException(

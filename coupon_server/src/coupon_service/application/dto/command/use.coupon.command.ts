@@ -31,6 +31,10 @@ export class UseCouponCommand {
       throw new GrpcInvalidArgumentException(
         'coupon의 useRequestDate에 대한 값이 빠져있습니다',
       );
+    if (!(new Date(inputData.useRequestDate) instanceof Date))
+      throw new GrpcInvalidArgumentException(
+        'useRequestDate 의 date 형식이 잘못되어있습니다',
+      );
   }
 }
 
