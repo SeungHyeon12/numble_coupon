@@ -11,7 +11,7 @@ async function bootstrap() {
     {
       transport: Transport.GRPC,
       options: {
-        url: 'localhost:5000',
+        url: '0.0.0.0:5000',
         package: 'coupon',
         protoPath: join(__dirname, 'coupon.proto'),
       },

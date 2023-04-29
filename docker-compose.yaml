@@ -10,8 +10,32 @@ services:
       - mysql
       - redis
       - redis-commander
-    ports:
-      - "5000:5000"
+    expose:
+      - "5000"
+
+  coupon_server_2:
+    build:
+      context: ./coupon_server
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - mysql
+      - redis
+      - redis-commander
+    expose:
+      - "5000"
+
+  coupon_server_3:
+    build:
+      context: ./coupon_server
+      dockerfile: Dockerfile
+    restart: on-failure
+    depends_on:
+      - mysql
+      - redis
+      - redis-commander
+    expose:
+      - "5000"
 
   nginx:
     image: nginx:latest
@@ -43,7 +67,7 @@ services:
     container_name: redis-test
     hostname: redis-test
     ports:
-      - "6379:6379"
+      - "6379"
 
   redis-commander:
     image: rediscommander/redis-commander:latest
