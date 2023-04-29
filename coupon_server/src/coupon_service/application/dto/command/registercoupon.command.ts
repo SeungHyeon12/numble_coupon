@@ -1,7 +1,10 @@
 import { GrpcInvalidArgumentException } from 'nestjs-grpc-exceptions';
 import isCorrectDate from 'src/common/function/is.correct.date.function';
 import isNull from 'src/common/function/is.null.function';
-import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
+import {
+  DISCOUNT_TYPE,
+  changNumberToEnumString,
+} from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
 
 export class RegisterCouponCommand {
   discountType: DISCOUNT_TYPE;
@@ -13,7 +16,7 @@ export class RegisterCouponCommand {
   constructor(inputData: ICreateCouponCommandConstructor) {
     this.validateInputData(inputData);
     this.issueLimit = inputData.issueLimit;
-    this.discountType = inputData.discountType;
+    this.discountType = changNumberToEnumString(inputData.discountType);
     this.discountValue = inputData.discountValue;
     this.couponActiveStartDate = new Date(inputData.couponActiveStartDate);
     this.couponActiveEndDate = new Date(inputData.couponActiveEndDate);
@@ -51,8 +54,8 @@ export class RegisterCouponCommand {
   }
 }
 
-type ICreateCouponCommandConstructor = {
-  discountType: DISCOUNT_TYPE;
+export type ICreateCouponCommandConstructor = {
+  discountType: number;
   discountValue: number;
   couponActiveStartDate: Date;
   couponActiveEndDate: Date;

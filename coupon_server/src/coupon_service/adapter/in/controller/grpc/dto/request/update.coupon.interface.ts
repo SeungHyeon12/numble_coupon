@@ -1,5 +1,3 @@
-import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
-
 export interface IUpdateCoupon {
   couponUuid: string;
 
@@ -7,7 +5,7 @@ export interface IUpdateCoupon {
 
   couponActiveEndDate?: Date;
 
-  discountType?: DISCOUNT_TYPE;
+  discountType?: number;
 
   discountValue?: number;
 

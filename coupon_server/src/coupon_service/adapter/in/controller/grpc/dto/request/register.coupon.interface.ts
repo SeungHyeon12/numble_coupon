@@ -5,7 +5,7 @@ export interface IRegisterCoupon {
 
   couponActiveEndDate: Date;
 
-  discountType: DISCOUNT_TYPE;
+  discountType: number;
 
   discountValue: number;
 

@@ -1,8 +1,12 @@
 import { GrpcInvalidArgumentException } from 'nestjs-grpc-exceptions';
 import isCorrectDate from 'src/common/function/is.correct.date.function';
 import isNull from 'src/common/function/is.null.function';
-import { DISCOUNT_TYPE } from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
+import {
+  DISCOUNT_TYPE,
+  changNumberToEnumString,
+} from 'src/coupon_service/domain/coupon.issurance/vo/discount.type';
 import { IRegisterCouponInput } from 'src/coupon_service/domain/coupon/coupon.entity';
+import { ICreateCouponCommandConstructor } from './registercoupon.command';
 
 export class UpdateCouponCommand {
   couponUuid: string;
@@ -17,13 +21,19 @@ export class UpdateCouponCommand {
     Object.assign(this, inputData);
     const { couponActiveStartDate, couponActiveEndDate } = inputData;
     this.setDate(couponActiveStartDate, couponActiveEndDate);
+    this.setDisCountType(inputData?.discountType);
   }
 
   private setDate(couponActiveStartDate: Date, couponActiveEndDate: Date) {
     if (!isNull(couponActiveStartDate))
-      this.couponActiveStartDate = couponActiveStartDate;
+      this.couponActiveStartDate = new Date(couponActiveStartDate);
     if (!isNull(couponActiveEndDate))
-      this.couponActiveEndDate = couponActiveEndDate;
+      this.couponActiveEndDate = new Date(couponActiveEndDate);
+  }
+
+  private setDisCountType(discountType: number) {
+    if (!isNull(discountType))
+      this.discountType = changNumberToEnumString(discountType);
   }
 
   private validateRequiredInputData(
@@ -48,6 +58,7 @@ export class UpdateCouponCommand {
   }
 }
 
-type IUpdateCouponCommandConstructor = Partial<IRegisterCouponInput> & {
-  couponUuid: string;
-};
+type IUpdateCouponCommandConstructor =
+  Partial<ICreateCouponCommandConstructor> & {
+    couponUuid: string;
+  };
