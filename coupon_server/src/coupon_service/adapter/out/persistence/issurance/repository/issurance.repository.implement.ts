@@ -63,7 +63,7 @@ export class IssuranceRepository implements IIssuranceRepository {
   async getIssuranceByIssuerUuidAndCouponUuid(
     issuerUuid: string,
     couponUuid: string,
-  ): Promise<CouponIssurance> {
+  ) {
     const issurance = await this.dataSource
       .createQueryBuilder(CouponIssuranceModel, 'issurance')
       .select('issurance')
@@ -86,12 +86,18 @@ export class IssuranceRepository implements IIssuranceRepository {
   }
 
   async deleteByIssuerUuidAndCouonUuid(issuerUuid: string, couponUuid: string) {
-    await this.dataSource
+    const issue = await this.dataSource
       .createQueryBuilder(CouponIssuranceModel, 'issurance')
+      .select('issurance')
       .leftJoinAndSelect('issurance.couponIssuer', 'issuer')
-      .softDelete()
       .where('issuer.issuerUuid = :issuerUuid', { issuerUuid })
-      .andWhere('couponUuid = :couponUuid', { couponUuid })
+      .andWhere('issurance.couponUuid = :couponUuid', { couponUuid })
+      .getOne();
+
+    this.dataSource
+      .createQueryBuilder(CouponIssuranceModel, 'issue')
+      .softDelete()
+      .where('id = :id', { id: issue.id })
       .execute();
   }
 
