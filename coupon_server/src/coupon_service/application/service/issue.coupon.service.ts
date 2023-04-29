@@ -40,7 +40,6 @@ export class IssueCouponService implements IssueCouponUsecase {
       latestIssuerCouponIssurance,
       command.couponIssuedStartDate,
     );
-
     //현재 이슈어가 아닌 쿠폰자체의 마지막 count 를 세기위한값
     const lastCouponIssurance =
       await this.issuranceReaderAdaptor.getIssuranceByCouponUuid(
@@ -62,6 +61,6 @@ export class IssueCouponService implements IssueCouponUsecase {
       coupon,
     );
     await this.issuranceStoreAdaptor.createIssuer(command.issuerUuid);
-    this.issuranceStoreAdaptor.create(currentIssurance);
+    await this.issuranceStoreAdaptor.create(currentIssurance);
   }
 }

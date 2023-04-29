@@ -13,29 +13,29 @@ services:
     expose:
       - "5000"
 
-  coupon_server_2:
-    build:
-      context: ./coupon_server
-      dockerfile: Dockerfile
-    restart: on-failure
-    depends_on:
-      - mysql
-      - redis
-      - redis-commander
-    expose:
-      - "5000"
+  # coupon_server_2:
+  #   build:
+  #     context: ./coupon_server
+  #     dockerfile: Dockerfile
+  #   restart: on-failure
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #     - redis-commander
+  #   expose:
+  #     - "5000"
 
-  coupon_server_3:
-    build:
-      context: ./coupon_server
-      dockerfile: Dockerfile
-    restart: on-failure
-    depends_on:
-      - mysql
-      - redis
-      - redis-commander
-    expose:
-      - "5000"
+  # coupon_server_3:
+  #   build:
+  #     context: ./coupon_server
+  #     dockerfile: Dockerfile
+  #   restart: on-failure
+  #   depends_on:
+  #     - mysql
+  #     - redis
+  #     - redis-commander
+  #   expose:
+  #     - "5000"
 
   nginx:
     image: nginx:latest
