@@ -4,6 +4,7 @@ import { UseCouponUseCase } from '../port/in/usecase/use.coupon.usecase';
 import { Inject } from '@nestjs/common';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { IssuranceReaderAdapter } from 'src/coupon_service/adapter/out/persistence/issurance/adapter/coupon.issurance.reader.adapter';
+import { GrpcNotFoundException } from 'nestjs-grpc-exceptions';
 
 export class UseCouponService implements UseCouponUseCase {
   constructor(
@@ -22,6 +23,8 @@ export class UseCouponService implements UseCouponUseCase {
         command.issuerUuid,
         command.couponUuid,
       );
+    if (!issurance)
+      throw new GrpcNotFoundException('해당 쿠폰에대한 발급기록이 없습니다');
     issurance.checkAlreadyUseCoupon();
     this.issueCouponDomainService.isCanUseCouponDate(
       issurance,
