@@ -1,3 +1,4 @@
+import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
 import { DISCOUNT_TYPE } from '../../coupon.issurance/vo/discount.type';
 import { CouponDiscountInfo } from './coupon.disount.info';
 import { CouponActiveDate } from './coupont.active.date';
@@ -23,6 +24,13 @@ export class CouponInformation {
     );
     this.issueLimit = constructorInput.issueLimit;
   }
+  public static checkIssueLimitMinus(issueLimit: number) {
+    if (issueLimit <= 0)
+      throw new GrpcUnavailableException(
+        '0보다 적은 issueLimit 을 가지는 쿠폰을 발행 할 수 없습니다',
+      );
+  }
+
   getIssueLimit() {
     return this.issueLimit;
   }
