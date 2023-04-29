@@ -1,4 +1,4 @@
-// hero/hero.proto
+// coupon.proto
 syntax = "proto3";
 
 

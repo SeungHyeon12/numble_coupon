@@ -3,6 +3,7 @@ import { AppModule } from './app.module';
 import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 import { join } from 'path';
 import { ValidationPipe } from '@nestjs/common';
+import { initializeTransactionalContext } from 'typeorm-transactional';
 
 async function bootstrap() {
   const app = await NestFactory.createMicroservice<MicroserviceOptions>(
@@ -17,6 +18,8 @@ async function bootstrap() {
     },
   );
   app.useGlobalPipes(new ValidationPipe());
+  initializeTransactionalContext();
+
   await app.listen();
 }
 bootstrap();

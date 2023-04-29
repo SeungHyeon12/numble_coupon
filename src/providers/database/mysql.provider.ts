@@ -3,6 +3,7 @@ import { CouponIssuerModel } from 'src/coupon_service/adapter/out/persistence/is
 import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
 import { DataSource } from 'typeorm';
 import { SnakeNamingStrategy } from 'typeorm-naming-strategies';
+import { addTransactionalDataSource } from 'typeorm-transactional';
 
 export const mysqlProviders = {
   provide: 'DATA_SOURCE',
@@ -19,7 +20,7 @@ export const mysqlProviders = {
       logging: true,
       namingStrategy: new SnakeNamingStrategy(),
     });
-
-    return dataSource.initialize();
+    await dataSource.initialize();
+    return addTransactionalDataSource(dataSource);
   },
 };

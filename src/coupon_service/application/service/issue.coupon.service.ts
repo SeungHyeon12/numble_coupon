@@ -6,6 +6,7 @@ import { IssueCouponCommand } from '../dto/command/isssue.coupon.command';
 import { IssuranceStoreOutPort } from '../port/out/issurance.store.outport ';
 import { CouponReaderOutPort } from '../port/out/coupon.reader.outport';
 import { IssuranceReaderOutPort } from '../port/out/issurance.reader.outport';
+import { Transactional } from 'typeorm-transactional';
 
 @Injectable()
 export class IssueCouponService implements IssueCouponUsecase {
@@ -22,7 +23,7 @@ export class IssueCouponService implements IssueCouponUsecase {
     private readonly couponReaderAdaptor: CouponReaderOutPort,
   ) {}
 
-  //transaction 추가
+  @Transactional()
   async issueCoupon(command: IssueCouponCommand) {
     const coupon = await this.couponReaderAdaptor.getByCouponUuid(
       command.couponUuid,
