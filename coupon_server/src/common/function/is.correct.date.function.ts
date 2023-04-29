@@ -1,4 +1,4 @@
-function isCorrectDate(date: unknown) {
+export default function isCorrectDate(date: unknown) {
   return isFinite(
     date instanceof Date
       ? (date as unknown as number)
