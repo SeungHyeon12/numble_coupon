@@ -1,7 +1,6 @@
-import { ConflictException, NotAcceptableException } from '@nestjs/common';
+import { NotAcceptableException } from '@nestjs/common';
 import { CouponIssurance } from '../coupon.issurance.entity';
 import { Coupon } from '../../coupon/coupon.entity';
-import { CouponIssuranceModel } from 'src/coupon_service/adapter/out/persistence/issurance/entity/coupon.issurance.entity';
 import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
 
 export class IssueCouponDomainService {
@@ -11,7 +10,7 @@ export class IssueCouponDomainService {
       .getActiveDate().couponActiveEndDate;
 
     if (new Date(couponIssuedStartDate) > new Date(couponActiveEndDate)) {
-      throw new NotAcceptableException(
+      throw new GrpcUnavailableException(
         'coupon 기간이 만료되어서 발급이 불가능합니다',
       );
     }
