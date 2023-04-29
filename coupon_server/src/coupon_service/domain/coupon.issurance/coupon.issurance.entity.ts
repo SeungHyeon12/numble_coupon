@@ -2,7 +2,6 @@ import { CouponIssuer } from './coupon.issuer.entity';
 import { CouponUuid } from '../coupon/vo/coupon.uuid';
 import { CouponIssueDate } from './vo/coupon.issue.date';
 import { ProductUuid } from './vo/product.uuid';
-import { NotAcceptableException } from '@nestjs/common';
 import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
 
 export class CouponIssurance {

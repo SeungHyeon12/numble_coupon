@@ -1,4 +1,3 @@
-import { NotAcceptableException } from '@nestjs/common';
 import { CouponIssurance } from '../coupon.issurance.entity';
 import { Coupon } from '../../coupon/coupon.entity';
 import { GrpcUnavailableException } from 'nestjs-grpc-exceptions';
