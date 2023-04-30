@@ -15,7 +15,7 @@
 
 ## test infra architecture
 
-![image](https://user-images.githubusercontent.com/110815396/235333566-053dd5b5-c854-44c1-ab33-4a66b949ccd8.png)
+![image](https://user-images.githubusercontent.com/72781752/235334398-c8460872-81fa-46fe-95a4-101d032c7543.png)
 
 ## Issue couopn concurrency control by Redis queue
 
