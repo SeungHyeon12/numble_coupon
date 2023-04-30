@@ -6,7 +6,7 @@
 
 ![image](https://user-images.githubusercontent.com/110815396/235333148-050c4f63-eb90-45a4-828f-c75e9b55088a.png)
 
-1. 쿠폰에 대한 lifecyle 이 issue 에대한 lifecyle 과 다르기 때문에 별도의 aggreagte 로 분리
+1. 쿠폰에 대한 lifecyle 이 issue 에대한 lifecyle 과 다르기 때문에 별도의 aggreagte 로 분리하였고 현재의 요구사항에서는 issuer 와 issue 에 대한부분의 lifecycle이 동일하기 때문에 issue 를 root 로 사용
 2. 따라서 coupon_Issurance 에서는 coupon 에대한 id 만 참조하도록(domain level) 컬럼을 넣었고 실제에서는 many To one 으로 매핑하는 전략 사용
 
 ## using hexagonal architecture
